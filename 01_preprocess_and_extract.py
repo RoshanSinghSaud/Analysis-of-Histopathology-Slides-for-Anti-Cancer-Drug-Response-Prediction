@@ -280,6 +280,19 @@ def load_uni(device: torch.device):
     from timm.data import resolve_data_config
     from timm.data.transforms_factory import create_transform
 
+    # --- Hugging Face auth (UNI is a GATED model) ---
+    # You only need ONE of the following:
+    #   (a) run `huggingface-cli login` once in your terminal (recommended), OR
+    #   (b) set an env var:  export HF_TOKEN=hf_xxxxxxxx   (handled below), OR
+    #   (c) uncomment the two lines below and paste your token (do NOT commit it):
+    # from huggingface_hub import login
+    # login(token="hf_xxxxxxxxxxxxxxxxxxxxxxxx")
+    hf_token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
+    if hf_token:
+        from huggingface_hub import login
+        login(token=hf_token)
+        log.info("Authenticated to Hugging Face via HF_TOKEN env var.")
+
     log.info("Loading UNI (MahmoodLab/UNI). Requires accepted license + HF login.")
     model = timm.create_model(
         UNI_REPO, pretrained=True, init_values=1e-5, dynamic_img_size=True
