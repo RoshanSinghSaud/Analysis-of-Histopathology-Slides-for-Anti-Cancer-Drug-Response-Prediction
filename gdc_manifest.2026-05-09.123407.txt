@@ -1,0 +1,5 @@
+id	filename	md5	size	state
+d42eb4ce-d300-46be-8b46-059a98c2ddb8	TCGA-C8-A131-01Z-00-DX1.5CB27A29-9951-40B9-B4DB-26A4D2EA89B8.svs	336ef0db4e60e4dfd4135c9420186e5e	870167195	released
+632e0879-7531-427c-ac37-a0bbbcd52998	TCGA-A2-A0EP-01Z-00-DX1.1180C406-5C18-4373-8621-1B7B70875113.svs	cff54384b50a3c751f8e789fe7011bbc	627890703	released
+107871e7-7ef8-436e-afea-67ed0b90e78e	nationwidechildrens.org_clinical.TCGA-A2-A0EP.xml	da86d4f767978469b693dc077d8a3777	104016	released
+c9b4abbe-fc23-4d25-bcdc-7a73a3f2a70c	nationwidechildrens.org_clinical.TCGA-C8-A131.xml	e53a965604722a95f3b2c53daf8aa6e5	82389	released

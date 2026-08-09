@@ -1,0 +1,5 @@
+File ID	File Name	Data Category	Data Type	Project ID	Case ID	Sample ID	Tissue Type	Tumor Descriptor	Specimen Type	Preservation Method
+d42eb4ce-d300-46be-8b46-059a98c2ddb8	TCGA-C8-A131-01Z-00-DX1.5CB27A29-9951-40B9-B4DB-26A4D2EA89B8.svs	Biospecimen	Slide Image	TCGA-BRCA	TCGA-C8-A131	TCGA-C8-A131-01Z	Tumor	Primary	Solid Tissue	FFPE
+632e0879-7531-427c-ac37-a0bbbcd52998	TCGA-A2-A0EP-01Z-00-DX1.1180C406-5C18-4373-8621-1B7B70875113.svs	Biospecimen	Slide Image	TCGA-BRCA	TCGA-A2-A0EP	TCGA-A2-A0EP-01Z	Tumor	Primary	Solid Tissue	FFPE
+107871e7-7ef8-436e-afea-67ed0b90e78e	nationwidechildrens.org_clinical.TCGA-A2-A0EP.xml	Clinical	Clinical Supplement	TCGA-BRCA	TCGA-A2-A0EP					
+c9b4abbe-fc23-4d25-bcdc-7a73a3f2a70c	nationwidechildrens.org_clinical.TCGA-C8-A131.xml	Clinical	Clinical Supplement	TCGA-BRCA	TCGA-C8-A131					
