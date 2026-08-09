@@ -32,3 +32,4 @@ gdc-client_*.zip
 .env
 *.token
 hf_token*
+_to_delete/
