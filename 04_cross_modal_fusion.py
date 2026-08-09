@@ -58,23 +58,22 @@ HIST_DIM    = 256         # must match HIDDEN_DIM from Step 3
 DRUG_DIM    = FINGERPRINT_BITS
 FUSED_DIM   = 256         # output dim of learnable fusion
 
-# Manual SMILES fallback — used if PubChem API is unreachable
-# Add drugs here as you encounter them in your dataset
-MANUAL_SMILES = {
-    "anastrozole" : "CC(C)(C#N)c1ccncc1",
-    "arimidex"    : "CC(C)(C#N)c1ccncc1",   # brand name for anastrozole
-    "tamoxifen"   : "CCC(=C(c1ccccc1)c1ccc(OCCN(C)C)cc1)c1ccccc1",
-    "taxol"       : "CC1=C2C(C(=O)C3(C(CC4C(C3C(C(=O)O)(C2(O)C)C)(O)OC(=O)c2ccccc2)OC(=O)C)O)OC(=O)c2ccccc2",
-    "paclitaxel"  : "CC1=C2C(C(=O)C3(C(CC4C(C3C(C(=O)O)(C2(O)C)C)(O)OC(=O)c2ccccc2)OC(=O)C)O)OC(=O)c2ccccc2",
-    "doxorubicin" : "COc1cccc2C(=O)c3c(O)c4CC(O)(CC(=O)CO)Cc4c(O)c3C(=O)c12",
-    "adriamycin"  : "COc1cccc2C(=O)c3c(O)c4CC(O)(CC(=O)CO)Cc4c(O)c3C(=O)c12",
-    "trastuzumab" : None,   # antibody — no small-molecule SMILES; handled separately
-    "herceptin"   : None,
-    "cyclophosphamide": "ClCCN(CCCl)P1(=O)NCCCO1",
-    "capecitabine": "CCOC(=O)N1CCC(OC(=O)c2cnc(F)cn2)C1",
-    "letrozole"   : "N#Cc1cccc(C(c2ccc(C#N)cc2)n2ccnc2)c1",
-    "exemestane"  : "O=C1CC[C@H]2[C@@H]3CC[C@](C=C)(C(=O)C)[C@@H]3CC[C@@H]12",
-}
+# Verified drug -> structure map, produced by normalize_drugs_to_smiles.py.
+# There is deliberately NO hardcoded SMILES dictionary here. The one that used
+# to live at this spot had 9 of its 11 entries pointing at the wrong molecule
+# (its "anastrozole" was C9H10N2; the real drug is C17H19N5), and because it was
+# consulted before PubChem those errors could never be corrected.
+DRUG_MAP_PATH = Path.home() / "Desktop/Research/drug_smiles_map.json"
+
+# What to do with a drug that has no small-molecule structure (antibodies,
+# vaccines, oncolytic viruses) or that could not be resolved at all.
+#   "exclude" - raise, so the caller drops the patient from the cohort  <- default
+#   "flag"    - return None and let the caller route it to a separate embedding
+# Zero-filling is NOT an option. A zero fingerprint is byte-identical to "no
+# drug given", which silently converts those patients into without-SMILES
+# controls inside the with-SMILES model and drags the headline ablation to null
+# for a reason that appears in no log.
+UNRESOLVED_POLICY = "exclude"
 
 # =============================================================================
 
@@ -90,65 +89,54 @@ log = logging.getLogger(__name__)
 # Drug SMILES acquisition
 # =============================================================================
 
-def fetch_smiles_pubchem(drug_name: str) -> str | None:
-    """
-    Query PubChem REST API for the canonical SMILES of a drug by name.
-    Free, no API key needed.
-    Returns SMILES string or None if not found.
-    """
-    url = (
-        f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/"
-        f"{requests.utils.quote(drug_name)}/property/IsomericSMILES/JSON"
-    )
-    try:
-        r = requests.get(url, timeout=10)
-        if r.status_code == 200:
-            smiles = r.json()["PropertyTable"]["Properties"][0]["IsomericSMILES"]
-            log.info(f"  PubChem → '{drug_name}': {smiles[:60]}{'…' if len(smiles) > 60 else ''}")
-            return smiles
-        else:
-            log.warning(f"  PubChem returned {r.status_code} for '{drug_name}'")
-            return None
-    except Exception as e:
-        log.warning(f"  PubChem query failed for '{drug_name}': {e}")
-        return None
+_DRUG_MAP = None
 
 
-def resolve_smiles(drug_name: str, cache: dict) -> str | None:
+class UnresolvedDrugError(RuntimeError):
+    """Raised when a drug has no verified structure. Never silently ignored."""
+
+
+def load_drug_map() -> dict:
+    """Load the verified name -> structure map, once."""
+    global _DRUG_MAP
+    if _DRUG_MAP is None:
+        if not DRUG_MAP_PATH.exists():
+            raise FileNotFoundError(
+                f"{DRUG_MAP_PATH} not found.\n"
+                "Run normalize_drugs_to_smiles.py first - the drug branch must "
+                "not be fed unverified structures."
+            )
+        blob = json.loads(DRUG_MAP_PATH.read_text())
+        _DRUG_MAP = blob["map"]
+        log.info(f"  Loaded {len(_DRUG_MAP)} drug strings -> "
+                 f"{blob['n_distinct_molecules']} distinct molecules "
+                 f"({blob['n_biologic']} biologics, {blob['n_unresolved']} unresolved)")
+    return _DRUG_MAP
+
+
+def resolve_smiles(drug_name: str, cache: dict | None = None) -> str:
+    """drug name -> canonical parent SMILES, or raise.
+
+    No network call and no guessing happens here. Every structure was resolved
+    by PubChem CID and salt-stripped ahead of time by normalize_drugs_to_smiles.py,
+    and every one of them is listed in drug_resolution_report.md for inspection.
     """
-    Resolve SMILES for a drug name using:
-      1. In-memory cache (already fetched this session)
-      2. Manual fallback dict (hardcoded common drugs)
-      3. PubChem API
-    Returns SMILES string or None if drug is a biologic (antibody, etc.)
-    """
+    dmap = load_drug_map()
     key = drug_name.lower().strip()
+    entry = dmap.get(key)
 
-    # 1. Cache hit
-    if key in cache:
-        return cache[key]
-
-    # 2. Manual fallback
-    if key in MANUAL_SMILES:
-        smiles = MANUAL_SMILES[key]
-        cache[key] = smiles
-        if smiles is None:
-            log.info(f"  '{drug_name}' is a biologic — no SMILES fingerprint")
-        return smiles
-
-    # 3. PubChem API
-    log.info(f"  Querying PubChem for '{drug_name}'…")
-    smiles = fetch_smiles_pubchem(drug_name)
-    time.sleep(0.2)   # be polite to PubChem API
-
-    if smiles is None:
-        # Try brand name → generic name fallback via PubChem synonym search
-        log.info(f"  Retrying PubChem with synonym search…")
-        smiles = fetch_smiles_pubchem(drug_name + " drug")
-        time.sleep(0.2)
-
-    cache[key] = smiles
-    return smiles
+    if entry is None:
+        raise UnresolvedDrugError(
+            f"'{drug_name}' is not in {DRUG_MAP_PATH.name}. Re-run "
+            "normalize_drugs_to_smiles.py so this drug is resolved and reviewed."
+        )
+    if entry["smiles"] is None:
+        raise UnresolvedDrugError(
+            f"'{drug_name}' has no small-molecule structure (kind="
+            f"{entry['kind']}). Decide explicitly whether to exclude it or give "
+            "it a separate embedding - do not zero-fill it."
+        )
+    return entry["smiles"]
 
 
 # =============================================================================
@@ -193,19 +181,25 @@ def smiles_to_fingerprint(smiles: str) -> torch.Tensor | None:
         return None
 
 
-def get_drug_fingerprint(drug_name: str, cache: dict) -> torch.Tensor | None:
-    """Full pipeline: drug name → [1, 1024] fingerprint tensor."""
-    smiles = resolve_smiles(drug_name, cache)
+def get_drug_fingerprint(drug_name: str, cache: dict | None = None) -> torch.Tensor:
+    """drug name -> [1, FINGERPRINT_BITS] Morgan fingerprint.
 
-    if smiles is None:
-        log.warning(f"  No SMILES for '{drug_name}' — will use zero fingerprint")
-        return torch.zeros(1, FINGERPRINT_BITS, dtype=torch.float32)
-
+    Raises instead of returning zeros. See UNRESOLVED_POLICY above for why.
+    """
+    smiles = resolve_smiles(drug_name)          # raises if unverified
     fp = smiles_to_fingerprint(smiles)
     if fp is None:
-        return torch.zeros(1, FINGERPRINT_BITS, dtype=torch.float32)
-
-    return fp   # [1, 1024]
+        raise UnresolvedDrugError(
+            f"RDKit could not build a fingerprint for '{drug_name}' "
+            f"(SMILES: {smiles}). This is a bug in the drug map, not a patient "
+            "to be zero-filled."
+        )
+    if int(fp.sum().item()) == 0:
+        raise UnresolvedDrugError(
+            f"'{drug_name}' produced an all-zero fingerprint, which is "
+            "indistinguishable from 'no drug'. Refusing to continue."
+        )
+    return fp
 
 
 # =============================================================================
