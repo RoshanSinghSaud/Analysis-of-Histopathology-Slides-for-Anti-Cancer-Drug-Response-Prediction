@@ -27,6 +27,9 @@ __pycache__/
 .DS_Store
 gdc-client
 gdc-client_*.zip
+tools/gdc-client
+tools/gdc-client_*.zip
+scripts/__pycache__/
 
 # --- Secrets ---
 .env

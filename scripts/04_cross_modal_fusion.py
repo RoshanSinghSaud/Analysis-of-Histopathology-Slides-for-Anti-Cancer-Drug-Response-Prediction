@@ -41,8 +41,9 @@ import torch.nn.functional as F
 # ── CONFIG ───────────────────────────────────────────────────────────────────
 # =============================================================================
 
-ABMIL_MANIFEST = Path.home() / "Desktop/Research/output/abmil/abmil_manifest.json"
-OUTPUT_DIR     = Path.home() / "Desktop/Research/output/fusion"
+BASE_DIR       = Path(__file__).resolve().parents[1]
+ABMIL_MANIFEST = BASE_DIR / "output" / "abmil" / "abmil_manifest.json"
+OUTPUT_DIR     = BASE_DIR / "output" / "fusion"
 
 # Fusion mode: "concat" | "mlp" | "cross_attn"
 # For 2 slides use "concat" — no training needed, shapes still correct
@@ -63,7 +64,7 @@ FUSED_DIM   = 256         # output dim of learnable fusion
 # to live at this spot had 9 of its 11 entries pointing at the wrong molecule
 # (its "anastrozole" was C9H10N2; the real drug is C17H19N5), and because it was
 # consulted before PubChem those errors could never be corrected.
-DRUG_MAP_PATH = Path.home() / "Desktop/Research/drug_smiles_map.json"
+DRUG_MAP_PATH = BASE_DIR / "drugs" / "drug_smiles_map.json"
 
 # What to do with a drug that has no small-molecule structure (antibodies,
 # vaccines, oncolytic viruses) or that could not be resolved at all.

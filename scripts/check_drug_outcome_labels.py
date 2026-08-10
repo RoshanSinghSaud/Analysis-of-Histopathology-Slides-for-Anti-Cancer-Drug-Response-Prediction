@@ -48,7 +48,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 API = "https://api.gdc.cancer.gov"
-OUT_DIR = Path(__file__).resolve().parent
+OUT_DIR = Path(__file__).resolve().parents[1] / "cohort"
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 PROGRAM = "TCGA"          # set to None to audit every program in the GDC
 PAGE = 500
 

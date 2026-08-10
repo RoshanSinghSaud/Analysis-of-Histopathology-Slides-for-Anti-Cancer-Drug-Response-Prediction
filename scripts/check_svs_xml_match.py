@@ -11,8 +11,9 @@ from pathlib import Path
 
 # ── EDIT THESE TWO PATHS ─────────────────────────────────────────────────────
 # Point them at the folders holding your flat .svs and .xml files.
-WSI_DIR      = Path.home() / "Desktop" / "Research" / "data" / "wsi"
-CLINICAL_DIR = Path.home() / "Desktop" / "Research" / "data" / "clinical"
+BASE_DIR     = Path(__file__).resolve().parents[1]
+WSI_DIR      = BASE_DIR / "data" / "wsi"
+CLINICAL_DIR = BASE_DIR / "data" / "clinical"
 # ─────────────────────────────────────────────────────────────────────────────
 
 BARCODE_RE = re.compile(r"TCGA-\w\w-\w{4}", re.IGNORECASE)

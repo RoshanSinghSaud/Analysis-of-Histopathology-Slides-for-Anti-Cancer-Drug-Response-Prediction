@@ -32,6 +32,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parents[1]
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -292,9 +294,9 @@ def run(fusion_dir: str, output_dir: str, checkpoint: str | None,
 
 def parse_args():
     p = argparse.ArgumentParser(description="Step 5 — Drug Response Prediction")
-    p.add_argument("--fusion_dir",  default="output/fusion",
+    p.add_argument("--fusion_dir",  default=str(BASE_DIR / "output" / "fusion"),
                    help="Folder containing fusion_manifest.json and *_fused.pt files")
-    p.add_argument("--output_dir",  default="output/predictions",
+    p.add_argument("--output_dir",  default=str(BASE_DIR / "output" / "predictions"),
                    help="Where to save predictions.json and predictions_report.txt")
     p.add_argument("--checkpoint",  default=None,
                    help="Path to a trained model checkpoint (.pt). Omit for demo/random mode.")

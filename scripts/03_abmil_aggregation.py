@@ -41,8 +41,9 @@ from tqdm import tqdm
 # ── CONFIG ───────────────────────────────────────────────────────────────────
 # =============================================================================
 
-FEATURE_MANIFEST = Path.home() / "Desktop/Research/output/features/feature_manifest.json"
-OUTPUT_DIR       = Path.home() / "Desktop/Research/output/abmil"
+BASE_DIR         = Path(__file__).resolve().parents[1]
+FEATURE_MANIFEST = BASE_DIR / "output" / "features" / "feature_manifest.json"
+OUTPUT_DIR       = BASE_DIR / "output" / "abmil"
 
 # ABMIL architecture dims
 INPUT_DIM  = 1024    # UNI embed dim (match Step 1)

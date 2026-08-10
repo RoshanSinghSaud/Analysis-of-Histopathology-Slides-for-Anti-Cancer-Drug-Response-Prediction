@@ -26,7 +26,8 @@ from collections import Counter
 from pathlib import Path
 
 # ── EDIT THIS PATH ───────────────────────────────────────────────────────────
-CLINICAL_DIR = Path.home() / "Research" / "downloaded-test-data" / "clinical"
+BASE_DIR     = Path(__file__).resolve().parents[1]
+CLINICAL_DIR = BASE_DIR / "downloaded-test-data" / "clinical"
 # ─────────────────────────────────────────────────────────────────────────────
 
 BARCODE_RE = re.compile(r"TCGA-\w\w-\w{4}", re.IGNORECASE)

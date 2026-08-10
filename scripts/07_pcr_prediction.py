@@ -59,7 +59,7 @@ import torch.nn.functional as F
 # ── CONFIG ───────────────────────────────────────────────────────────────────
 # =============================================================================
 
-BASE_DIR    = Path.home() / "Desktop" / "Research"
+BASE_DIR    = Path(__file__).resolve().parents[1]
 XML_DIR     = BASE_DIR / "data" / "clinical"
 FUSION_DIR  = BASE_DIR / "output" / "fusion"
 OUTPUT_DIR  = BASE_DIR / "output" / "pcr_prediction"

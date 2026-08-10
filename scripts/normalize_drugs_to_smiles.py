@@ -59,12 +59,13 @@ try:
 except ImportError:
     sys.exit("RDKit is required:  conda install -c conda-forge rdkit")
 
-HERE = Path(__file__).resolve().parent
-NAMES_IN = HERE / "drug_names_all.json"
-VOCAB_IN = HERE / "drug_vocabulary.json"
-CACHE = HERE / "pubchem_cache.json"
-MAP_OUT = HERE / "drug_smiles_map.json"
-REPORT_OUT = HERE / "drug_resolution_report.md"
+DRUGS_DIR = Path(__file__).resolve().parents[1] / "drugs"
+DRUGS_DIR.mkdir(parents=True, exist_ok=True)
+NAMES_IN = DRUGS_DIR / "drug_names_all.json"
+VOCAB_IN = DRUGS_DIR / "drug_vocabulary.json"
+CACHE = DRUGS_DIR / "pubchem_cache.json"
+MAP_OUT = DRUGS_DIR / "drug_smiles_map.json"
+REPORT_OUT = DRUGS_DIR / "drug_resolution_report.md"
 
 PUBCHEM = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
 SLEEP = 0.22          # PubChem asks for <=5 requests/second

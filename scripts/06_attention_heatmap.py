@@ -47,7 +47,7 @@ warnings.filterwarnings("ignore")
 #  CONFIG
 # ─────────────────────────────────────────────
 
-BASE_DIR   = Path.home() / "Desktop" / "Research"
+BASE_DIR   = Path(__file__).resolve().parents[1]
 SVS_DIR    = BASE_DIR / "data" / "wsi"
 TILE_SIZE  = 256
 
@@ -187,7 +187,7 @@ def run(abmil_dir: str, fusion_dir: str, output_dir: str,
     output_dir.mkdir(parents=True, exist_ok=True)
 
     fusion_manifest_path = fusion_dir / "fusion_manifest.json"
-    pred_manifest_path   = Path("output/predictions/predictions.json")
+    pred_manifest_path   = BASE_DIR / "output" / "predictions" / "predictions.json"
 
     slides = []
     if fusion_manifest_path.exists():
@@ -315,11 +315,11 @@ def run(abmil_dir: str, fusion_dir: str, output_dir: str,
 
 def parse_args():
     p = argparse.ArgumentParser(description="Step 6 — Attention Heatmaps")
-    p.add_argument("--abmil_dir",   default="output/abmil",
+    p.add_argument("--abmil_dir",   default=str(BASE_DIR / "output" / "abmil"),
                    help="Directory with <slide_id>_attention_scores.pt")
-    p.add_argument("--fusion_dir",  default="output/fusion",
+    p.add_argument("--fusion_dir",  default=str(BASE_DIR / "output" / "fusion"),
                    help="Fusion manifest for slide/drug metadata")
-    p.add_argument("--output_dir",  default="output/heatmaps",
+    p.add_argument("--output_dir",  default=str(BASE_DIR / "output" / "heatmaps"),
                    help="Where to save heatmap PNGs and manifest")
     p.add_argument("--alpha",       type=float, default=0.5,
                    help="Heatmap overlay opacity 0–1 (default 0.5)")

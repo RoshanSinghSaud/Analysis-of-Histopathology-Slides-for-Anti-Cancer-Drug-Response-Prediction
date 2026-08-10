@@ -66,7 +66,7 @@ import torch
 # ── CONFIG ───────────────────────────────────────────────────────────────────
 # =============================================================================
 
-BASE_DIR   = Path.home() / "Desktop" / "Research"
+BASE_DIR   = Path(__file__).resolve().parents[1]
 SVS_DIR    = BASE_DIR / "data" / "wsi"
 XML_DIR    = BASE_DIR / "data" / "clinical"
 OUTPUT_DIR = BASE_DIR / "output"

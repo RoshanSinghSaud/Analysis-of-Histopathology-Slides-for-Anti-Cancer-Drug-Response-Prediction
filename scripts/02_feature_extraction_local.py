@@ -36,8 +36,9 @@ from tqdm import tqdm
 # ── CONFIG — edit these if your paths differ ─────────────────────────────────
 # =============================================================================
 
-MANIFEST_PATH = Path.home() / "Desktop/Research/output/preprocessing_manifest.json"
-OUTPUT_DIR    = Path.home() / "Desktop/Research/output/features"
+BASE_DIR      = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = BASE_DIR / "output" / "preprocessing_manifest.json"
+OUTPUT_DIR    = BASE_DIR / "output" / "features"
 
 BATCH_SIZE    = 32       # safe for MPS; raise to 64 if you have >16GB RAM
 NUM_WORKERS   = 0        # must be 0 on MPS to avoid multiprocessing issues
