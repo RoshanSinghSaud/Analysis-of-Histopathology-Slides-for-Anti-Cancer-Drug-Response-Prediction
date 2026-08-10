@@ -221,6 +221,23 @@ def cid_to_props(cid: int):
 # ---------------------------------------------------------------------------
 _remover = SaltRemover()
 
+# Metals that are part of the DRUG ITSELF, not a counterion. PubChem stores
+# coordination complexes as several disconnected fragments - cisplatin is
+# 'N.N.Cl[Pt]Cl' and carboplatin is 'ligand.[NH2-].[NH2-].[Pt+2]' - so the
+# usual "keep the largest fragment" rule silently destroys them. It reduced
+# cisplatin (435 patients) to Cl2Pt and carboplatin (240 patients) to its
+# organic ligand with the platinum thrown away. Anything containing one of
+# these is kept whole.
+CORE_METALS = {"Pt", "As", "Ru", "Ti", "Gd", "Tc", "Au", "Sb", "Bi", "Cr", "Co"}
+
+# Metals that appear as salt counterions and SHOULD be stripped, e.g. the
+# calcium in leucovorin calcium.
+COUNTERION_METALS = {"Na", "K", "Ca", "Mg", "Li", "Zn", "Al", "Ba"}
+
+
+def has_core_metal(mol) -> bool:
+    return any(a.GetSymbol() in CORE_METALS for a in mol.GetAtoms())
+
 
 def parent_structure(smiles: str):
     """Return the drug's parent molecule, free of salts and counterions.
@@ -234,6 +251,22 @@ def parent_structure(smiles: str):
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         return None
+
+    # Coordination complexes (platinum drugs, arsenic trioxide) are kept whole.
+    if has_core_metal(mol):
+        try:
+            Chem.SanitizeMol(mol)
+        except Exception:
+            return None
+        return {
+            "smiles": Chem.MolToSmiles(mol, canonical=True),
+            "inchikey": Chem.MolToInchiKey(mol),
+            "formula": rdMolDescriptors.CalcMolFormula(mol),
+            "mw": round(Descriptors.MolWt(mol), 2),
+            "heavy_atoms": mol.GetNumHeavyAtoms(),
+            "metal_complex": True,
+        }
+
     try:
         stripped = _remover.StripMol(mol, dontRemoveEverything=True)
     except Exception:

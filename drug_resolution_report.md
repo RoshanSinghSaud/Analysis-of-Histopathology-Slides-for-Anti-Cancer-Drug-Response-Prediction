@@ -1,6 +1,6 @@
 # Drug name -> structure resolution report
 
-Generated 2026-08-09T16:06:24Z from PubChem PUG-REST. Every structure is fetched by CID; none is hardcoded.
+Generated 2026-08-10T09:03:00Z from PubChem PUG-REST. Every structure is fetched by CID; none is hardcoded.
 
 ## Summary
 
@@ -152,9 +152,9 @@ Check these by eye before training. A wrong-but-plausible structure is the failu
 
 | Canonical | CID | PubChem title | Formula | MW | RECIST pts | OS pts | SMILES |
 |---|---:|---|---|---:|---:|---:|---|
-| cisplatin | 5702198 | azane;dichloroplatinum | Cl2Pt | 265.98 | 435 | 718 | `[Cl][Pt][Cl]` |
+| cisplatin | 5702198 | azane;dichloroplatinum | H6Cl2N2Pt | 300.05 | 435 | 718 | `N.N.[Cl][Pt][Cl]` |
 | fluorouracil | 3385 | 5-Fluorouracil | C4H3FN2O2 | 130.08 | 284 | 480 | `O=c1[nH]cc(F)c(=O)[nH]1` |
-| carboplatin | 426756 | Platinum, diammine[1,1-cyclobutanedi(carboxylato-kO)(2-)]-, (SP-4-2)- | C6H8O4 | 144.13 | 240 | 561 | `O=C(O)C1(C(=O)O)CCC1` |
+| carboplatin | 426756 | Platinum, diammine[1,1-cyclobutanedi(carboxylato-kO)(2-)]-, (SP-4-2)- | C6H12N2O4Pt | 371.25 | 240 | 561 | `O=C(O)C1(C(=O)O)CCC1.[NH2-].[NH2-].[Pt+2]` |
 | paclitaxel | 36314 | Paclitaxel | C47H51NO14 | 853.92 | 231 | 637 | `CC(=O)O[C@H]1C(=O)[C@@]2(C)[C@H]([C@H](OC(=O)c3ccccc3)[C@]3(O)C[C@H](OC(=O)[C@H](O)[C@@H](NC(=O)c4ccccc4)c4ccccc4)C(C)=C1C3(C)C)[C@]1(OC(C)=O)CO[C@@H]1C[C@@H]2O` |
 | gemcitabine | 60750 | Gemcitabine | C9H11F2N3O4 | 263.2 | 193 | 339 | `Nc1ccn([C@@H]2O[C@H](CO)[C@@H](O)C2(F)F)c(=O)n1` |
 | cyclophosphamide | 2907 | Cyclophosphamide | C7H15Cl2N2O2P | 261.09 | 176 | 578 | `O=P1(N(CCCl)CCCl)NCCCO1` |
@@ -162,7 +162,7 @@ Check these by eye before training. A wrong-but-plausible structure is the failu
 | temozolomide | 5394 | Temozolomide | C6H6N6O2 | 194.15 | 138 | 492 | `Cn1nnc2c(C(N)=O)ncn2c1=O` |
 | etoposide | 36462 | Etoposide | C29H32O13 | 588.56 | 130 | 181 | `COc1cc([C@@H]2c3cc4c(cc3[C@@H](O[C@@H]3O[C@@H]5CO[C@@H](C)O[C@H]5[C@H](O)[C@H]3O)[C@H]3COC(=O)[C@H]23)OCO4)cc(OC)c1O` |
 | docetaxel | 148124 | Docetaxel | C43H53NO14 | 807.89 | 123 | 291 | `CC(=O)O[C@@]12CO[C@@H]1C[C@H](O)[C@@]1(C)C(=O)[C@H](O)C3=C(C)[C@@H](OC(=O)[C@H](O)[C@@H](NC(=O)OC(C)(C)C)c4ccccc4)C[C@@](O)([C@@H](OC(=O)c4ccccc4)[C@H]21)C3(C)C` |
-| oxaliplatin | 9887053 | cis-oxalato-trans-l-1,2-diaminocyclohexaneplatinum(II) | C6H12N2-2 | 112.18 | 108 | 209 | `[NH-][C@@H]1CCCC[C@H]1[NH-]` |
+| oxaliplatin | 9887053 | cis-oxalato-trans-l-1,2-diaminocyclohexaneplatinum(II) | C8H14N2O4Pt | 397.29 | 108 | 209 | `O=C(O)C(=O)O.[NH-][C@@H]1CCCC[C@H]1[NH-].[Pt+2]` |
 | capecitabine | 60953 | Capecitabine | C15H22FN3O6 | 359.35 | 91 | 146 | `CCCCCOC(=O)Nc1nc(=O)n([C@@H]2O[C@H](C)[C@@H](O)[C@H]2O)cc1F` |
 | bleomycin | 5360373 | Bleomycin | C55H84N17O21S3+ | 1415.58 | 85 | 91 | `Cc1c(N)nc([C@H](CC(N)=O)NC[C@H](N)C(N)=O)nc1C(=O)N[C@H](C(=O)N[C@H](C)[C@@H](O)[C@H](C)C(=O)N[C@H](C(=O)NCCc1nc(-c2nc(C(=O)NCCC[S+](C)C)cs2)cs1)[C@@H](C)O)[C@@H](OC1OC(CO)C(O)C(O)C1OC1OC(CO)C(O)C(OC(N)=O)C1O)c1cnc[nH]1` |
 | leucovorin calcium | 135403647 | Leucovorin Calcium | C20H21N7O7-2 | 471.43 | 70 | 94 | `Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc1)CN2` |
@@ -273,7 +273,7 @@ Check these by eye before training. A wrong-but-plausible structure is the failu
 | afatinib | 10184653 | Afatinib | C24H25ClFN5O3 | 485.95 | 0 | 1 | `CN(C)C/C=C/C(=O)Nc1cc2c(Nc3ccc(F)c(Cl)c3)ncnc2cc1O[C@H]1CCOC1` |
 | amifostine | 2141 | Amifostine | C5H15N2O3PS | 214.23 | 0 | 1 | `NCCCNCCSP(=O)(O)O` |
 | aminocamptothecin | 72402 | 9-Aminocamptothecin | C20H17N3O4 | 363.37 | 0 | 1 | `CC[C@@]1(O)C(=O)OCc2c1cc1n(c2=O)Cc2cc3c(N)cccc3nc2-1` |
-| arsenic trioxide | 14888 | Arsenic Trioxide | As+3 | 74.92 | 0 | 2 | `[As+3]` |
+| arsenic trioxide | 14888 | Arsenic Trioxide | As2O3 | 197.84 | 0 | 2 | `[As+3].[As+3].[O-2].[O-2].[O-2]` |
 | azathioprine | 2265 | Azathioprine | C9H7N7O2S | 277.27 | 0 | 2 | `Cn1cnc([N+](=O)[O-])c1Sc1ncnc2nc[nH]c12` |
 | banoxantrone | 9955116 | Banoxantrone | C22H28N4O6 | 444.49 | 0 | 1 | `C[N+](C)([O-])CCNc1ccc(NCC[N+](C)(C)[O-])c2c1C(=O)c1c(O)ccc(O)c1C2=O` |
 | belinostat | 6918638 | Belinostat | C15H14N2O4S | 318.35 | 0 | 1 | `O=C(/C=C/c1cccc(S(=O)(=O)Nc2ccccc2)c1)NO` |
@@ -309,7 +309,7 @@ Check these by eye before training. A wrong-but-plausible structure is the failu
 | metformin | 4091 | Metformin | C4H11N5 | 129.17 | 0 | 1 | `CN(C)C(=N)N=C(N)N` |
 | mivobulin isethionate | 182762 | Mivobulin isethionate | C17H19N5O2 | 325.37 | 0 | 4 | `CCOC(=O)Nc1cc2c(c(N)n1)N=C(c1ccccc1)[C@H](C)N2` |
 | motesanib diphosphate | 16097729 | Motesanib Diphosphate | C22H23N5O | 373.46 | 0 | 1 | `CC1(C)CNc2cc(NC(=O)c3cccnc3NCc3ccncc3)ccc21` |
-| motexafin gadolinium | 158385 | Motexafin gadolinium | C48H66N5O10- | 873.08 | 0 | 1 | `CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO` |
+| motexafin gadolinium | 158385 | Motexafin gadolinium | C52H72GdN5O14 | 1148.42 | 0 | 1 | `CC(=O)[O-].CC(=O)[O-].CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO.[Gd+3]` |
 | sirolimus | 5284616 | Sirolimus | C51H79NO13 | 914.19 | 0 | 8 | `CO[C@H]1C[C@@H]2CC[C@@H](C)[C@@](O)(O2)C(=O)C(=O)N2CCCC[C@H]2C(=O)O[C@H]([C@H](C)C[C@@H]2CC[C@@H](O)[C@H](OC)C2)CC(=O)[C@H](C)/C=C(\C)[C@@H](O)[C@@H](OC)C(=O)[C@H](C)C[C@H](C)/C=C/C=C/C=C/1C` |
 | nelipepimut-s | 9941306 | Nelipepimut-S | C50H78N10O11 | 995.23 | 0 | 3 | `CC[C@H](C)[C@H](NC(=O)[C@@H](N)CCCCN)C(=O)N[C@@H](Cc1ccccc1)C(=O)NCC(=O)N[C@@H](CO)C(=O)N[C@@H](CC(C)C)C(=O)N[C@@H](C)C(=O)N[C@@H](Cc1ccccc1)C(=O)N[C@@H](CC(C)C)C(=O)O` |
 | octreotide acetate | 155804637 | Octreotide Acetate | C49H66N10O10S2 | 1019.26 | 0 | 1 | `C[C@@H](O)[C@@H]1NC(=O)[C@H](CCCCN)NC(=O)[C@@H](Cc2c[nH]c3ccccc23)NC(=O)[C@H](Cc2ccccc2)NC(=O)[C@@H](NC(=O)[C@H](N)Cc2ccccc2)CSSC[C@@H](C(=O)N[C@H](CO)[C@@H](C)O)NC1=O` |

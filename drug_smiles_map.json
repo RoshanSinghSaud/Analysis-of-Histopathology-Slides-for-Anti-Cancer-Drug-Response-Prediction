@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-09T16:06:24Z",
+  "generated_utc": "2026-08-10T09:03:00Z",
   "source": "PubChem PUG-REST, resolved by CID, salts stripped with RDKit",
   "n_input_strings": 274,
   "n_distinct_molecules": 178,
@@ -15,8 +15,8 @@
   "map": {
     "cisplatin": {
       "canonical_name": "cisplatin",
-      "smiles": "[Cl][Pt][Cl]",
-      "inchikey": "CLSUSRZJUQMOHH-UHFFFAOYSA-L",
+      "smiles": "N.N.[Cl][Pt][Cl]",
+      "inchikey": "LXZZYRPGZAFOLE-UHFFFAOYSA-L",
       "cid": 5702198,
       "kind": "small_molecule"
     },
@@ -29,8 +29,8 @@
     },
     "carboplatin": {
       "canonical_name": "carboplatin",
-      "smiles": "O=C(O)C1(C(=O)O)CCC1",
-      "inchikey": "CCQPAEQGAVNNIA-UHFFFAOYSA-N",
+      "smiles": "O=C(O)C1(C(=O)O)CCC1.[NH2-].[NH2-].[Pt+2]",
+      "inchikey": "VSRXQHXAPYXROS-UHFFFAOYSA-N",
       "cid": 426756,
       "kind": "small_molecule"
     },
@@ -113,8 +113,8 @@
     },
     "oxaliplatin": {
       "canonical_name": "oxaliplatin",
-      "smiles": "[NH-][C@@H]1CCCC[C@H]1[NH-]",
-      "inchikey": "SBDHODHEVRCXGI-PHDIDXHHSA-N",
+      "smiles": "O=C(O)C(=O)O.[NH-][C@@H]1CCCC[C@H]1[NH-].[Pt+2]",
+      "inchikey": "DRMCATBEKSVAPL-BNTLRKBRSA-N",
       "cid": 9887053,
       "kind": "small_molecule"
     },
@@ -1009,8 +1009,8 @@
     },
     "arsenic trioxide": {
       "canonical_name": "arsenic trioxide",
-      "smiles": "[As+3]",
-      "inchikey": "LULLIKNODDLMDQ-UHFFFAOYSA-N",
+      "smiles": "[As+3].[As+3].[O-2].[O-2].[O-2]",
+      "inchikey": "QTLQKAJBUDWPIB-UHFFFAOYSA-N",
       "cid": 14888,
       "kind": "small_molecule"
     },
@@ -1268,8 +1268,8 @@
     },
     "motexafin gadolinium": {
       "canonical_name": "motexafin gadolinium",
-      "smiles": "CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO",
-      "inchikey": "WUXHULIBBXBTMH-UHFFFAOYSA-N",
+      "smiles": "CC(=O)[O-].CC(=O)[O-].CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO.[Gd+3]",
+      "inchikey": "VAZLWPAHMORDGR-UHFFFAOYSA-L",
       "cid": 158385,
       "kind": "small_molecule"
     },
@@ -1935,11 +1935,11 @@
   "molecules": [
     {
       "canonical_name": "cisplatin",
-      "inchikey": "CLSUSRZJUQMOHH-UHFFFAOYSA-L",
+      "inchikey": "LXZZYRPGZAFOLE-UHFFFAOYSA-L",
       "cid": 5702198,
-      "smiles": "[Cl][Pt][Cl]",
-      "formula": "Cl2Pt",
-      "mw": 265.98,
+      "smiles": "N.N.[Cl][Pt][Cl]",
+      "formula": "H6Cl2N2Pt",
+      "mw": 300.05,
       "pubchem_title": "azane;dichloroplatinum",
       "aliases": [
         "cisplatin"
@@ -1965,11 +1965,11 @@
     },
     {
       "canonical_name": "carboplatin",
-      "inchikey": "CCQPAEQGAVNNIA-UHFFFAOYSA-N",
+      "inchikey": "VSRXQHXAPYXROS-UHFFFAOYSA-N",
       "cid": 426756,
-      "smiles": "O=C(O)C1(C(=O)O)CCC1",
-      "formula": "C6H8O4",
-      "mw": 144.13,
+      "smiles": "O=C(O)C1(C(=O)O)CCC1.[NH2-].[NH2-].[Pt+2]",
+      "formula": "C6H12N2O4Pt",
+      "mw": 371.25,
       "pubchem_title": "Platinum, diammine[1,1-cyclobutanedi(carboxylato-kO)(2-)]-, (SP-4-2)-",
       "aliases": [
         "carboplatin"
@@ -2089,11 +2089,11 @@
     },
     {
       "canonical_name": "oxaliplatin",
-      "inchikey": "SBDHODHEVRCXGI-PHDIDXHHSA-N",
+      "inchikey": "DRMCATBEKSVAPL-BNTLRKBRSA-N",
       "cid": 9887053,
-      "smiles": "[NH-][C@@H]1CCCC[C@H]1[NH-]",
-      "formula": "C6H12N2-2",
-      "mw": 112.18,
+      "smiles": "O=C(O)C(=O)O.[NH-][C@@H]1CCCC[C@H]1[NH-].[Pt+2]",
+      "formula": "C8H14N2O4Pt",
+      "mw": 397.29,
       "pubchem_title": "cis-oxalato-trans-l-1,2-diaminocyclohexaneplatinum(II)",
       "aliases": [
         "oxaliplatin"
@@ -3771,11 +3771,11 @@
     },
     {
       "canonical_name": "arsenic trioxide",
-      "inchikey": "LULLIKNODDLMDQ-UHFFFAOYSA-N",
+      "inchikey": "QTLQKAJBUDWPIB-UHFFFAOYSA-N",
       "cid": 14888,
-      "smiles": "[As+3]",
-      "formula": "As+3",
-      "mw": 74.92,
+      "smiles": "[As+3].[As+3].[O-2].[O-2].[O-2]",
+      "formula": "As2O3",
+      "mw": 197.84,
       "pubchem_title": "Arsenic Trioxide",
       "aliases": [
         "arsenic trioxide"
@@ -4312,11 +4312,11 @@
     },
     {
       "canonical_name": "motexafin gadolinium",
-      "inchikey": "WUXHULIBBXBTMH-UHFFFAOYSA-N",
+      "inchikey": "VAZLWPAHMORDGR-UHFFFAOYSA-L",
       "cid": 158385,
-      "smiles": "CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO",
-      "formula": "C48H66N5O10-",
-      "mw": 873.08,
+      "smiles": "CC(=O)[O-].CC(=O)[O-].CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO.[Gd+3]",
+      "formula": "C52H72GdN5O14",
+      "mw": 1148.42,
       "pubchem_title": "Motexafin gadolinium",
       "aliases": [
         "motexafin gadolinium"
