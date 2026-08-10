@@ -1,0 +1,562 @@
+case_id,submitter_id,project,drug,treatment_outcome,response_binary,patient_label,stage,primary_diagnosis,treatment_type,treatment_intent,days_to_treatment_start,n_diagnostic_slides
+189e1f27-7738-413a-a4d4-97d41d592a13,TCGA-A2-A3XV,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+189e1f27-7738-413a-a4d4-97d41d592a13,TCGA-A2-A3XV,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,62,1
+189e1f27-7738-413a-a4d4-97d41d592a13,TCGA-A2-A3XV,TCGA-BRCA,carboplatin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+c57835be-77ab-4cf5-9b23-62c11a7b2eaf,TCGA-AC-A2QI,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,100,1
+c57835be-77ab-4cf5-9b23-62c11a7b2eaf,TCGA-AC-A2QI,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,100,1
+c57835be-77ab-4cf5-9b23-62c11a7b2eaf,TCGA-AC-A2QI,TCGA-BRCA,methotrexate,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,100,1
+a06ff6ae-b0dd-4516-a75c-0db71694b46b,TCGA-LD-A7W5,TCGA-BRCA,docetaxel,stable disease,0,nonresponder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,82,1
+e8ea576b-eb16-44f7-b241-daefc1375388,TCGA-A7-A6VY,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,68,1
+e8ea576b-eb16-44f7-b241-daefc1375388,TCGA-A7-A6VY,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,126,1
+e8ea576b-eb16-44f7-b241-daefc1375388,TCGA-A7-A6VY,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,68,1
+9da462b0-93c2-4305-89f6-7199a30399a7,TCGA-BH-A0B5,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,63,1
+9da462b0-93c2-4305-89f6-7199a30399a7,TCGA-BH-A0B5,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,,1
+9da462b0-93c2-4305-89f6-7199a30399a7,TCGA-BH-A0B5,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,63,1
+659b0170-e914-45ff-aa55-fcb8d3dc7b8a,TCGA-E9-A1NG,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,34,1
+a6502f17-6bee-4d5a-8520-06364593d39c,TCGA-EW-A424,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,118,1
+a6502f17-6bee-4d5a-8520-06364593d39c,TCGA-EW-A424,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,118,1
+8db69f1d-72e2-40ba-ad8a-cf228499840d,TCGA-C8-A8HP,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Metaplastic carcinoma, NOS",Chemotherapy,,31,1
+8db69f1d-72e2-40ba-ad8a-cf228499840d,TCGA-C8-A8HP,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Metaplastic carcinoma, NOS",Chemotherapy,,31,1
+8db69f1d-72e2-40ba-ad8a-cf228499840d,TCGA-C8-A8HP,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIIA,"Metaplastic carcinoma, NOS",Chemotherapy,,31,1
+92b5de82-0221-4df1-8094-80f40c0bb4fa,TCGA-BH-A0BL,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,163,1
+92b5de82-0221-4df1-8094-80f40c0bb4fa,TCGA-BH-A0BL,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,72,1
+92b5de82-0221-4df1-8094-80f40c0bb4fa,TCGA-BH-A0BL,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,72,1
+d4a1ecdc-399c-4f82-aa7a-68a0c82ded3f,TCGA-E9-A243,TCGA-BRCA,pamidronate disodium,stable disease,0,nonresponder,Stage IIA,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,305,1
+d81594d9-dd6a-45c3-8bad-61960611d78d,TCGA-A7-A4SF,TCGA-BRCA,carboplatin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,89,1
+d81594d9-dd6a-45c3-8bad-61960611d78d,TCGA-A7-A4SF,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,89,1
+d81594d9-dd6a-45c3-8bad-61960611d78d,TCGA-A7-A4SF,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,89,1
+955d4263-61f7-42e8-8a6e-772a0d6c209d,TCGA-E9-A1N6,TCGA-BRCA,letrozole,progressive disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,575,1
+955d4263-61f7-42e8-8a6e-772a0d6c209d,TCGA-E9-A1N6,TCGA-BRCA,doxorubicin,stable disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,447,1
+955d4263-61f7-42e8-8a6e-772a0d6c209d,TCGA-E9-A1N6,TCGA-BRCA,cyclophosphamide,stable disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,447,1
+d9fd2724-7db0-4af3-ac14-217bdfa5203f,TCGA-AC-A2QJ,TCGA-BRCA,gemcitabine hydrochloride,progressive disease,0,nonresponder,Stage IIIB,"Metaplastic carcinoma, NOS",Chemotherapy,,322,1
+d9fd2724-7db0-4af3-ac14-217bdfa5203f,TCGA-AC-A2QJ,TCGA-BRCA,carboplatin,progressive disease,0,nonresponder,Stage IIIB,"Metaplastic carcinoma, NOS",Chemotherapy,,386,1
+d9fd2724-7db0-4af3-ac14-217bdfa5203f,TCGA-AC-A2QJ,TCGA-BRCA,fulvestrant,progressive disease,0,nonresponder,Stage IIIB,"Metaplastic carcinoma, NOS",Hormone Therapy,,349,1
+d9fd2724-7db0-4af3-ac14-217bdfa5203f,TCGA-AC-A2QJ,TCGA-BRCA,cyclophosphamide,progressive disease,0,nonresponder,Stage IIIB,"Metaplastic carcinoma, NOS",Chemotherapy,,69,1
+d9fd2724-7db0-4af3-ac14-217bdfa5203f,TCGA-AC-A2QJ,TCGA-BRCA,nab-paclitaxel,progressive disease,0,nonresponder,Stage IIIB,"Metaplastic carcinoma, NOS",Chemotherapy,,125,1
+d9fd2724-7db0-4af3-ac14-217bdfa5203f,TCGA-AC-A2QJ,TCGA-BRCA,doxorubicin hydrochloride,progressive disease,0,nonresponder,Stage IIIB,"Metaplastic carcinoma, NOS",Chemotherapy,,69,1
+6f0fd68f-ed6a-4c9e-be02-c97ba4950f76,TCGA-GM-A3XG,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,163,1
+6f0fd68f-ed6a-4c9e-be02-c97ba4950f76,TCGA-GM-A3XG,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,261,1
+6f0fd68f-ed6a-4c9e-be02-c97ba4950f76,TCGA-GM-A3XG,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,261,1
+6f0fd68f-ed6a-4c9e-be02-c97ba4950f76,TCGA-GM-A3XG,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Hormone Therapy,,434,1
+6f0fd68f-ed6a-4c9e-be02-c97ba4950f76,TCGA-GM-A3XG,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Hormone Therapy,,813,1
+6f0fd68f-ed6a-4c9e-be02-c97ba4950f76,TCGA-GM-A3XG,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,261,1
+dba9beec-5e51-48c0-9229-0ee286a02a1a,TCGA-BH-A0DD,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,105,1
+dba9beec-5e51-48c0-9229-0ee286a02a1a,TCGA-BH-A0DD,TCGA-BRCA,carboplatin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,105,1
+dbf6f981-15cc-40ad-91ac-a66360405fbd,TCGA-A7-A4SE,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,49,1
+dbf6f981-15cc-40ad-91ac-a66360405fbd,TCGA-A7-A4SE,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,49,1
+dbf6f981-15cc-40ad-91ac-a66360405fbd,TCGA-A7-A4SE,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,105,1
+6fa2a667-9c36-4526-8a58-1975e863a806,TCGA-AC-A2BK,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,149,1
+6fa2a667-9c36-4526-8a58-1975e863a806,TCGA-AC-A2BK,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,73,1
+6fa2a667-9c36-4526-8a58-1975e863a806,TCGA-AC-A2BK,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,73,1
+6fa2a667-9c36-4526-8a58-1975e863a806,TCGA-AC-A2BK,TCGA-BRCA,bevacizumab,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,149,1
+dd67408e-46ba-4573-9415-d4814e9f84de,TCGA-E9-A226,TCGA-BRCA,pamidronate disodium,partial response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,790,1
+0bc5744c-5fa3-45bb-87d0-70a02068b392,TCGA-BH-A0DG,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,48,1
+0bc5744c-5fa3-45bb-87d0-70a02068b392,TCGA-BH-A0DG,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,48,1
+0bc5744c-5fa3-45bb-87d0-70a02068b392,TCGA-BH-A0DG,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,48,1
+0ec70e40-07df-461d-8ff9-351240a0d454,TCGA-A7-A5ZV,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Carcinoma, NOS",Chemotherapy,,151,1
+0ec70e40-07df-461d-8ff9-351240a0d454,TCGA-A7-A5ZV,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIA,"Carcinoma, NOS",Chemotherapy,,95,1
+0ec70e40-07df-461d-8ff9-351240a0d454,TCGA-A7-A5ZV,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Carcinoma, NOS",Chemotherapy,,95,1
+9c1ceb7d-6fed-4c2f-a89a-bf3c5b15ca58,TCGA-BH-A18I,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,121,1
+9c1ceb7d-6fed-4c2f-a89a-bf3c5b15ca58,TCGA-BH-A18I,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,121,1
+9ddc014d-9a8b-407b-845f-452a73f08e5e,TCGA-A2-A4S2,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,Infiltrating lobular mixed with other types of carcinoma,Chemotherapy,,110,1
+9ddc014d-9a8b-407b-845f-452a73f08e5e,TCGA-A2-A4S2,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,Infiltrating lobular mixed with other types of carcinoma,Chemotherapy,,47,1
+9ddc014d-9a8b-407b-845f-452a73f08e5e,TCGA-A2-A4S2,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,Infiltrating lobular mixed with other types of carcinoma,Chemotherapy,,47,1
+a6e5f869-1182-4f81-b4bb-cf55261c8f3f,TCGA-D8-A3Z6,TCGA-BRCA,doxorubicin,stable disease,0,nonresponder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,22,3
+a6e5f869-1182-4f81-b4bb-cf55261c8f3f,TCGA-D8-A3Z6,TCGA-BRCA,cyclophosphamide,stable disease,0,nonresponder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,22,3
+a6e5f869-1182-4f81-b4bb-cf55261c8f3f,TCGA-D8-A3Z6,TCGA-BRCA,paclitaxel,stable disease,0,nonresponder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,108,3
+6623fc5e-00be-4476-967a-cbd55f676ea6,TCGA-4H-AAAK,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,27,1
+6623fc5e-00be-4476-967a-cbd55f676ea6,TCGA-4H-AAAK,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,27,1
+6623fc5e-00be-4476-967a-cbd55f676ea6,TCGA-4H-AAAK,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,27,1
+66fa504c-4ae4-49ac-9355-1e063776dc0d,TCGA-GM-A2DI,TCGA-BRCA,epirubicin,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,154,1
+66fa504c-4ae4-49ac-9355-1e063776dc0d,TCGA-GM-A2DI,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,154,1
+66fa504c-4ae4-49ac-9355-1e063776dc0d,TCGA-GM-A2DI,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,154,1
+66fa504c-4ae4-49ac-9355-1e063776dc0d,TCGA-GM-A2DI,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,70,1
+67c73260-a242-4bba-87c5-d2302556dff7,TCGA-AC-A3TM,TCGA-BRCA,clinical trial agent,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Immunotherapy (Including Vaccines),,132,1
+67c73260-a242-4bba-87c5-d2302556dff7,TCGA-AC-A3TM,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,132,1
+67c73260-a242-4bba-87c5-d2302556dff7,TCGA-AC-A3TM,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,132,1
+69fc24fc-cfe2-487a-935f-1a954b30b709,TCGA-LL-A441,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,61,1
+69fc24fc-cfe2-487a-935f-1a954b30b709,TCGA-LL-A441,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,61,1
+753d5d49-3b40-4737-9d4c-b1ec29cc2692,TCGA-GM-A2DM,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,176,1
+753d5d49-3b40-4737-9d4c-b1ec29cc2692,TCGA-GM-A2DM,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,176,1
+753d5d49-3b40-4737-9d4c-b1ec29cc2692,TCGA-GM-A2DM,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,81,1
+753d5d49-3b40-4737-9d4c-b1ec29cc2692,TCGA-GM-A2DM,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,176,1
+753d5d49-3b40-4737-9d4c-b1ec29cc2692,TCGA-GM-A2DM,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,279,1
+7861a5f2-8910-4bcb-9c34-f79c5acd6e21,TCGA-A8-A075,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+7861a5f2-8910-4bcb-9c34-f79c5acd6e21,TCGA-A8-A075,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+7861a5f2-8910-4bcb-9c34-f79c5acd6e21,TCGA-A8-A075,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,122,1
+78e1da41-127c-4e9c-aaaa-77a0d94c31d0,TCGA-A8-A08C,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+78e1da41-127c-4e9c-aaaa-77a0d94c31d0,TCGA-A8-A08C,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+78e1da41-127c-4e9c-aaaa-77a0d94c31d0,TCGA-A8-A08C,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+65cac997-4d39-4501-85ec-4fcb328a8eb5,TCGA-GM-A3XL,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,100,1
+65cac997-4d39-4501-85ec-4fcb328a8eb5,TCGA-GM-A3XL,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,100,1
+65cac997-4d39-4501-85ec-4fcb328a8eb5,TCGA-GM-A3XL,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,191,1
+65cac997-4d39-4501-85ec-4fcb328a8eb5,TCGA-GM-A3XL,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,100,1
+00b11ca8-8540-4a3d-b602-ec754b00230b,TCGA-LL-A440,TCGA-BRCA,docetaxel,complete response,1,responder,Stage 0,"Intraductal carcinoma, noninfiltrating, NOS",Chemotherapy,,60,1
+00b11ca8-8540-4a3d-b602-ec754b00230b,TCGA-LL-A440,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage 0,"Intraductal carcinoma, noninfiltrating, NOS",Chemotherapy,,60,1
+43b3bf47-7313-4dfb-952a-ec0b9d48e16c,TCGA-OL-A5S0,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,67,1
+43b3bf47-7313-4dfb-952a-ec0b9d48e16c,TCGA-OL-A5S0,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,67,1
+02bbb632-0f7f-439d-b8f0-c86a06237424,TCGA-AC-A2FB,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Hormone Therapy,,225,1
+02bbb632-0f7f-439d-b8f0-c86a06237424,TCGA-AC-A2FB,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,212,1
+02bbb632-0f7f-439d-b8f0-c86a06237424,TCGA-AC-A2FB,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,101,1
+5700c1b3-922a-4401-8ab8-89028908d696,TCGA-GM-A2DH,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,86,1
+5700c1b3-922a-4401-8ab8-89028908d696,TCGA-GM-A2DH,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,170,1
+5700c1b3-922a-4401-8ab8-89028908d696,TCGA-GM-A2DH,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,170,1
+5700c1b3-922a-4401-8ab8-89028908d696,TCGA-GM-A2DH,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,170,1
+5a53ec47-e63f-44a2-8078-87659544fb04,TCGA-A2-A4RY,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,58,1
+5a53ec47-e63f-44a2-8078-87659544fb04,TCGA-A2-A4RY,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,58,1
+5a53ec47-e63f-44a2-8078-87659544fb04,TCGA-A2-A4RY,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,58,1
+5aca16ca-4516-4e27-8249-6914029a7ebf,TCGA-A2-A0CK,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,,1
+5aca16ca-4516-4e27-8249-6914029a7ebf,TCGA-A2-A0CK,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,,1
+5aca16ca-4516-4e27-8249-6914029a7ebf,TCGA-A2-A0CK,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,,1
+5aca16ca-4516-4e27-8249-6914029a7ebf,TCGA-A2-A0CK,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,1451,1
+6e6b7742-a562-490b-bb72-04a5653852e4,TCGA-GM-A2DB,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,181,1
+6e6b7742-a562-490b-bb72-04a5653852e4,TCGA-GM-A2DB,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,181,1
+6e6b7742-a562-490b-bb72-04a5653852e4,TCGA-GM-A2DB,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,91,1
+6e6b7742-a562-490b-bb72-04a5653852e4,TCGA-GM-A2DB,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,181,1
+0930e97a-72ea-4bd5-b2f0-50c76af695f3,TCGA-GM-A3XN,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,218,1
+0930e97a-72ea-4bd5-b2f0-50c76af695f3,TCGA-GM-A3XN,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Hormone Therapy,,416,1
+0930e97a-72ea-4bd5-b2f0-50c76af695f3,TCGA-GM-A3XN,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,218,1
+0930e97a-72ea-4bd5-b2f0-50c76af695f3,TCGA-GM-A3XN,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,134,1
+0930e97a-72ea-4bd5-b2f0-50c76af695f3,TCGA-GM-A3XN,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,218,1
+2cb8c866-9296-4c70-a3ea-f9a9b707895c,TCGA-A8-A0A4,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Hormone Therapy,,31,1
+1ff85ada-3cdd-4afb-b311-2c7befb52702,TCGA-EW-A1P3,TCGA-BRCA,tamoxifen,stable disease,0,nonresponder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,261,1
+1ff85ada-3cdd-4afb-b311-2c7befb52702,TCGA-EW-A1P3,TCGA-BRCA,paclitaxel,stable disease,0,nonresponder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,167,1
+214a4507-d974-4b3e-8525-7408fccc6a0f,TCGA-BH-A0B7,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,196,1
+214a4507-d974-4b3e-8525-7408fccc6a0f,TCGA-BH-A0B7,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,105,1
+22eaba28-be67-4730-9846-860bc1fca29a,TCGA-A8-A0AB,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,61,1
+22eaba28-be67-4730-9846-860bc1fca29a,TCGA-A8-A0AB,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,61,1
+22eaba28-be67-4730-9846-860bc1fca29a,TCGA-A8-A0AB,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,61,1
+910655da-2c12-4572-96b7-ded616e69b4b,TCGA-MS-A51U,TCGA-BRCA,doxorubicin hydrochloride,stable disease,0,nonresponder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,57,1
+910655da-2c12-4572-96b7-ded616e69b4b,TCGA-MS-A51U,TCGA-BRCA,cyclophosphamide,stable disease,0,nonresponder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,57,1
+910655da-2c12-4572-96b7-ded616e69b4b,TCGA-MS-A51U,TCGA-BRCA,paclitaxel,stable disease,0,nonresponder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,130,1
+92654f8d-5137-4ffd-aaa3-5ae38eb88226,TCGA-A7-A2KD,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,57,1
+a2efe7e1-aca3-440f-825f-ed621edca69f,TCGA-A7-A4SA,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,73,1
+a2efe7e1-aca3-440f-825f-ed621edca69f,TCGA-A7-A4SA,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,73,1
+a2efe7e1-aca3-440f-825f-ed621edca69f,TCGA-A7-A4SA,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,136,1
+a45833e1-7cc9-4273-b408-620f74679a12,TCGA-OL-A66O,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,129,1
+a45833e1-7cc9-4273-b408-620f74679a12,TCGA-OL-A66O,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,129,1
+a45d296e-efc0-479e-b2f6-bad834668cdf,TCGA-AC-A3YI,TCGA-BRCA,methotrexate,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,82,1
+a45d296e-efc0-479e-b2f6-bad834668cdf,TCGA-AC-A3YI,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,82,1
+a45d296e-efc0-479e-b2f6-bad834668cdf,TCGA-AC-A3YI,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,82,1
+1d38d356-d126-4476-94d0-26616b9375b1,TCGA-OL-A5RV,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,63,1
+1d38d356-d126-4476-94d0-26616b9375b1,TCGA-OL-A5RV,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,63,1
+1d38d356-d126-4476-94d0-26616b9375b1,TCGA-OL-A5RV,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,63,1
+1f601832-eee3-48fb-acf5-80c4a454f26e,TCGA-BH-A0EA,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,Clear cell carcinoma,Chemotherapy,,84,1
+1f601832-eee3-48fb-acf5-80c4a454f26e,TCGA-BH-A0EA,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,Clear cell carcinoma,Chemotherapy,,363,1
+518f231c-f5f9-4a39-a97b-7fd5666d3e50,TCGA-BH-A0AZ,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,126,1
+518f231c-f5f9-4a39-a97b-7fd5666d3e50,TCGA-BH-A0AZ,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,209,1
+518f231c-f5f9-4a39-a97b-7fd5666d3e50,TCGA-BH-A0AZ,TCGA-BRCA,bevacizumab,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Immunotherapy (Including Vaccines),,126,1
+518f231c-f5f9-4a39-a97b-7fd5666d3e50,TCGA-BH-A0AZ,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,126,1
+523e24a2-51b9-4658-be2f-42e5fccebb17,TCGA-A7-A5ZW,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+523e24a2-51b9-4658-be2f-42e5fccebb17,TCGA-A7-A5ZW,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+96b9c7db-1be1-4b60-b47c-26b654c3d64c,TCGA-BH-A0DV,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,48,1
+96b9c7db-1be1-4b60-b47c-26b654c3d64c,TCGA-BH-A0DV,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,48,1
+96b9c7db-1be1-4b60-b47c-26b654c3d64c,TCGA-BH-A0DV,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,48,1
+33cea538-4c3f-470a-972d-257c43241ab4,TCGA-C8-A135,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,40,1
+33cea538-4c3f-470a-972d-257c43241ab4,TCGA-C8-A135,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,40,1
+33cea538-4c3f-470a-972d-257c43241ab4,TCGA-C8-A135,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,40,1
+33cea538-4c3f-470a-972d-257c43241ab4,TCGA-C8-A135,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,40,1
+35ca5e2a-861a-4dd2-a4ce-d294cf080da3,TCGA-AQ-A54O,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,Clear cell carcinoma,Chemotherapy,,77,1
+35ca5e2a-861a-4dd2-a4ce-d294cf080da3,TCGA-AQ-A54O,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,Clear cell carcinoma,Chemotherapy,,132,1
+35ca5e2a-861a-4dd2-a4ce-d294cf080da3,TCGA-AQ-A54O,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,Clear cell carcinoma,Chemotherapy,,77,1
+174850b4-5ec2-462b-a890-89bd1716b3c2,TCGA-A2-A3Y0,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,,1
+174850b4-5ec2-462b-a890-89bd1716b3c2,TCGA-A2-A3Y0,TCGA-BRCA,letrozole,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,,1
+174850b4-5ec2-462b-a890-89bd1716b3c2,TCGA-A2-A3Y0,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,74,1
+174850b4-5ec2-462b-a890-89bd1716b3c2,TCGA-A2-A3Y0,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,74,1
+174850b4-5ec2-462b-a890-89bd1716b3c2,TCGA-A2-A3Y0,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,165,1
+38a4e9bd-93e9-432d-a756-3b1055b823bd,TCGA-LD-A74U,TCGA-BRCA,docetaxel,stable disease,0,nonresponder,Stage IIIC,Infiltrating lobular mixed with other types of carcinoma,Chemotherapy,,52,1
+38a8b734-9acc-42f9-b5b7-e51b0dfc6504,TCGA-A8-A092,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,30,1
+38a8b734-9acc-42f9-b5b7-e51b0dfc6504,TCGA-A8-A092,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,30,1
+38a8b734-9acc-42f9-b5b7-e51b0dfc6504,TCGA-A8-A092,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,30,1
+398fb71b-ca83-44e7-bf0d-b1ca464b0283,TCGA-OL-A6VO,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+398fb71b-ca83-44e7-bf0d-b1ca464b0283,TCGA-OL-A6VO,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+626b4ff0-2188-4a14-aac8-6703c624917f,TCGA-A8-A09M,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+6397d7bc-9cb1-4a84-81ad-76954e0a8cee,TCGA-GM-A4E0,TCGA-BRCA,capecitabine,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,121,1
+6397d7bc-9cb1-4a84-81ad-76954e0a8cee,TCGA-GM-A4E0,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,121,1
+6397d7bc-9cb1-4a84-81ad-76954e0a8cee,TCGA-GM-A4E0,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,226,1
+6397d7bc-9cb1-4a84-81ad-76954e0a8cee,TCGA-GM-A4E0,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,226,1
+6397d7bc-9cb1-4a84-81ad-76954e0a8cee,TCGA-GM-A4E0,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,226,1
+6429c443-8ac3-407f-bb9c-66420b904bbf,TCGA-E2-A573,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,104,1
+6429c443-8ac3-407f-bb9c-66420b904bbf,TCGA-E2-A573,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,104,1
+42621dfa-abfd-4c7d-8bc5-a02a09d1c2b4,TCGA-C8-A12Z,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,102,1
+42621dfa-abfd-4c7d-8bc5-a02a09d1c2b4,TCGA-C8-A12Z,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,102,1
+42621dfa-abfd-4c7d-8bc5-a02a09d1c2b4,TCGA-C8-A12Z,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,102,1
+98e709e7-e195-4b37-9537-f6081affb609,TCGA-A7-A6VW,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,148,1
+98e709e7-e195-4b37-9537-f6081affb609,TCGA-A7-A6VW,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,84,1
+98e709e7-e195-4b37-9537-f6081affb609,TCGA-A7-A6VW,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,84,1
+b8a44fdf-9cb9-4123-9ab0-4bc198921fee,TCGA-OL-A5RU,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+b8a44fdf-9cb9-4123-9ab0-4bc198921fee,TCGA-OL-A5RU,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+b8aefc48-4a6e-4254-a57f-5f688399b582,TCGA-LL-A5YO,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,56,1
+b8aefc48-4a6e-4254-a57f-5f688399b582,TCGA-LL-A5YO,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,56,1
+807b62ed-d3f7-4211-83be-754386ff2c96,TCGA-E9-A3HO,TCGA-BRCA,goserelin acetate,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Hormone Therapy,,61,1
+807b62ed-d3f7-4211-83be-754386ff2c96,TCGA-E9-A3HO,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,26,1
+807b62ed-d3f7-4211-83be-754386ff2c96,TCGA-E9-A3HO,TCGA-BRCA,leuprolide acetate,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Hormone Therapy,,313,1
+807b62ed-d3f7-4211-83be-754386ff2c96,TCGA-E9-A3HO,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,26,1
+807b62ed-d3f7-4211-83be-754386ff2c96,TCGA-E9-A3HO,TCGA-BRCA,methotrexate,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,26,1
+f81ac8a2-4ce6-439e-b027-1c0bfc88ceaa,TCGA-OL-A66P,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+f81ac8a2-4ce6-439e-b027-1c0bfc88ceaa,TCGA-OL-A66P,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,71,1
+f89588e9-ca73-4465-a7fb-7246edb45e3a,TCGA-XX-A899,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,96,1
+f89588e9-ca73-4465-a7fb-7246edb45e3a,TCGA-XX-A899,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,96,1
+f9eb88f7-9293-46bf-ace4-a746e4ff80dc,TCGA-A8-A086,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+f9eb88f7-9293-46bf-ace4-a746e4ff80dc,TCGA-A8-A086,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+fbee40f1-d6d8-4156-8d42-36e09bb9f095,TCGA-S3-A6ZF,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,65,1
+fbee40f1-d6d8-4156-8d42-36e09bb9f095,TCGA-S3-A6ZF,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,65,1
+fbee40f1-d6d8-4156-8d42-36e09bb9f095,TCGA-S3-A6ZF,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Immunotherapy (Including Vaccines),,65,1
+fbee40f1-d6d8-4156-8d42-36e09bb9f095,TCGA-S3-A6ZF,TCGA-BRCA,pegfilgrastim,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,78,1
+fe7f74b8-20f4-4471-91dc-4cca8c68e5c0,TCGA-A2-A3XZ,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,97,1
+fe7f74b8-20f4-4471-91dc-4cca8c68e5c0,TCGA-A2-A3XZ,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,97,1
+fe7f74b8-20f4-4471-91dc-4cca8c68e5c0,TCGA-A2-A3XZ,TCGA-BRCA,carboplatin,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,97,1
+ff0f875f-113a-4c0f-8c0a-4259cd496e6d,TCGA-C8-A26W,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,23,1
+ff0f875f-113a-4c0f-8c0a-4259cd496e6d,TCGA-C8-A26W,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,23,1
+bfd49783-1767-469b-9d79-7822301c5efc,TCGA-BH-A18F,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,101,1
+bfd49783-1767-469b-9d79-7822301c5efc,TCGA-BH-A18F,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,101,1
+e783e518-c1e5-4eac-8eaf-e2d65ccd9692,TCGA-S3-AA15,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,82,2
+e783e518-c1e5-4eac-8eaf-e2d65ccd9692,TCGA-S3-AA15,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,82,2
+e783e518-c1e5-4eac-8eaf-e2d65ccd9692,TCGA-S3-AA15,TCGA-BRCA,pegfilgrastim,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,82,2
+e783e518-c1e5-4eac-8eaf-e2d65ccd9692,TCGA-S3-AA15,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,138,2
+83f943c7-3975-4b4f-985d-9c057741793b,TCGA-AQ-A04H,TCGA-BRCA,carboplatin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,29,1
+83f943c7-3975-4b4f-985d-9c057741793b,TCGA-AQ-A04H,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,29,1
+844ad251-3ee4-42f6-ad00-59a7a1670eea,TCGA-BH-A0HY,TCGA-BRCA,carboplatin,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,88,1
+844ad251-3ee4-42f6-ad00-59a7a1670eea,TCGA-BH-A0HY,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,88,1
+844ad251-3ee4-42f6-ad00-59a7a1670eea,TCGA-BH-A0HY,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,88,1
+4c313e5b-4dc3-408e-8e92-22427f74743e,TCGA-AC-A3W5,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,56,1
+4c313e5b-4dc3-408e-8e92-22427f74743e,TCGA-AC-A3W5,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,56,1
+4c313e5b-4dc3-408e-8e92-22427f74743e,TCGA-AC-A3W5,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Targeted Molecular Therapy,,56,1
+89a8da07-4487-47c6-8d3c-442a87e4f632,TCGA-E9-A227,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,92,1
+89c128b9-1c6b-4c04-a4af-7066772e783c,TCGA-PE-A5DE,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,42,1
+89c128b9-1c6b-4c04-a4af-7066772e783c,TCGA-PE-A5DE,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,42,1
+8b525ec6-d24b-49d4-bfcb-b354de4dae7c,TCGA-C8-A1HM,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,26,1
+8b525ec6-d24b-49d4-bfcb-b354de4dae7c,TCGA-C8-A1HM,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,26,1
+8b525ec6-d24b-49d4-bfcb-b354de4dae7c,TCGA-C8-A1HM,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,26,1
+8c09f413-e938-4f2e-a414-84f0e7fcfe41,TCGA-A7-A4SD,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,64,1
+8c09f413-e938-4f2e-a414-84f0e7fcfe41,TCGA-A7-A4SD,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,64,1
+2fd36838-5a83-433e-ac80-b1f77448e5aa,TCGA-5T-A9QA,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,Infiltrating duct mixed with other types of carcinoma,Chemotherapy,,,1
+2fd36838-5a83-433e-ac80-b1f77448e5aa,TCGA-5T-A9QA,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,Infiltrating duct mixed with other types of carcinoma,"Pharmaceutical Therapy, NOS",,23,1
+31427699-e27a-4035-8925-6d8d6900d097,TCGA-E2-A3DX,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,119,1
+cab38ea8-4555-413c-b81e-4621aac4ef85,TCGA-BH-A0H5,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,174,1
+cab38ea8-4555-413c-b81e-4621aac4ef85,TCGA-BH-A0H5,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,174,1
+878f975b-94fd-4d69-b7e7-1ed3ac2ee438,TCGA-BH-A18H,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,34,1
+878f975b-94fd-4d69-b7e7-1ed3ac2ee438,TCGA-BH-A18H,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,118,1
+878f975b-94fd-4d69-b7e7-1ed3ac2ee438,TCGA-BH-A18H,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,34,1
+e7a00d67-2c26-4d1f-bd17-35f659e88bc1,TCGA-BH-A202,TCGA-BRCA,docetaxel,complete response,1,responder,Stage II,"Infiltrating duct carcinoma, NOS",Chemotherapy,,47,1
+e7a00d67-2c26-4d1f-bd17-35f659e88bc1,TCGA-BH-A202,TCGA-BRCA,carboplatin,complete response,1,responder,Stage II,"Infiltrating duct carcinoma, NOS",Chemotherapy,,47,1
+e7db08a7-b439-4230-8dc4-1b54af4736c4,TCGA-WT-AB41,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,89,1
+e7db08a7-b439-4230-8dc4-1b54af4736c4,TCGA-WT-AB41,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,181,1
+e7db08a7-b439-4230-8dc4-1b54af4736c4,TCGA-WT-AB41,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,89,1
+3b1f7e48-216d-47de-ba79-db350f52bff0,TCGA-C8-A27A,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,411,1
+3b1f7e48-216d-47de-ba79-db350f52bff0,TCGA-C8-A27A,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,411,1
+3b1f7e48-216d-47de-ba79-db350f52bff0,TCGA-C8-A27A,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,411,1
+3b1f7e48-216d-47de-ba79-db350f52bff0,TCGA-C8-A27A,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,411,1
+3d676bba-154b-4d22-ab59-d4d4da051b94,TCGA-E9-A1NE,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,Infiltrating duct and lobular carcinoma,Chemotherapy,,10,1
+3d676bba-154b-4d22-ab59-d4d4da051b94,TCGA-E9-A1NE,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,Infiltrating duct and lobular carcinoma,Chemotherapy,,10,1
+3d676bba-154b-4d22-ab59-d4d4da051b94,TCGA-E9-A1NE,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,Infiltrating duct and lobular carcinoma,Chemotherapy,,10,1
+af97e043-88cb-4f99-8f8b-9bcbcccdf842,TCGA-EW-A2FR,TCGA-BRCA,paclitaxel,stable disease,0,nonresponder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,97,1
+b1d44c81-747d-471f-9093-aeb262a17975,TCGA-Z7-A8R6,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,Pleomorphic carcinoma,"Pharmaceutical Therapy, NOS",,31,1
+b1d44c81-747d-471f-9093-aeb262a17975,TCGA-Z7-A8R6,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,Pleomorphic carcinoma,"Pharmaceutical Therapy, NOS",,31,1
+b1d44c81-747d-471f-9093-aeb262a17975,TCGA-Z7-A8R6,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage I,Pleomorphic carcinoma,"Pharmaceutical Therapy, NOS",,31,1
+b304302a-f2b9-4cd7-ab14-c21edf7778ea,TCGA-E9-A5FK,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,21,1
+b304302a-f2b9-4cd7-ab14-c21edf7778ea,TCGA-E9-A5FK,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,21,1
+b304302a-f2b9-4cd7-ab14-c21edf7778ea,TCGA-E9-A5FK,TCGA-BRCA,methotrexate,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,21,1
+b343bfe0-7c23-4c6a-8c84-9ee39db2ecda,TCGA-GM-A2DD,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,90,1
+b343bfe0-7c23-4c6a-8c84-9ee39db2ecda,TCGA-GM-A2DD,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,90,1
+b343bfe0-7c23-4c6a-8c84-9ee39db2ecda,TCGA-GM-A2DD,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,90,1
+b6633c36-7ce4-4b69-9bf6-30b64d46c66f,TCGA-A8-A07C,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+b6633c36-7ce4-4b69-9bf6-30b64d46c66f,TCGA-A8-A07C,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+b6633c36-7ce4-4b69-9bf6-30b64d46c66f,TCGA-A8-A07C,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+b6633c36-7ce4-4b69-9bf6-30b64d46c66f,TCGA-A8-A07C,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,92,1
+89414e79-7f89-42d9-8228-101b5bf2f31f,TCGA-C8-A26V,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,247,1
+4a032bad-e726-48f2-8f39-e3acc109cc91,TCGA-BH-A0BZ,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,76,1
+4a032bad-e726-48f2-8f39-e3acc109cc91,TCGA-BH-A0BZ,TCGA-BRCA,nab-paclitaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,167,1
+4a032bad-e726-48f2-8f39-e3acc109cc91,TCGA-BH-A0BZ,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,76,1
+29df128d-ace2-40cf-88ee-3f6f2170f159,TCGA-A8-A095,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+29df128d-ace2-40cf-88ee-3f6f2170f159,TCGA-A8-A095,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+29df128d-ace2-40cf-88ee-3f6f2170f159,TCGA-A8-A095,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+5d1d00c6-fcae-479e-ae1e-de76efd41d98,TCGA-BH-A0BW,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,51,1
+5d1d00c6-fcae-479e-ae1e-de76efd41d98,TCGA-BH-A0BW,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,51,1
+ea8dbc7a-54c6-469c-865e-f49d00b0223d,TCGA-D8-A73W,TCGA-BRCA,tamoxifen,progressive disease,0,nonresponder,Stage IIIA,Mucinous adenocarcinoma,Hormone Therapy,,-709,2
+ec461eaf-f5cb-4225-a9a0-59d8e6c17ea6,TCGA-S3-A6ZH,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,141,1
+ec461eaf-f5cb-4225-a9a0-59d8e6c17ea6,TCGA-S3-A6ZH,TCGA-BRCA,pegfilgrastim,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,141,1
+ec461eaf-f5cb-4225-a9a0-59d8e6c17ea6,TCGA-S3-A6ZH,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,141,1
+f0d8a1fe-e313-44f1-99cc-b965cbeeff0e,TCGA-C8-A27B,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+f0d8a1fe-e313-44f1-99cc-b965cbeeff0e,TCGA-C8-A27B,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+f0d8a1fe-e313-44f1-99cc-b965cbeeff0e,TCGA-C8-A27B,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+f0d8a1fe-e313-44f1-99cc-b965cbeeff0e,TCGA-C8-A27B,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+5c8983f2-9788-4dfa-971c-3ec457b6166e,TCGA-A2-A0CL,TCGA-BRCA,gemcitabine,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,126,1
+7acf33e7-c386-45fd-8c9a-469600378687,TCGA-A8-A08I,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+7acf33e7-c386-45fd-8c9a-469600378687,TCGA-A8-A08I,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+7acf33e7-c386-45fd-8c9a-469600378687,TCGA-A8-A08I,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+f947d67f-4aa2-4eb9-977e-21a5ae563613,TCGA-A8-A08P,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,60,1
+f947d67f-4aa2-4eb9-977e-21a5ae563613,TCGA-A8-A08P,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,60,1
+f947d67f-4aa2-4eb9-977e-21a5ae563613,TCGA-A8-A08P,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,60,1
+f947d67f-4aa2-4eb9-977e-21a5ae563613,TCGA-A8-A08P,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,60,1
+f947d67f-4aa2-4eb9-977e-21a5ae563613,TCGA-A8-A08P,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,213,1
+a721dac6-0126-476c-b2d4-2dbf7406454b,TCGA-AC-A23G,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,190,1
+a721dac6-0126-476c-b2d4-2dbf7406454b,TCGA-AC-A23G,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,109,1
+a721dac6-0126-476c-b2d4-2dbf7406454b,TCGA-AC-A23G,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,109,1
+a721dac6-0126-476c-b2d4-2dbf7406454b,TCGA-AC-A23G,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Hormone Therapy,,237,1
+a76774fe-7298-4d68-a2b2-c1bad93f0c31,TCGA-GM-A2DL,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,158,1
+e36e985d-2c44-4e14-854a-7dbca4bb0304,TCGA-E9-A3Q9,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,28,1
+e36e985d-2c44-4e14-854a-7dbca4bb0304,TCGA-E9-A3Q9,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,28,1
+e36e985d-2c44-4e14-854a-7dbca4bb0304,TCGA-E9-A3Q9,TCGA-BRCA,mitoxantrone,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,28,1
+c65b835a-2d38-4250-a173-0780d2c2cf58,TCGA-E9-A1NI,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIA,Infiltrating duct and lobular carcinoma,Chemotherapy,,0,1
+c65b835a-2d38-4250-a173-0780d2c2cf58,TCGA-E9-A1NI,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,Infiltrating duct and lobular carcinoma,Chemotherapy,,0,1
+c65b835a-2d38-4250-a173-0780d2c2cf58,TCGA-E9-A1NI,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,Infiltrating duct and lobular carcinoma,Chemotherapy,,0,1
+c49e3b18-fd88-48f4-8b01-300692ceb367,TCGA-C8-A131,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,34,1
+c49e3b18-fd88-48f4-8b01-300692ceb367,TCGA-C8-A131,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,34,1
+c49e3b18-fd88-48f4-8b01-300692ceb367,TCGA-C8-A131,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,34,1
+53ff5893-7d5e-4bcb-be9c-665fa34b7824,TCGA-EW-A1OY,TCGA-BRCA,paclitaxel,stable disease,0,nonresponder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,180,1
+79126e88-9cf8-45ff-bf91-a98da3b304d7,TCGA-AC-A2FK,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,51,1
+79126e88-9cf8-45ff-bf91-a98da3b304d7,TCGA-AC-A2FK,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,51,1
+79126e88-9cf8-45ff-bf91-a98da3b304d7,TCGA-AC-A2FK,TCGA-BRCA,letrozole,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Hormone Therapy,,294,1
+79126e88-9cf8-45ff-bf91-a98da3b304d7,TCGA-AC-A2FK,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,51,1
+3a0775a0-61ae-43f2-b5f6-629a44355c2f,TCGA-GM-A2DK,TCGA-BRCA,anastrozole,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,79,1
+d34471a1-b367-4f8a-b35a-c5901c4f5503,TCGA-EW-A2FS,TCGA-BRCA,goserelin,stable disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,140,1
+e74aea7c-ca14-49df-b5cf-dacb839ac27a,TCGA-E9-A1NC,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,Infiltrating duct and lobular carcinoma,Chemotherapy,,10,1
+e74aea7c-ca14-49df-b5cf-dacb839ac27a,TCGA-E9-A1NC,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIB,Infiltrating duct and lobular carcinoma,Hormone Therapy,,134,1
+e74aea7c-ca14-49df-b5cf-dacb839ac27a,TCGA-E9-A1NC,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,Infiltrating duct and lobular carcinoma,Chemotherapy,,10,1
+e74aea7c-ca14-49df-b5cf-dacb839ac27a,TCGA-E9-A1NC,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,Infiltrating duct and lobular carcinoma,Chemotherapy,,10,1
+aa60fa8d-c374-40e0-af2d-b007701e67e3,TCGA-LL-A740,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,178,1
+aa60fa8d-c374-40e0-af2d-b007701e67e3,TCGA-LL-A740,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,122,1
+aa60fa8d-c374-40e0-af2d-b007701e67e3,TCGA-LL-A740,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,122,1
+d9dc3b59-613d-469e-8b4f-6c5a557eb26a,TCGA-EW-A3U0,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,85,1
+d9dc3b59-613d-469e-8b4f-6c5a557eb26a,TCGA-EW-A3U0,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,148,1
+d9dc3b59-613d-469e-8b4f-6c5a557eb26a,TCGA-EW-A3U0,TCGA-BRCA,cisplatin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,85,1
+d9dc3b59-613d-469e-8b4f-6c5a557eb26a,TCGA-EW-A3U0,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,148,1
+23f438bd-1dbb-4d46-972f-1e8e74ddbd37,TCGA-Z7-A8R5,TCGA-BRCA,cyclophosphamide,stable disease,0,nonresponder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,61,1
+23f438bd-1dbb-4d46-972f-1e8e74ddbd37,TCGA-Z7-A8R5,TCGA-BRCA,doxorubicin hydrochloride,stable disease,0,nonresponder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,61,1
+23f438bd-1dbb-4d46-972f-1e8e74ddbd37,TCGA-Z7-A8R5,TCGA-BRCA,paclitaxel,stable disease,0,nonresponder,Stage IIIA,"Lobular carcinoma, NOS","Pharmaceutical Therapy, NOS",,61,1
+316625b8-a217-4829-90d1-dfd9cb7e4bc3,TCGA-A8-A07J,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,92,1
+316625b8-a217-4829-90d1-dfd9cb7e4bc3,TCGA-A8-A07J,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+316625b8-a217-4829-90d1-dfd9cb7e4bc3,TCGA-A8-A07J,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+316625b8-a217-4829-90d1-dfd9cb7e4bc3,TCGA-A8-A07J,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+dcb68327-1537-4ca6-81de-3910d0663cb8,TCGA-C8-A8HR,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,43,1
+dcb68327-1537-4ca6-81de-3910d0663cb8,TCGA-C8-A8HR,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,43,1
+dcb68327-1537-4ca6-81de-3910d0663cb8,TCGA-C8-A8HR,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,43,1
+dcfd0b1d-5707-44a6-b225-5e8f7cea5ca1,TCGA-A8-A097,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,61,1
+dcfd0b1d-5707-44a6-b225-5e8f7cea5ca1,TCGA-A8-A097,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,61,1
+dd43ffd9-da18-4ad3-abe7-6f443c76a717,TCGA-GM-A2DC,TCGA-BRCA,capecitabine,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,57,1
+dd43ffd9-da18-4ad3-abe7-6f443c76a717,TCGA-GM-A2DC,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,140,1
+dd43ffd9-da18-4ad3-abe7-6f443c76a717,TCGA-GM-A2DC,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,140,1
+dd43ffd9-da18-4ad3-abe7-6f443c76a717,TCGA-GM-A2DC,TCGA-BRCA,letrozole,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,294,1
+dd43ffd9-da18-4ad3-abe7-6f443c76a717,TCGA-GM-A2DC,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,355,1
+dd43ffd9-da18-4ad3-abe7-6f443c76a717,TCGA-GM-A2DC,TCGA-BRCA,clinical trial agent,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,140,1
+dd43ffd9-da18-4ad3-abe7-6f443c76a717,TCGA-GM-A2DC,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,57,1
+70ab4f23-23c4-409f-a5cc-18a010c3a24e,TCGA-C8-A26X,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,200,1
+70ab4f23-23c4-409f-a5cc-18a010c3a24e,TCGA-C8-A26X,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,200,1
+70ab4f23-23c4-409f-a5cc-18a010c3a24e,TCGA-C8-A26X,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,200,1
+719082cc-1ebe-4a51-a659-85a59db1d77d,TCGA-A8-A08G,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,28,1
+719082cc-1ebe-4a51-a659-85a59db1d77d,TCGA-A8-A08G,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,28,1
+719082cc-1ebe-4a51-a659-85a59db1d77d,TCGA-A8-A08G,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,28,1
+719082cc-1ebe-4a51-a659-85a59db1d77d,TCGA-A8-A08G,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,89,1
+726c6892-0dce-4869-a7a7-cc44c26fe843,TCGA-C8-A9FZ,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,Infiltrating lobular mixed with other types of carcinoma,Chemotherapy,,29,1
+726c6892-0dce-4869-a7a7-cc44c26fe843,TCGA-C8-A9FZ,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,Infiltrating lobular mixed with other types of carcinoma,Chemotherapy,,29,1
+726c6892-0dce-4869-a7a7-cc44c26fe843,TCGA-C8-A9FZ,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,Infiltrating lobular mixed with other types of carcinoma,Chemotherapy,,29,1
+6ddaee34-46eb-490c-bd13-f0ab963c4322,TCGA-GM-A3NW,TCGA-BRCA,fluorouracil,stable disease,0,nonresponder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,65,1
+6ddaee34-46eb-490c-bd13-f0ab963c4322,TCGA-GM-A3NW,TCGA-BRCA,epirubicin,stable disease,0,nonresponder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,65,1
+6ddaee34-46eb-490c-bd13-f0ab963c4322,TCGA-GM-A3NW,TCGA-BRCA,anastrozole,stable disease,0,nonresponder,Stage IIA,"Lobular carcinoma, NOS",Hormone Therapy,,205,1
+6ddaee34-46eb-490c-bd13-f0ab963c4322,TCGA-GM-A3NW,TCGA-BRCA,cyclophosphamide,stable disease,0,nonresponder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,65,1
+74f31744-0aed-4633-beec-4e203315f0b7,TCGA-BH-A0DT,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,118,1
+74f31744-0aed-4633-beec-4e203315f0b7,TCGA-BH-A0DT,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,118,1
+74f31744-0aed-4633-beec-4e203315f0b7,TCGA-BH-A0DT,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,118,1
+ba39bfbc-5cac-4f6c-b55c-4eee3466ee93,TCGA-BH-A0DL,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Metaplastic carcinoma, NOS",Chemotherapy,,58,1
+ba39bfbc-5cac-4f6c-b55c-4eee3466ee93,TCGA-BH-A0DL,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Metaplastic carcinoma, NOS",Chemotherapy,,58,1
+ba80db4e-d899-4da4-ae49-5263d98e1530,TCGA-A7-A5ZX,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IA,"Lobular carcinoma, NOS",Chemotherapy,,132,2
+ba80db4e-d899-4da4-ae49-5263d98e1530,TCGA-A7-A5ZX,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Lobular carcinoma, NOS",Chemotherapy,,76,2
+ba80db4e-d899-4da4-ae49-5263d98e1530,TCGA-A7-A5ZX,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IA,"Lobular carcinoma, NOS",Chemotherapy,,76,2
+bac4b268-c781-4408-96d8-43a48fec7418,TCGA-BH-A2L8,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Lobular carcinoma, NOS",Chemotherapy,,136,1
+76ace6aa-0505-442c-978a-f889cf2d44bb,TCGA-BH-A0E9,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,96,1
+76ace6aa-0505-442c-978a-f889cf2d44bb,TCGA-BH-A0E9,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,96,1
+76ace6aa-0505-442c-978a-f889cf2d44bb,TCGA-BH-A0E9,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,96,1
+790ff5db-b7f3-4946-aaed-305f66b1dd6a,TCGA-BH-A0AV,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,146,1
+790ff5db-b7f3-4946-aaed-305f66b1dd6a,TCGA-BH-A0AV,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,146,1
+1133b8a9-6b11-4511-b70a-f200e3b8b5db,TCGA-GM-A2D9,TCGA-BRCA,capecitabine,progressive disease,0,nonresponder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,1362,1
+1133b8a9-6b11-4511-b70a-f200e3b8b5db,TCGA-GM-A2D9,TCGA-BRCA,tamoxifen,stable disease,0,nonresponder,Stage I,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,1266,1
+1133b8a9-6b11-4511-b70a-f200e3b8b5db,TCGA-GM-A2D9,TCGA-BRCA,gemcitabine,progressive disease,0,nonresponder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,1470,1
+1133b8a9-6b11-4511-b70a-f200e3b8b5db,TCGA-GM-A2D9,TCGA-BRCA,anastrozole,stable disease,0,nonresponder,Stage I,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,559,1
+7bcf6d42-eb8f-4aa2-825b-38671d4f9e3a,TCGA-BH-A0C3,TCGA-BRCA,cyclophosphamide,progressive disease,0,nonresponder,Stage I,Infiltrating duct and lobular carcinoma,Chemotherapy,,109,1
+7bcf6d42-eb8f-4aa2-825b-38671d4f9e3a,TCGA-BH-A0C3,TCGA-BRCA,doxorubicin hydrochloride,progressive disease,0,nonresponder,Stage I,Infiltrating duct and lobular carcinoma,Chemotherapy,,109,1
+7e8713bd-0b17-4f09-9696-bc29707d862b,TCGA-OL-A5RZ,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,239,1
+7e8713bd-0b17-4f09-9696-bc29707d862b,TCGA-OL-A5RZ,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,239,1
+035cb359-eac3-484a-9e88-3ddc739440a3,TCGA-BH-A0DX,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,79,1
+035cb359-eac3-484a-9e88-3ddc739440a3,TCGA-BH-A0DX,TCGA-BRCA,methotrexate,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,143,1
+035cb359-eac3-484a-9e88-3ddc739440a3,TCGA-BH-A0DX,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,143,1
+035cb359-eac3-484a-9e88-3ddc739440a3,TCGA-BH-A0DX,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,79,1
+03c143e0-d8a1-4d60-a4a3-df0501fc6b6e,TCGA-E9-A1N3,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,Infiltrating duct and lobular carcinoma,Chemotherapy,,15,1
+03c143e0-d8a1-4d60-a4a3-df0501fc6b6e,TCGA-E9-A1N3,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,Infiltrating duct and lobular carcinoma,Chemotherapy,,15,1
+03c143e0-d8a1-4d60-a4a3-df0501fc6b6e,TCGA-E9-A1N3,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,Infiltrating duct and lobular carcinoma,Chemotherapy,,15,1
+56bbd282-b88d-4730-9242-ab97d08dc83a,TCGA-GM-A2DN,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,251,1
+56bbd282-b88d-4730-9242-ab97d08dc83a,TCGA-GM-A2DN,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,335,1
+56bbd282-b88d-4730-9242-ab97d08dc83a,TCGA-GM-A2DN,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,251,1
+56bbd282-b88d-4730-9242-ab97d08dc83a,TCGA-GM-A2DN,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,251,1
+56bbd282-b88d-4730-9242-ab97d08dc83a,TCGA-GM-A2DN,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,167,1
+048549cf-d0a5-4743-a0a1-2004f7cc2b08,TCGA-AC-A3BB,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,92,1
+048549cf-d0a5-4743-a0a1-2004f7cc2b08,TCGA-AC-A3BB,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,92,1
+048549cf-d0a5-4743-a0a1-2004f7cc2b08,TCGA-AC-A3BB,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,92,1
+a82d0a57-4383-473d-b334-d13b278404b1,TCGA-OL-A5RW,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,69,1
+a82d0a57-4383-473d-b334-d13b278404b1,TCGA-OL-A5RW,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,69,1
+a82d0a57-4383-473d-b334-d13b278404b1,TCGA-OL-A5RW,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,69,1
+a8a33ba9-0976-4e19-b0e9-fa5ba4d4eaa8,TCGA-BH-A5IZ,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,77,1
+a8a33ba9-0976-4e19-b0e9-fa5ba4d4eaa8,TCGA-BH-A5IZ,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,161,1
+a8a33ba9-0976-4e19-b0e9-fa5ba4d4eaa8,TCGA-BH-A5IZ,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,77,1
+a8e7d8a4-bbf0-496b-b387-8e014cfdcea6,TCGA-A2-A3XU,TCGA-BRCA,anastrozole,progressive disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,596,1
+a8e7d8a4-bbf0-496b-b387-8e014cfdcea6,TCGA-A2-A3XU,TCGA-BRCA,capecitabine,progressive disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,657,1
+3e637872-f5e5-49d3-bb0d-9c16b8713382,TCGA-LL-A73Z,TCGA-BRCA,cyclophosphamide,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Chemotherapy,,18,1
+3e637872-f5e5-49d3-bb0d-9c16b8713382,TCGA-LL-A73Z,TCGA-BRCA,doxorubicin hydrochloride,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Chemotherapy,,18,1
+3e637872-f5e5-49d3-bb0d-9c16b8713382,TCGA-LL-A73Z,TCGA-BRCA,fulvestrant,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,123,1
+3e637872-f5e5-49d3-bb0d-9c16b8713382,TCGA-LL-A73Z,TCGA-BRCA,paclitaxel,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Chemotherapy,,74,1
+5e4187c9-98f8-4bdb-a8da-6a914e96f47a,TCGA-A8-A082,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,92,1
+5e4187c9-98f8-4bdb-a8da-6a914e96f47a,TCGA-A8-A082,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+5e4187c9-98f8-4bdb-a8da-6a914e96f47a,TCGA-A8-A082,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+5e4187c9-98f8-4bdb-a8da-6a914e96f47a,TCGA-A8-A082,TCGA-BRCA,exemestane,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,852,1
+5e4187c9-98f8-4bdb-a8da-6a914e96f47a,TCGA-A8-A082,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+5f5964a8-8e07-4620-98f0-93d162dbc31e,TCGA-A8-A08O,TCGA-BRCA,docetaxel,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+5f5964a8-8e07-4620-98f0-93d162dbc31e,TCGA-A8-A08O,TCGA-BRCA,bevacizumab,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,60,1
+5f5964a8-8e07-4620-98f0-93d162dbc31e,TCGA-A8-A08O,TCGA-BRCA,anastrozole,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,366,1
+5f5964a8-8e07-4620-98f0-93d162dbc31e,TCGA-A8-A08O,TCGA-BRCA,vinorelbine,progressive disease,0,nonresponder,Stage IV,"Infiltrating duct carcinoma, NOS",Chemotherapy,,790,1
+09a5e9fd-d816-4f8c-baa9-0e40ba607b16,TCGA-LL-A7SZ,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,132,1
+09a5e9fd-d816-4f8c-baa9-0e40ba607b16,TCGA-LL-A7SZ,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+09a5e9fd-d816-4f8c-baa9-0e40ba607b16,TCGA-LL-A7SZ,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+2d0d7ff4-7866-4ae1-9cf1-a3c7f4cbe48d,TCGA-E2-A1IE,TCGA-BRCA,fulvestrant,progressive disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,1928,1
+2d0d7ff4-7866-4ae1-9cf1-a3c7f4cbe48d,TCGA-E2-A1IE,TCGA-BRCA,letrozole,progressive disease,0,nonresponder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,1844,1
+cffe832c-8a81-4cdb-8b25-df7f35afafdc,TCGA-S3-AA0Z,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,84,1
+cffe832c-8a81-4cdb-8b25-df7f35afafdc,TCGA-S3-AA0Z,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,84,1
+cffe832c-8a81-4cdb-8b25-df7f35afafdc,TCGA-S3-AA0Z,TCGA-BRCA,pegfilgrastim,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,84,1
+e1119732-3e97-4259-bc69-dc4269d9496d,TCGA-BH-A0C7,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,50,1
+e1119732-3e97-4259-bc69-dc4269d9496d,TCGA-BH-A0C7,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,50,1
+e1119732-3e97-4259-bc69-dc4269d9496d,TCGA-BH-A0C7,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,50,1
+e1786e78-ac46-46fd-8ce0-8f7456e46082,TCGA-LL-A8F5,TCGA-BRCA,nab-paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,189,1
+23c31c2e-336c-4878-a476-cf8d811b4875,TCGA-S3-AA10,TCGA-BRCA,pegfilgrastim,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,75,1
+23c31c2e-336c-4878-a476-cf8d811b4875,TCGA-S3-AA10,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,75,1
+23c31c2e-336c-4878-a476-cf8d811b4875,TCGA-S3-AA10,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,75,1
+91da548b-5c64-49c3-a44a-1ef115f53311,TCGA-LL-A50Y,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIA,"Lobular carcinoma in situ, NOS",Hormone Therapy,,54,1
+929acc67-b8bf-4f65-9110-380e44ab66b7,TCGA-S3-AA14,TCGA-BRCA,pegfilgrastim,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,62,1
+929acc67-b8bf-4f65-9110-380e44ab66b7,TCGA-S3-AA14,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+929acc67-b8bf-4f65-9110-380e44ab66b7,TCGA-S3-AA14,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,62,1
+a32cb96a-78bf-456e-a6ab-2d47b2c67ad4,TCGA-BH-A0BT,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,97,1
+a32cb96a-78bf-456e-a6ab-2d47b2c67ad4,TCGA-BH-A0BT,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,97,1
+95873e61-afdb-496c-9f77-3f9beb008cda,TCGA-E9-A3X8,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,14,1
+95873e61-afdb-496c-9f77-3f9beb008cda,TCGA-E9-A3X8,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,14,1
+95873e61-afdb-496c-9f77-3f9beb008cda,TCGA-E9-A3X8,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,14,1
+35bd694d-1dd2-466f-ab27-03320614b40e,TCGA-OL-A66I,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,43,1
+35bd694d-1dd2-466f-ab27-03320614b40e,TCGA-OL-A66I,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,43,1
+35bd694d-1dd2-466f-ab27-03320614b40e,TCGA-OL-A66I,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,43,1
+36449392-de76-4ee9-bc09-627a07e18727,TCGA-A8-A09D,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+36449392-de76-4ee9-bc09-627a07e18727,TCGA-A8-A09D,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,92,1
+36449392-de76-4ee9-bc09-627a07e18727,TCGA-A8-A09D,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,274,1
+36449392-de76-4ee9-bc09-627a07e18727,TCGA-A8-A09D,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+0a017f15-1c6b-45e7-8d55-e0a71df1b2e8,TCGA-A8-A08F,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+0a017f15-1c6b-45e7-8d55-e0a71df1b2e8,TCGA-A8-A08F,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+0a017f15-1c6b-45e7-8d55-e0a71df1b2e8,TCGA-A8-A08F,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,92,1
+0a017f15-1c6b-45e7-8d55-e0a71df1b2e8,TCGA-A8-A08F,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+f39edd06-1016-4e8e-a42e-12f7e699ddc5,TCGA-A8-A091,TCGA-BRCA,pamidronate disodium,stable disease,0,nonresponder,Stage IIA,"Hodgkin lymphoma, NOS",Ancillary Treatment,,580,1
+f39edd06-1016-4e8e-a42e-12f7e699ddc5,TCGA-A8-A091,TCGA-BRCA,tamoxifen,stable disease,0,nonresponder,Stage IIA,"Hodgkin lymphoma, NOS",Hormone Therapy,,184,1
+b3354b72-2637-4edc-9a95-e55801d3ac13,TCGA-C8-A1HO,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,-49,1
+b3354b72-2637-4edc-9a95-e55801d3ac13,TCGA-C8-A1HO,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,-49,1
+b3354b72-2637-4edc-9a95-e55801d3ac13,TCGA-C8-A1HO,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,-49,1
+566792ae-f853-4a47-856d-f02cdcfcb18a,TCGA-A8-A07I,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,61,1
+566792ae-f853-4a47-856d-f02cdcfcb18a,TCGA-A8-A07I,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,183,1
+566792ae-f853-4a47-856d-f02cdcfcb18a,TCGA-A8-A07I,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,61,1
+566792ae-f853-4a47-856d-f02cdcfcb18a,TCGA-A8-A07I,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,61,1
+566792ae-f853-4a47-856d-f02cdcfcb18a,TCGA-A8-A07I,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,122,1
+5fd37868-4762-4109-9dcf-6fdbab5b645d,TCGA-GM-A2DO,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage 0,"Lobular carcinoma in situ, NOS",Hormone Therapy,,219,1
+67c5f371-3fa9-47c5-8b15-c2dd9acc8519,TCGA-AC-A2QH,TCGA-BRCA,palonosetron hydrochloride,complete response,1,responder,Stage IIB,"Metaplastic carcinoma, NOS",Ancillary Treatment,,94,1
+67c5f371-3fa9-47c5-8b15-c2dd9acc8519,TCGA-AC-A2QH,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Metaplastic carcinoma, NOS",Chemotherapy,,94,1
+67c5f371-3fa9-47c5-8b15-c2dd9acc8519,TCGA-AC-A2QH,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Metaplastic carcinoma, NOS",Chemotherapy,,94,1
+8cf8b620-7ab6-4b6e-84bc-ff5a83f381fa,TCGA-A8-A07G,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,59,1
+8cf8b620-7ab6-4b6e-84bc-ff5a83f381fa,TCGA-A8-A07G,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,59,1
+8cf8b620-7ab6-4b6e-84bc-ff5a83f381fa,TCGA-A8-A07G,TCGA-BRCA,methotrexate,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,59,1
+84b7ccf2-8ab3-4b21-96de-800d231bc072,TCGA-BH-A28O,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,338,1
+84b7ccf2-8ab3-4b21-96de-800d231bc072,TCGA-BH-A28O,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,338,1
+d5f2b85a-94a9-4168-bbe8-149ec71342b0,TCGA-AC-A62V,TCGA-BRCA,paclitaxel,partial response,1,responder,Stage IV,"Infiltrating duct carcinoma, NOS",Chemotherapy,,114,1
+d5f2b85a-94a9-4168-bbe8-149ec71342b0,TCGA-AC-A62V,TCGA-BRCA,denosumab,partial response,1,responder,Stage IV,"Infiltrating duct carcinoma, NOS",Ancillary Treatment,,21,1
+a947a945-4721-45cc-bc45-13b8ea41c10e,TCGA-A7-A4SB,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,61,1
+a947a945-4721-45cc-bc45-13b8ea41c10e,TCGA-A7-A4SB,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,61,1
+8631969d-4ac6-4fe1-9db3-d47db604494a,TCGA-E9-A1R2,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,36,1
+8631969d-4ac6-4fe1-9db3-d47db604494a,TCGA-E9-A1R2,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,36,1
+8631969d-4ac6-4fe1-9db3-d47db604494a,TCGA-E9-A1R2,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,36,1
+670f5022-5066-48f1-8472-5670129a1e0f,TCGA-A2-A0EP,TCGA-BRCA,anastrozole,complete response,1,responder,Stage I,"Lobular carcinoma, NOS",Hormone Therapy,,1959,1
+670f5022-5066-48f1-8472-5670129a1e0f,TCGA-A2-A0EP,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,"Lobular carcinoma, NOS",Chemotherapy,,92,1
+670f5022-5066-48f1-8472-5670129a1e0f,TCGA-A2-A0EP,TCGA-BRCA,anastrozole,complete response,1,responder,Stage I,"Lobular carcinoma, NOS",Hormone Therapy,,222,1
+670f5022-5066-48f1-8472-5670129a1e0f,TCGA-A2-A0EP,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Lobular carcinoma, NOS",Chemotherapy,,92,1
+670f5022-5066-48f1-8472-5670129a1e0f,TCGA-A2-A0EP,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage I,"Lobular carcinoma, NOS",Chemotherapy,,169,1
+6af6d256-a753-46d2-b611-e4094ff265aa,TCGA-LL-A9Q3,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Immunotherapy (Including Vaccines),,118,1
+f1692f4b-ce1b-4fc5-ac55-1022ecae0d1e,TCGA-C8-A134,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,38,1
+f1692f4b-ce1b-4fc5-ac55-1022ecae0d1e,TCGA-C8-A134,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,38,1
+f1692f4b-ce1b-4fc5-ac55-1022ecae0d1e,TCGA-C8-A134,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,38,1
+8e54232d-d8bb-4612-8b0e-4feb076a60f9,TCGA-A2-A0CO,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Hormone Therapy,,84,1
+2b22db1d-54a1-4b9e-a86e-a174cf51d95c,TCGA-BH-A0BS,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,44,1
+2b22db1d-54a1-4b9e-a86e-a174cf51d95c,TCGA-BH-A0BS,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,44,1
+06ef6e83-5583-45b9-a0bd-edea68943083,TCGA-E2-A572,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,147,1
+27ba717a-5cd8-440a-9345-4ae086f6efca,TCGA-BH-A0DI,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,131,1
+27ba717a-5cd8-440a-9345-4ae086f6efca,TCGA-BH-A0DI,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,131,1
+27ba717a-5cd8-440a-9345-4ae086f6efca,TCGA-BH-A0DI,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,215,1
+0dd8dbc1-c48b-4e7c-b401-57101f724967,TCGA-S3-AA11,TCGA-BRCA,exemestane,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,169,1
+0dd8dbc1-c48b-4e7c-b401-57101f724967,TCGA-S3-AA11,TCGA-BRCA,letrozole,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,53,1
+da9c10ea-c13f-4d88-8b94-a0cbc106d036,TCGA-BH-A0W5,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,22,1
+19015644-9c17-4ae7-a656-0fe8623c04ae,TCGA-AQ-A7U7,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,123,1
+19015644-9c17-4ae7-a656-0fe8623c04ae,TCGA-AQ-A7U7,TCGA-BRCA,prednisone,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Hormone Therapy,,123,1
+19015644-9c17-4ae7-a656-0fe8623c04ae,TCGA-AQ-A7U7,TCGA-BRCA,rituximab,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Immunotherapy (Including Vaccines),,123,1
+19015644-9c17-4ae7-a656-0fe8623c04ae,TCGA-AQ-A7U7,TCGA-BRCA,vincristine,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,123,1
+19015644-9c17-4ae7-a656-0fe8623c04ae,TCGA-AQ-A7U7,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,123,1
+39cda4c9-e1c8-44c2-bab7-f5849c12f879,TCGA-AC-A2FG,TCGA-BRCA,anastrozole,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Hormone Therapy,,39,1
+4cf0f639-7940-48b6-8ea1-2a3494097cdb,TCGA-A2-A0CR,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,105,1
+4cf0f639-7940-48b6-8ea1-2a3494097cdb,TCGA-A2-A0CR,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,140,1
+4cf0f639-7940-48b6-8ea1-2a3494097cdb,TCGA-A2-A0CR,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,105,1
+4cf0f639-7940-48b6-8ea1-2a3494097cdb,TCGA-A2-A0CR,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Hormone Therapy,,224,1
+d8d7a6c2-6427-4f47-968c-6c3affba4617,TCGA-A8-A08B,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,214,1
+d8d7a6c2-6427-4f47-968c-6c3affba4617,TCGA-A8-A08B,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+d8d7a6c2-6427-4f47-968c-6c3affba4617,TCGA-A8-A08B,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,214,1
+d8d7a6c2-6427-4f47-968c-6c3affba4617,TCGA-A8-A08B,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+d8d7a6c2-6427-4f47-968c-6c3affba4617,TCGA-A8-A08B,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,31,1
+3ca67cd0-81da-4f68-a9fa-f1a8c013c28d,TCGA-AC-A2FF,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,153,1
+3ca67cd0-81da-4f68-a9fa-f1a8c013c28d,TCGA-AC-A2FF,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,70,1
+3ca67cd0-81da-4f68-a9fa-f1a8c013c28d,TCGA-AC-A2FF,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,70,1
+3ca67cd0-81da-4f68-a9fa-f1a8c013c28d,TCGA-AC-A2FF,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Hormone Therapy,,382,1
+7e9c8d3c-790c-46ad-8f31-b557b7c26f69,TCGA-E9-A6HE,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,104,1
+7e9c8d3c-790c-46ad-8f31-b557b7c26f69,TCGA-E9-A6HE,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,104,1
+7e9c8d3c-790c-46ad-8f31-b557b7c26f69,TCGA-E9-A6HE,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIIC,"Lobular carcinoma, NOS",Chemotherapy,,104,1
+66af34ea-f471-4092-aff6-9ac9a5b75b11,TCGA-BH-A0B0,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,82,1
+66af34ea-f471-4092-aff6-9ac9a5b75b11,TCGA-BH-A0B0,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,82,1
+d6f7afc0-1558-43ad-acb1-2b5311ed2264,TCGA-GM-A2DF,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,82,1
+d6f7afc0-1558-43ad-acb1-2b5311ed2264,TCGA-GM-A2DF,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,166,1
+d6f7afc0-1558-43ad-acb1-2b5311ed2264,TCGA-GM-A2DF,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,166,1
+d6f7afc0-1558-43ad-acb1-2b5311ed2264,TCGA-GM-A2DF,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,166,1
+f5539207-6534-4edc-a5a5-7666b5d16ba4,TCGA-A8-A08X,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,91,1
+f5539207-6534-4edc-a5a5-7666b5d16ba4,TCGA-A8-A08X,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+f5539207-6534-4edc-a5a5-7666b5d16ba4,TCGA-A8-A08X,TCGA-BRCA,vinorelbine,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,669,1
+f5539207-6534-4edc-a5a5-7666b5d16ba4,TCGA-A8-A08X,TCGA-BRCA,trastuzumab,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Targeted Molecular Therapy,,182,1
+f5539207-6534-4edc-a5a5-7666b5d16ba4,TCGA-A8-A08X,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIIC,"Infiltrating duct carcinoma, NOS",Chemotherapy,,0,1
+f5d4c2d3-cc69-4b38-8551-0917e3622a68,TCGA-AC-A2FO,TCGA-BRCA,hormone therapy,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Hormone Therapy,,225,1
+57af5c72-0d60-4a6b-b1b4-ec6dab90f80f,TCGA-A7-A6VV,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,160,2
+57af5c72-0d60-4a6b-b1b4-ec6dab90f80f,TCGA-A7-A6VV,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,160,2
+5d688049-f271-40ef-813a-d37240ffe21c,TCGA-A8-A07F,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,,1
+5d688049-f271-40ef-813a-d37240ffe21c,TCGA-A8-A07F,TCGA-BRCA,epirubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,,1
+5d688049-f271-40ef-813a-d37240ffe21c,TCGA-A8-A07F,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,,1
+53886143-c1c6-40e9-88e6-e4e5e0271fc8,TCGA-A2-A3XX,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,80,1
+53886143-c1c6-40e9-88e6-e4e5e0271fc8,TCGA-A2-A3XX,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,80,1
+53886143-c1c6-40e9-88e6-e4e5e0271fc8,TCGA-A2-A3XX,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,143,1
+c02699b5-580a-4d55-971e-f4692b2cce57,TCGA-A2-A3XW,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,153,1
+c02699b5-580a-4d55-971e-f4692b2cce57,TCGA-A2-A3XW,TCGA-BRCA,doxorubicin hydrochloride,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,69,1
+c02699b5-580a-4d55-971e-f4692b2cce57,TCGA-A2-A3XW,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,69,1
+c72cb184-462d-4009-9cdb-848782ff8a76,TCGA-A2-A3XT,TCGA-BRCA,doxorubicin,partial response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,35,1
+c72cb184-462d-4009-9cdb-848782ff8a76,TCGA-A2-A3XT,TCGA-BRCA,docetaxel,partial response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,97,1
+c72cb184-462d-4009-9cdb-848782ff8a76,TCGA-A2-A3XT,TCGA-BRCA,cyclophosphamide,partial response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,35,1
+9f80649b-a249-4fb5-97ad-059a30e13fea,TCGA-BH-A0W7,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,168,1
+9f80649b-a249-4fb5-97ad-059a30e13fea,TCGA-BH-A0W7,TCGA-BRCA,docetaxel,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,76,1
+9f80649b-a249-4fb5-97ad-059a30e13fea,TCGA-BH-A0W7,TCGA-BRCA,anastrozole,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,1171,1
+9f80649b-a249-4fb5-97ad-059a30e13fea,TCGA-BH-A0W7,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage I,"Infiltrating duct carcinoma, NOS",Chemotherapy,,76,1
+d10a4887-373b-4726-a61d-126f950e4a06,TCGA-BH-A0C1,TCGA-BRCA,cyclophosphamide,progressive disease,0,nonresponder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,119,1
+d10a4887-373b-4726-a61d-126f950e4a06,TCGA-BH-A0C1,TCGA-BRCA,doxorubicin hydrochloride,progressive disease,0,nonresponder,Stage IIIA,"Lobular carcinoma, NOS",Chemotherapy,,119,1
+7eea2b6e-771f-44c0-9350-38f45c8dbe87,TCGA-A7-A6VX,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,79,2
+7eea2b6e-771f-44c0-9350-38f45c8dbe87,TCGA-A7-A6VX,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,79,2
+f3ba71f9-25f3-4784-bf2d-3aa522a0cba8,TCGA-A8-A06R,TCGA-BRCA,tamoxifen,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Hormone Therapy,,243,1
+f3ba71f9-25f3-4784-bf2d-3aa522a0cba8,TCGA-A8-A06R,TCGA-BRCA,fluorouracil,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,59,1
+f3ba71f9-25f3-4784-bf2d-3aa522a0cba8,TCGA-A8-A06R,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,59,1
+f3ba71f9-25f3-4784-bf2d-3aa522a0cba8,TCGA-A8-A06R,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Infiltrating duct carcinoma, NOS",Chemotherapy,,59,1
+1a679332-30a3-4495-a2e5-39d299e14333,TCGA-S3-A6ZG,TCGA-BRCA,paclitaxel,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Hormone Therapy,,116,1
+1a679332-30a3-4495-a2e5-39d299e14333,TCGA-S3-A6ZG,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,52,1
+1a679332-30a3-4495-a2e5-39d299e14333,TCGA-S3-A6ZG,TCGA-BRCA,doxorubicin,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Chemotherapy,,52,1
+1a679332-30a3-4495-a2e5-39d299e14333,TCGA-S3-A6ZG,TCGA-BRCA,pegfilgrastim,complete response,1,responder,Stage IIB,"Lobular carcinoma, NOS",Ancillary Treatment,,52,1
+dd3bfb26-b534-4917-9c4d-9fe7b6477762,TCGA-E9-A1RI,TCGA-BRCA,leuprolide,complete response,1,responder,Stage IIIA,Infiltrating duct and lobular carcinoma,Hormone Therapy,,418,1
+c8f39325-5382-447c-9291-a6915fc978b8,TCGA-OL-A5D7,TCGA-BRCA,docetaxel,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,41,1
+c8f39325-5382-447c-9291-a6915fc978b8,TCGA-OL-A5D7,TCGA-BRCA,cyclophosphamide,complete response,1,responder,Stage IIA,"Infiltrating duct carcinoma, NOS",Chemotherapy,,41,1

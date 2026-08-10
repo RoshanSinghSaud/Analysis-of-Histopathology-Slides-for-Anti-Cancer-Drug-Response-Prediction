@@ -1,0 +1,104 @@
+{
+  "generated_utc": "2026-08-10T10:21:55Z",
+  "projects": [
+    "TCGA-BRCA"
+  ],
+  "slide_policy": "all diagnostic slides per patient, pooled into one MIL bag",
+  "include_mixed": false,
+  "patients": 199,
+  "patients_mixed_excluded": 6,
+  "responders": 177,
+  "nonresponders": 22,
+  "drug_outcome_pairs": 561,
+  "distinct_drugs": 36,
+  "slides": 206,
+  "total_bytes": 186537079672,
+  "total_gb": 173.7,
+  "slides_per_patient": {
+    "1": 193,
+    "2": 5,
+    "3": 1
+  },
+  "top_drugs": [
+    [
+      "cyclophosphamide",
+      154
+    ],
+    [
+      "docetaxel",
+      68
+    ],
+    [
+      "paclitaxel",
+      57
+    ],
+    [
+      "doxorubicin hydrochloride",
+      53
+    ],
+    [
+      "fluorouracil",
+      49
+    ],
+    [
+      "doxorubicin",
+      38
+    ],
+    [
+      "epirubicin",
+      24
+    ],
+    [
+      "tamoxifen",
+      19
+    ],
+    [
+      "anastrozole",
+      19
+    ],
+    [
+      "trastuzumab",
+      16
+    ],
+    [
+      "carboplatin",
+      8
+    ],
+    [
+      "pegfilgrastim",
+      7
+    ],
+    [
+      "methotrexate",
+      6
+    ],
+    [
+      "letrozole",
+      6
+    ],
+    [
+      "capecitabine",
+      4
+    ],
+    [
+      "pamidronate disodium",
+      3
+    ],
+    [
+      "fulvestrant",
+      3
+    ],
+    [
+      "nab-paclitaxel",
+      3
+    ],
+    [
+      "bevacizumab",
+      3
+    ],
+    [
+      "clinical trial agent",
+      2
+    ]
+  ]
+}

@@ -38,6 +38,8 @@ Run:  python check_drug_outcome_labels.py
 Writes: drug_outcome_audit.json  +  drug_outcome_audit.md  next to this file.
 """
 
+import argparse
+import csv
 import json
 import time
 import urllib.error
@@ -111,6 +113,7 @@ CASE_FIELDS = ",".join([
     "diagnoses.days_to_last_follow_up",
     "diagnoses.progression_or_recurrence",
     "diagnoses.primary_diagnosis",
+    "diagnoses.ajcc_pathologic_stage",
     "diagnoses.treatments.therapeutic_agents",
     "diagnoses.treatments.treatment_type",
     "diagnoses.treatments.treatment_or_therapy",
@@ -191,6 +194,27 @@ def as_list(x):
     return x if isinstance(x, list) else [x]
 
 
+def strict_pairs(rec):
+    """Drug-outcome pairs where BOTH sit on the SAME treatment record.
+
+    This is the rule the whole cohort definition rests on. Case-level
+    pairing (any drug on the case x any outcome on the case) gives 1759
+    patients instead of 1565 and is not defensible in a paper. Module-level
+    so the audit and the cohort export cannot drift apart.
+    """
+    return [d for d in rec["drug_records"]
+            if d["outcome"] and str(d["outcome"]).strip().lower() in RECIST_VALID]
+
+
+def patient_label(pairs):
+    """responder / nonresponder / mixed from a patient's strict pairs."""
+    s = {str(d["outcome"]).strip().lower() for d in pairs}
+    hit, miss = bool(s & RECIST_RESPONDER), bool(s & RECIST_NONRESPONDER)
+    if hit and miss:
+        return "mixed"
+    return "responder" if hit else ("nonresponder" if miss else None)
+
+
 def extract(case):
     """Return a flat record of what this case can and cannot supply."""
     rec = {
@@ -206,6 +230,19 @@ def extract(case):
     }
 
     diagnoses = as_list(case.get("diagnoses"))
+
+    # --- tissue context ----------------------------------------------------
+    # Both the with-SMILES and without-SMILES models receive stage + cancer
+    # type, so DeltaAUROC measures what molecular structure adds ON TOP OF
+    # tumour context. That is what defuses confounding-by-indication.
+    # NOTE: ER/PR/HER2 are NOT in the harmonized API - they live in the BCR
+    # clinical XMLs and are parsed by check_pcr_labels.py. Join them later.
+    stages = [dx.get("ajcc_pathologic_stage") for dx in diagnoses]
+    stages = [str(v).strip() for v in stages if not is_null(v)]
+    rec["stage"] = stages[0] if stages else None
+    pdx = [dx.get("primary_diagnosis") for dx in diagnoses]
+    pdx = [str(v).strip() for v in pdx if not is_null(v)]
+    rec["primary_diagnosis"] = pdx[0] if pdx else None
 
     # --- drugs -------------------------------------------------------------
     for dx in diagnoses:
@@ -258,10 +295,233 @@ def extract(case):
     return rec
 
 
+
+# ---------------------------------------------------------------------------
+# 3b. Cohort export - turn the audited cohort into an actual download list
+# ---------------------------------------------------------------------------
+# WHY THIS EXISTS
+# ---------------
+# The audit above computes the exact case set the paper reports, then throws
+# the IDs away and keeps only counts. That left the download to be rebuilt by
+# hand in the GDC portal, which CANNOT reproduce it:
+#
+#   * the portal cannot express STRICT pairing (drug and outcome on the same
+#     treatments record) - it silently gives you the looser case-level cohort;
+#   * the portal cannot express the mixed/contradictory-record exclusion;
+#   * ticking drug names in the therapeutic-agents facet drops salt and brand
+#     variants ("doxorubicin hydrochloride", "leucovorin calcium", ...) that
+#     normalize_drugs_to_smiles.py would otherwise recover - every miss is a
+#     patient deleted from the study with no error message.
+#
+# So the manifest is generated from the SAME records, by the SAME rule, in the
+# SAME run. Cohort-on-disk == cohort-in-paper by construction, reproducible
+# from a git hash rather than from remembered UI clicks.
+
+MANIFEST_COLUMNS = ["id", "filename", "md5", "size", "state"]
+
+
+def fetch_dx_slide_files(case_ids, batch=200):
+    """Every Diagnostic Slide .svs file owned by the given case_ids.
+
+    One dict per FILE, not per patient - a patient may own several slides and
+    we keep all of them (see export_cohort for why).
+    """
+    out, ids = [], sorted(case_ids)
+    seen = set()
+    for i in range(0, len(ids), batch):
+        chunk, frm = ids[i:i + batch], 0
+        while True:
+            filters = {"op": "and", "content": [
+                {"op": "in", "content": {"field": "data_format", "value": ["SVS"]}},
+                {"op": "in", "content": {"field": "experimental_strategy",
+                                         "value": ["Diagnostic Slide"]}},
+                {"op": "in", "content": {"field": "cases.case_id", "value": chunk}},
+            ]}
+            payload = {"filters": filters,
+                       "fields": ("file_id,file_name,md5sum,file_size,state,"
+                                  "cases.case_id,cases.submitter_id,"
+                                  "cases.project.project_id"),
+                       "size": 1000, "from": frm, "format": "JSON"}
+            d = post("files", payload)["data"]
+            for h in d["hits"]:
+                for c in h.get("cases", []) or []:
+                    cid = c.get("case_id")
+                    if cid not in set(chunk):
+                        continue          # file shared with an out-of-chunk case
+                    key = (h.get("file_id"), cid)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    out.append({
+                        "file_id": h.get("file_id"),
+                        "file_name": h.get("file_name"),
+                        "md5sum": h.get("md5sum"),
+                        "file_size": h.get("file_size"),
+                        "state": h.get("state"),
+                        "case_id": cid,
+                        "submitter_id": c.get("submitter_id"),
+                        "project": ((c.get("project") or {}).get("project_id")),
+                    })
+            total = d["pagination"]["total"]
+            frm += 1000
+            if frm >= total:
+                break
+        print(f"  slide files: {min(i + batch, len(ids))}/{len(ids)} cases "
+              f"-> {len(out)} files")
+    return out
+
+
+def export_cohort(recs, dx_slides, projects, include_mixed=False, tag=None):
+    """Write cohort table + GDC manifest for the given TCGA projects.
+
+    SLIDE POLICY: every diagnostic slide belonging to a cohort patient is
+    downloaded, and the MIL bag is the union of that patient's tiles. The unit
+    of analysis is the PATIENT, not the slide, so the bag should be all of
+    their tissue. Taking "the best slide" would need an arbitrary selection
+    rule that a reviewer will ask you to justify.
+
+    Writes, for tag T:
+      cohort_T.csv           one row per (patient, drug, outcome) - MODEL INPUT
+      cohort_slides_T.csv    one row per .svs file, joined to its patient
+      gdc_manifest_T.txt     feed straight to: ./gdc-client download -m <this>
+      cohort_T_summary.json  counts, for the paper's flow diagram
+    """
+    projects = {p.upper() for p in projects}
+    if tag is None:
+        short = sorted(p.replace("TCGA-", "").lower() for p in projects)
+        tag = "_".join(short) if len(short) <= 4 else f"{len(short)}projects"
+
+    cohort = [r for r in recs
+              if r["project"] in projects
+              and r["drugs"]
+              and r["case_id"] in dx_slides
+              and strict_pairs(r)]
+
+    kept, dropped_mixed = [], 0
+    for r in cohort:
+        lab = patient_label(strict_pairs(r))
+        if lab == "mixed" and not include_mixed:
+            dropped_mixed += 1
+            continue
+        if lab is None:
+            continue
+        r["_label"] = lab
+        kept.append(r)
+
+    print(f"\n  cohort for {sorted(projects)}: {len(kept)} patients "
+          f"({dropped_mixed} mixed excluded)")
+
+    print("  fetching slide files for those patients ...")
+    files = fetch_dx_slide_files({r["case_id"] for r in kept})
+    by_case = defaultdict(list)
+    for f in files:
+        by_case[f["case_id"]].append(f)
+
+    no_slide = [r for r in kept if not by_case[r["case_id"]]]
+    if no_slide:
+        # Should be empty: membership already required a diagnostic slide. If
+        # it is not, the audit and the files endpoint disagree - investigate
+        # before downloading anything.
+        print(f"  !! {len(no_slide)} cohort patients returned no slide file")
+
+    # ---- cohort table: one row per (patient, drug, outcome) pair ----------
+    rows = []
+    for r in kept:
+        n_sl = len(by_case[r["case_id"]])
+        for d in strict_pairs(r):
+            oc = str(d["outcome"]).strip().lower()
+            rows.append({
+                "case_id": r["case_id"],
+                "submitter_id": r["submitter_id"],
+                "project": r["project"],
+                "drug": d["drug"],
+                "treatment_outcome": oc,
+                "response_binary": 1 if oc in RECIST_RESPONDER else 0,
+                "patient_label": r["_label"],
+                "stage": r["stage"] or "",
+                "primary_diagnosis": r["primary_diagnosis"] or "",
+                "treatment_type": d["treatment_type"] or "",
+                "treatment_intent": d["intent"] or "",
+                "days_to_treatment_start": d["days_to_start"]
+                                           if d["days_to_start"] is not None else "",
+                "n_diagnostic_slides": n_sl,
+            })
+
+    def write_csv(path, fieldnames, data):
+        with open(path, "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=fieldnames)
+            w.writeheader()
+            w.writerows(data)
+
+    write_csv(OUT_DIR / f"cohort_{tag}.csv", list(rows[0].keys()) if rows else [], rows)
+
+    slide_rows = [{"file_id": f["file_id"], "file_name": f["file_name"],
+                   "md5sum": f["md5sum"], "file_size": f["file_size"],
+                   "state": f["state"], "case_id": f["case_id"],
+                   "submitter_id": f["submitter_id"], "project": f["project"]}
+                  for r in kept for f in by_case[r["case_id"]]]
+    write_csv(OUT_DIR / f"cohort_slides_{tag}.csv",
+              list(slide_rows[0].keys()) if slide_rows else [], slide_rows)
+
+    # ---- GDC manifest (native format: tab separated, this exact header) ----
+    man = OUT_DIR / f"gdc_manifest_{tag}.txt"
+    uniq, seen_fid = [], set()
+    for f in slide_rows:
+        if f["file_id"] in seen_fid:
+            continue
+        seen_fid.add(f["file_id"])
+        uniq.append(f)
+    with open(man, "w", newline="") as fh:
+        fh.write("\t".join(MANIFEST_COLUMNS) + "\n")
+        for f in uniq:
+            fh.write("\t".join([str(f["file_id"]), str(f["file_name"]),
+                                str(f["md5sum"]), str(f["file_size"]),
+                                str(f["state"])]) + "\n")
+
+    total_bytes = sum(int(f["file_size"] or 0) for f in uniq)
+    per_patient = Counter(len(by_case[r["case_id"]]) for r in kept)
+    lab_counts = Counter(r["_label"] for r in kept)
+    drug_counts = Counter(row["drug"] for row in rows)
+
+    summary = {
+        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "projects": sorted(projects),
+        "slide_policy": "all diagnostic slides per patient, pooled into one MIL bag",
+        "include_mixed": include_mixed,
+        "patients": len(kept),
+        "patients_mixed_excluded": dropped_mixed,
+        "responders": lab_counts.get("responder", 0),
+        "nonresponders": lab_counts.get("nonresponder", 0),
+        "drug_outcome_pairs": len(rows),
+        "distinct_drugs": len(drug_counts),
+        "slides": len(uniq),
+        "total_bytes": total_bytes,
+        "total_gb": round(total_bytes / 1024 ** 3, 1),
+        "slides_per_patient": dict(sorted(per_patient.items())),
+        "top_drugs": drug_counts.most_common(20),
+    }
+    (OUT_DIR / f"cohort_{tag}_summary.json").write_text(json.dumps(summary, indent=2))
+
+    print(f"\n  {'-' * 58}")
+    print(f"  patients            : {summary['patients']} "
+          f"({summary['responders']} resp / {summary['nonresponders']} nonresp)")
+    print(f"  drug-outcome pairs  : {summary['drug_outcome_pairs']}")
+    print(f"  distinct drugs      : {summary['distinct_drugs']}")
+    print(f"  diagnostic slides   : {summary['slides']}")
+    print(f"  download size       : {summary['total_gb']} GB")
+    print(f"  slides per patient  : {summary['slides_per_patient']}")
+    print(f"  {'-' * 58}")
+    for name in (f"cohort_{tag}.csv", f"cohort_slides_{tag}.csv",
+                 f"gdc_manifest_{tag}.txt", f"cohort_{tag}_summary.json"):
+        print(f"  wrote {OUT_DIR / name}")
+    print(f"\n  next: ./gdc-client download -m {man} -d data/wsi --retry-amount 3\n")
+    return summary
+
+
 # ---------------------------------------------------------------------------
 # 4. Report
 # ---------------------------------------------------------------------------
-def main():
+def main(export_projects=None, include_mixed=False, tag=None):
     scope = PROGRAM or "ALL GDC PROGRAMS"
     print(f"\nAuditing {scope} via the GDC API\n" + "=" * 64)
 
@@ -296,10 +556,6 @@ def main():
     # any outcome on the case, which is not defensible in a paper. GDC's own
     # portal filters use the strict (nested) semantics; we match that and
     # report both so the gap is visible instead of hidden.
-    def strict_pairs(r):
-        return [d for d in r["drug_records"]
-                if d["outcome"] and str(d["outcome"]).strip().lower() in RECIST_VALID]
-
     usable_tro_strict = [r for r in usable_tro if strict_pairs(r)]
 
     drug_counter = Counter()
@@ -318,14 +574,12 @@ def main():
     for r in usable_tro_strict:
         pairs = strict_pairs(r)
         n_pairs += len(pairs)
-        s = {str(d["outcome"]).strip().lower() for d in pairs}
-        hit = bool(s & RECIST_RESPONDER)
-        miss = bool(s & RECIST_NONRESPONDER)
-        if hit and miss:
+        lab = patient_label(pairs)
+        if lab == "mixed":
             mixed += 1
-        elif hit:
+        elif lab == "responder":
             resp += 1
-        elif miss:
+        elif lab == "nonresponder":
             nonresp += 1
         for d in pairs:
             tro_drug_counter[d["drug"]] += 1
@@ -471,6 +725,41 @@ def main():
     print(f"\nWrote {OUT_DIR/'drug_outcome_audit.md'}")
     print(f"Wrote {OUT_DIR/'drug_outcome_audit.json'}")
 
+    if export_projects:
+        print("\n" + "=" * 64)
+        print("COHORT EXPORT")
+        print("=" * 64)
+        export_cohort(recs, dx_slides, export_projects,
+                      include_mixed=include_mixed, tag=tag)
+
+
+# The 10 projects of Arm A (the powered arm). Stage 1 of the download plan is
+# BRCA alone; stages 2 and 3 add the rest. See analysis_plan_preregistration.md.
+ARM_A = ["TCGA-BRCA", "TCGA-LGG", "TCGA-STAD", "TCGA-TGCT", "TCGA-BLCA",
+         "TCGA-SKCM", "TCGA-LUAD", "TCGA-CESC", "TCGA-COAD", "TCGA-PAAD"]
+
 
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--export-cohort", nargs="*", metavar="PROJECT",
+                    help="Also write cohort CSV + GDC manifest for these projects "
+                         "(e.g. --export-cohort TCGA-BRCA). Pass with no values "
+                         "to use all 10 Arm A projects.")
+    ap.add_argument("--arm-a", action="store_true",
+                    help="Shorthand for --export-cohort with all 10 Arm A projects.")
+    ap.add_argument("--include-mixed", action="store_true",
+                    help="Keep patients whose treatment records give both a "
+                         "responder and a non-responder outcome. Default is to "
+                         "exclude them, matching the audit.")
+    ap.add_argument("--tag", help="Filename suffix for the exported files. "
+                                  "Defaults to the project short names.")
+    a = ap.parse_args()
+
+    projects = None
+    if a.arm_a:
+        projects = ARM_A
+    elif a.export_cohort is not None:
+        projects = a.export_cohort or ARM_A
+
+    main(export_projects=projects, include_mixed=a.include_mixed, tag=a.tag)
