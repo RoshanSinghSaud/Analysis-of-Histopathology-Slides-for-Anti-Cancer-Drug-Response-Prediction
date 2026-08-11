@@ -34,8 +34,9 @@ Outcome definitions used (all reported separately, none silently merged):
        drug-attributable label. Expect it to be sparse; that is the point of
        measuring it.
 
-Run:  python check_drug_outcome_labels.py
-Writes: drug_outcome_audit.json  +  drug_outcome_audit.md  next to this file.
+Run:  python scripts/check_drug_outcome_labels.py
+Writes: drug_outcome_audit.json + drug_outcome_audit.md into cohort/ ,
+        alongside the cohort CSVs and GDC manifests it exports.
 """
 
 import argparse
