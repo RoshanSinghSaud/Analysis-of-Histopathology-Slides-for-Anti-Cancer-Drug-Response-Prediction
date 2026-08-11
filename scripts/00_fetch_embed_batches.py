@@ -138,7 +138,7 @@ def hms(seconds: float) -> str:
 # steps
 # ---------------------------------------------------------------------------
 
-def download_batch(batch: list[dict], batch_no: int, quiet: bool) -> None:
+def download_batch(batch: list[dict], batch_no: int, quiet: bool) -> float:
     """Write a sub-manifest and hand it to gdc-client."""
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     sub = RAW_DIR / f"_batch_{batch_no:03d}_manifest.txt"
@@ -150,7 +150,9 @@ def download_batch(batch: list[dict], batch_no: int, quiet: bool) -> None:
         cmd.append("--log-file")
         cmd.append(str(RAW_DIR / f"_batch_{batch_no:03d}.log"))
     print(f"    $ {' '.join(cmd)}")
+    t0 = time.time()
     subprocess.run(cmd, check=True)
+    return time.time() - t0
 
 
 def collect_and_verify(batch: list[dict], state: dict) -> list[dict]:
@@ -192,11 +194,13 @@ def collect_and_verify(batch: list[dict], state: dict) -> list[dict]:
     return ready
 
 
-def run_embedding() -> None:
+def run_embedding() -> float:
     """Run step 01 over whatever is currently in data/wsi. Resume-safe."""
     cmd = [sys.executable, str(EMBED_SCRIPT)]
     print(f"    $ {' '.join(cmd)}")
+    t0 = time.time()
     subprocess.run(cmd, check=True, cwd=str(BASE_DIR))
+    return time.time() - t0
 
 
 def feature_ok(slide_stem: str, fmanifest: dict) -> tuple[bool, str]:
@@ -330,6 +334,8 @@ def main() -> None:
     embedded_before = len(state["embedded"])
     freed_total = 0.0
     timed_slides = 0          # slides that actually went through step 01 this run
+    dl_total = md5_total = embed_total = 0.0
+    dl_bytes = 0
 
     for i, batch in enumerate(batches, 1):
         gb = sum(r["size"] for r in batch) / GB
@@ -337,16 +343,18 @@ def main() -> None:
         t0 = time.time()
 
         print("  [1/4] download")
-        download_batch(batch, i, args.quiet_gdc)
+        t_dl = download_batch(batch, i, args.quiet_gdc)
 
         print("  [2/4] verify md5 + move into data/wsi")
+        t1 = time.time()
         ready = collect_and_verify(batch, state)
+        t_md5 = time.time() - t1
         if not ready:
             print("    nothing verified in this batch — stopping so you can look")
             break
 
         print(f"  [3/4] embed {len(ready)} slides (step 01)")
-        run_embedding()
+        t_embed = run_embedding()
 
         print("  [4/4] verify features, then delete raw slides")
         n, freed = delete_consumed(ready, state, args.keep_svs)
@@ -354,12 +362,24 @@ def main() -> None:
         timed_slides += len(ready)
 
         dt = time.time() - t0
-        per = dt / max(len(ready), 1)
+        n_ready = max(len(ready), 1)
+        per = dt / n_ready
+        dl_total += t_dl
+        md5_total += t_md5
+        embed_total += t_embed
+        dl_bytes += sum(r["size"] for r in ready)
+
+        mbps = (sum(r["size"] for r in ready) * 8 / 1e6 / t_dl) if t_dl > 0 else 0
+        print(f"\n  batch {i} timings")
+        print(f"    download : {hms(t_dl):>8}  ({t_dl / n_ready:6.0f}s/slide, "
+              f"{mbps:5.1f} Mbps effective)")
+        print(f"    md5      : {hms(t_md5):>8}  ({t_md5 / n_ready:6.0f}s/slide)")
+        print(f"    embed    : {hms(t_embed):>8}  ({t_embed / n_ready:6.0f}s/slide)")
+        print(f"    total    : {hms(dt):>8}  ({per:6.0f}s/slide)   freed {human(freed)}")
+
         remaining = sum(len(b) for b in batches[i:])
-        print(f"\n  batch {i} done in {hms(dt)}  ({per:.0f}s/slide)  "
-              f"freed {human(freed)}")
         if remaining:
-            print(f"  {remaining} slides left → ETA {hms(per * remaining)}")
+            print(f"  {remaining} slides left in this run → ETA {hms(per * remaining)}")
 
     total = time.time() - t_start
     newly_embedded = len(state["embedded"]) - embedded_before
@@ -375,6 +395,33 @@ def main() -> None:
               f"{', '.join(state['md5_failures'][:5])}")
         print("    Those slides were NOT embedded and NOT deleted. Re-run to retry.")
     print(f"  state                    → {STATE_PATH}")
+
+    # ── Extrapolation to the whole manifest ───────────────────────────────
+    # This is the number worth having before committing days to a cohort:
+    # measured seconds per slide, projected across everything still to do.
+    if timed_slides:
+        dl_per    = dl_total / timed_slides
+        md5_per   = md5_total / timed_slides
+        embed_per = embed_total / timed_slides
+        left      = len(rows) - len(state["embedded"])
+        eff_mbps  = dl_bytes * 8 / 1e6 / dl_total if dl_total > 0 else 0
+
+        print("-" * 70)
+        print(f"  MEASURED per slide: download {dl_per:.0f}s  md5 {md5_per:.0f}s  "
+              f"embed {embed_per:.0f}s")
+        print(f"  Effective download throughput: {eff_mbps:.1f} Mbps")
+        if left > 0:
+            print(f"\n  PROJECTED for the {left} slides still to embed:")
+            print(f"    download : {hms(dl_per * left)}")
+            print(f"    embed    : {hms(embed_per * left)}")
+            print(f"    sequential total (this driver): "
+                  f"{hms((dl_per + md5_per + embed_per) * left)}")
+            print(f"    if download and embed were overlapped: "
+                  f"~{hms(max(dl_per, embed_per) * left)}")
+        print("\n  Caveats: a fanless chassis throttles on multi-hour runs, so the")
+        print("  embed figure from a short run is optimistic — expect 20-40% more.")
+        print("  Raising MAX_TILES_PER_SLIDE scales the embed figure roughly linearly;")
+        print("  the download figure does not change at all.")
     print("=" * 70)
     if len(state["embedded"]) >= len(rows):
         print("Cohort fully embedded. Next → python scripts/03_abmil_aggregation.py")
