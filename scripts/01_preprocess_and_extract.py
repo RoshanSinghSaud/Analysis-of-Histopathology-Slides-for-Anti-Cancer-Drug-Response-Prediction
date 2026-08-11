@@ -33,26 +33,25 @@ SAFEGUARDS for 200+ cases
    at 151. Outputs are written atomically (temp file -> os.replace).
 2. TILE CAP : MAX_TILES_PER_SLIDE caps tiles/slide (seeded random sample) so a
    huge slide cannot blow up memory or runtime.
-3. XML VERIFY : every slide is matched to its clinical XML by TCGA patient
-   barcode; match status is recorded per slide and a summary of UNLABELLED /
-   UNMATCHED slides is printed at the end.
+3. COHORT CHECK : every slide is matched to a patient in the cohort CSV by
+   TCGA barcode. Labels come from that CSV and are never re-derived here --
+   see scripts/cohort_labels.py for why. Slides outside the cohort are skipped
+   rather than embedded, and a summary is printed at the end.
 
 Run:
     conda activate histopath
     huggingface-cli login        # one time, needs UNI access granted
     pip install timm huggingface_hub openslide-python scikit-image tqdm
-    python 01_preprocess_and_extract.py
+    python scripts/01_preprocess_and_extract.py
 =============================================================================
 """
 
 import os
-import re
 import json
 import time
 import random
 import logging
 import argparse
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import numpy as np
@@ -68,9 +67,13 @@ import torch
 
 BASE_DIR   = Path(__file__).resolve().parents[1]
 SVS_DIR    = BASE_DIR / "data" / "wsi"
-XML_DIR    = BASE_DIR / "data" / "clinical"
 OUTPUT_DIR = BASE_DIR / "output"
 FEAT_DIR   = OUTPUT_DIR / "features"
+
+# --- Labels ---
+# Which cohort arm to label against. None = auto-detect a single cohort_*.csv
+# in cohort/, and refuse to guess when there are several.
+COHORT_TAG = None
 
 # --- Tiling ---
 TILE_SIZE   = 256     # tile size in pixels at the processing level
@@ -82,7 +85,7 @@ MASK_DOWNSAMPLE = 32  # build the fast tissue mask at ~this downsample factor
 MAX_TILES_PER_SLIDE = 1000   # hard cap; seeded random sample if exceeded
 SEED                = 42     # makes the tile sampling reproducible
 SKIP_EXISTING       = True   # resume: skip slides already extracted
-SKIP_UNLABELED      = False  # True = don't extract slides with no matched XML
+SKIP_NOT_IN_COHORT  = True   # don't spend GPU time on slides outside the cohort
 
 # --- Stain normalization (OFF by default: UNI is fairly stain-robust and this
 #     is the biggest per-tile cost). Flip to True if a reviewer wants it. ---
@@ -109,71 +112,18 @@ np.random.seed(SEED)
 
 
 # =============================================================================
-# 1. XML LABELS
+# 1. COHORT LABELS  (read, never re-derived -- see scripts/cohort_labels.py)
 # =============================================================================
+#
+# This script used to walk each patient's clinical XML and keep the LAST
+# drug_name and the LAST measure_of_response tag it happened to encounter, with
+# no pairing between the two. That silently produced a different label than the
+# study is pre-registered on. Labels now come from the audit script's cohort
+# CSV, which carries the strict drug<->outcome pairing, the mixed-outcome
+# exclusions and the RECIST-only rules.
 
-BARCODE_RE = re.compile(r"TCGA-\w\w-\w{4}", re.IGNORECASE)
-
-
-def _strip_ns(tag: str) -> str:
-    return tag.split("}")[-1] if "}" in tag else tag
-
-
-def parse_xml_label(xml_path: Path) -> dict:
-    """Extract patient barcode, drug name, drug response from a GDC clinical XML."""
-    tree = ET.parse(xml_path)
-    root = tree.getroot()
-
-    info = {"xml_file": xml_path.name, "patient_id": None,
-            "drug_name": None, "drug_response": None}
-
-    for elem in root.iter():
-        tag = _strip_ns(elem.tag).lower()
-        text = (elem.text or "").strip()
-        if not text:
-            continue
-        if "bcr_patient_barcode" in tag or "patient_barcode" in tag:
-            info["patient_id"] = text
-        elif "drug_name" in tag or tag == "medication":
-            info["drug_name"] = text
-        elif ("measure_of_response" in tag or "treatment_best_response" in tag
-              or "drug_response" in tag):
-            info["drug_response"] = text
-
-    # Fall back to barcode parsed from the filename if not found in body
-    if not info["patient_id"]:
-        m = BARCODE_RE.search(xml_path.stem)
-        if m:
-            info["patient_id"] = m.group(0).upper()
-    return info
-
-
-def load_all_labels(xml_dir: Path) -> dict:
-    """Return {patient_barcode -> label dict}."""
-    labels = {}
-    xml_files = sorted(xml_dir.glob("*.xml"))
-    log.info(f"[XML] Found {len(xml_files)} XML files")
-    for xf in xml_files:
-        lbl = parse_xml_label(xf)
-        bc = lbl.get("patient_id")
-        if bc:
-            labels[bc.upper()] = lbl
-        else:
-            log.warning(f"[XML] No patient barcode found in {xf.name}")
-    return labels
-
-
-def match_label(slide_stem: str, labels: dict) -> tuple[dict, str]:
-    """
-    Match a slide to a clinical label by TCGA patient barcode.
-    Returns (label_dict, match_status) where status is 'matched' | 'unmatched'.
-    """
-    m = BARCODE_RE.search(slide_stem)
-    if m:
-        bc = m.group(0).upper()
-        if bc in labels:
-            return labels[bc], "matched"
-    return {}, "unmatched"
+from cohort_labels import (BARCODE_RE, CohortError, compact, find_cohort_csv,  # noqa: E402
+                           label_for_slide, load_cohort, summarise)
 
 
 # =============================================================================
@@ -378,8 +328,10 @@ def main():
         done = sum(1 for v in manifest.values() if v.get("status") == "done")
         log.info(f"[RESUME] Existing manifest found — {done} slides already done")
 
-    # ── Labels ────────────────────────────────────────────────────────────
-    labels = load_all_labels(XML_DIR)
+    # ── Labels: read from the cohort CSV, never re-derived ────────────────
+    cohort_csv = find_cohort_csv(BASE_DIR, COHORT_TAG)
+    cohort = load_cohort(cohort_csv)
+    log.info(f"[COHORT] {cohort_csv.name} — {summarise(cohort)}")
 
     svs_files = sorted(SVS_DIR.glob("*.svs"))
     log.info(f"[SVS] Found {len(svs_files)} slides")
@@ -399,13 +351,17 @@ def main():
             log.info(f"[{i}/{len(svs_files)}] {slide_id} — already done, skipping")
             continue
 
-        # ---- XML verification ----
-        label, match_status = match_label(slide_id, labels)
-        if match_status == "unmatched":
-            unmatched.append(slide_id)
-            log.warning(f"[{i}/{len(svs_files)}] {slide_id} — NO matched XML label")
-            if SKIP_UNLABELED:
-                manifest[slide_id] = {"status": "skipped_unlabeled", "label": {}}
+        # ---- Cohort membership + label ----
+        record, match_status = label_for_slide(slide_id, cohort)
+        label = compact(record)
+        if match_status != "matched":
+            unmatched.append(f"{slide_id}  [{match_status}]")
+            log.warning(f"[{i}/{len(svs_files)}] {slide_id} — {match_status}: "
+                        f"not present in {cohort_csv.name}")
+            if SKIP_NOT_IN_COHORT:
+                manifest[slide_id] = {"status": f"skipped_{match_status}",
+                                      "label": label,
+                                      "match_status": match_status}
                 atomic_json_save(manifest, manifest_path)
                 continue
 
@@ -477,14 +433,17 @@ def main():
     log.info(f"  Slides done       : {done}")
     log.info(f"  Slides failed     : {failed}")
     log.info(f"  Slides no-tissue  : {notiss}")
+    skipped  = sum(1 for v in manifest.values()
+                   if str(v.get("status", "")).startswith("skipped_"))
+    log.info(f"  Slides skipped    : {skipped} (not in cohort)")
     log.info(f"  Slides w/o label  : {len(unmatched)}")
     if unmatched:
-        log.info("  Unmatched slide IDs (check XML / barcodes):")
+        log.info(f"  Not in {cohort_csv.name} (extra downloads? wrong arm?):")
         for s in unmatched:
             log.info(f"      - {s}")
     log.info(f"  Manifest → {manifest_path}")
     log.info("=" * 64)
-    log.info("Done. Next → 03_abmil_aggregation.py (set INPUT_DIM=1024).")
+    log.info("Done. Next → scripts/03_abmil_aggregation.py (set INPUT_DIM=1024).")
 
 
 if __name__ == "__main__":
@@ -494,4 +453,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.no_resume:
         SKIP_EXISTING = False
-    main()
+    try:
+        main()
+    except CohortError as e:
+        raise SystemExit(f"\nCohort problem: {e}\n")

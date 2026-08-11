@@ -308,7 +308,7 @@ def main():
     with open(ABMIL_MANIFEST) as f:
         abmil_manifest = json.load(f)
 
-    log.info(f"ABMIL manifest loaded — {len(abmil_manifest)} slides")
+    log.info(f"ABMIL manifest loaded — {len(abmil_manifest)} patients")
 
     # ── Load SMILES cache (persist across runs) ───────────────────────────
     cache_path = OUTPUT_DIR / "drug_smiles_cache.json"
@@ -334,59 +334,95 @@ def main():
     log.info(f"Drug dim    : {DRUG_DIM} (Morgan fingerprint, radius={MORGAN_RADIUS})")
     log.info(f"Fused dim   : {fused_dim}")
 
-    # ── Per-slide fusion ──────────────────────────────────────────────────
+    # ── Fusion, one sample per (PATIENT, DRUG) pair ───────────────────────
+    #
+    # The unit of analysis is the (patient, drug) pair, not the patient and not
+    # the slide: 199 BRCA patients received 561 drug-outcome pairs, and the
+    # whole point of the SMILES branch is that the same histology paired with a
+    # different molecule is a different sample.
+    #
+    # Every sample therefore carries group_id = the patient barcode. Splitting
+    # on group_id is MANDATORY in cross-validation — a patient whose pairs land
+    # in both train and test leaks their histology across the split and inflates
+    # the metric that the entire study rests on.
     results = {}
+    n_pairs_dropped = 0
+    patients_all_dropped = []
 
-    for slide_id, slide_data in abmil_manifest.items():
+    for patient_id, patient_data in abmil_manifest.items():
 
-        log.info(f"\n[{slide_id}]")
-
-        # 1. Load slide embedding from Step 3
-        embed_path = slide_data.get("slide_embedding_path")
+        embed_path = patient_data.get("patient_embedding_path")
         if not embed_path or not Path(embed_path).exists():
-            log.warning(f"  Slide embedding not found — skipping")
+            log.warning(f"[{patient_id}] patient embedding not found — skipping")
+            continue
+
+        label = patient_data.get("patient_label", "unknown")
+        true_label = patient_data.get("true_label", -1)
+        drugs = patient_data.get("drugs", [])
+        if not drugs:
+            log.warning(f"[{patient_id}] no drugs recorded — skipping")
             continue
 
         hist_embed = torch.load(embed_path, map_location="cpu", weights_only=True)
-        # hist_embed: [1, 256]
-        log.info(f"  Histology embedding : {list(hist_embed.shape)}")
 
-        # 2. Get drug name from label
-        label      = slide_data.get("label", {})
-        drug_name  = label.get("drug_name", "unknown")
-        log.info(f"  Drug                : {drug_name}")
+        log.info(f"\n[{patient_id}] label={label} "
+                 f"hist={list(hist_embed.shape)} drugs={len(drugs)}")
 
-        # 3. Compute drug fingerprint
-        drug_fp = get_drug_fingerprint(drug_name, smiles_cache)
-        # drug_fp: [1, 1024]
-        log.info(f"  Drug fingerprint    : {list(drug_fp.shape)}  "
-                 f"active_bits={int(drug_fp.sum().item())}/{FINGERPRINT_BITS}")
+        kept_here = 0
+        for drug_name in drugs:
+            sample_id = f"{patient_id}__{drug_name.replace(' ', '_')}"
 
-        # 4. Fuse
-        with torch.no_grad():
-            fused = fusion_model(hist_embed, drug_fp)
-        # fused: [1, fused_dim]
-        log.info(f"  Fused vector        : {list(fused.shape)}")
+            # UNRESOLVED_POLICY = "exclude" means this raises rather than
+            # zero-filling. A zero fingerprint is byte-identical to "no drug
+            # given", which would quietly turn the patient into a
+            # without-SMILES control inside the with-SMILES model.
+            try:
+                drug_fp = get_drug_fingerprint(drug_name, smiles_cache)
+            except UnresolvedDrugError as e:
+                n_pairs_dropped += 1
+                log.warning(f"  ✗ {drug_name}: dropped — {e}")
+                continue
 
-        # 5. Save fused vector
-        fused_path = OUTPUT_DIR / f"{slide_id}_fused.pt"
-        torch.save(fused.cpu(), fused_path)
+            with torch.no_grad():
+                fused = fusion_model(hist_embed, drug_fp)
 
-        results[slide_id] = {
-            "fused_path"         : str(fused_path),
-            "fused_shape"        : list(fused.shape),
-            "fusion_mode"        : FUSION_MODE,
-            "hist_dim"           : HIST_DIM,
-            "drug_dim"           : DRUG_DIM,
-            "fused_dim"          : fused_dim,
-            "drug_name"          : drug_name,
-            "drug_smiles"        : smiles_cache.get(drug_name.lower().strip(), "unknown"),
-            "drug_active_bits"   : int(drug_fp.sum().item()),
-            "true_label"         : slide_data.get("true_label", -1),
-            "drug_response"      : slide_data.get("drug_response", "unknown"),
-            "label"              : label,
-            "status"             : "done",
-        }
+            fused_path = OUTPUT_DIR / f"{sample_id}_fused.pt"
+            torch.save(fused.cpu(), fused_path)
+            kept_here += 1
+
+            log.info(f"  ✓ {drug_name}: fp bits="
+                     f"{int(drug_fp.sum().item())}/{FINGERPRINT_BITS} "
+                     f"fused={list(fused.shape)}")
+
+            results[sample_id] = {
+                "sample_id"          : sample_id,
+                # 05_ looks for "id" (or "slide_id") when keying entries; giving
+                # it "id" keeps that script working without pretending a
+                # (patient, drug) sample is a slide.
+                "id"                 : sample_id,
+                "group_id"           : patient_id,   # SPLIT ON THIS in CV
+                "patient_id"         : patient_id,
+                "fused_path"         : str(fused_path),
+                "fused_shape"        : list(fused.shape),
+                "fusion_mode"        : FUSION_MODE,
+                "hist_dim"           : HIST_DIM,
+                "drug_dim"           : DRUG_DIM,
+                "fused_dim"          : fused_dim,
+                "drug_name"          : drug_name,
+                "drug_smiles"        : smiles_cache.get(drug_name.lower().strip(), "unknown"),
+                "drug_active_bits"   : int(drug_fp.sum().item()),
+                "true_label"         : true_label,
+                "patient_label"      : label,
+                "stage"              : patient_data.get("stage", ""),
+                "primary_diagnosis"  : patient_data.get("primary_diagnosis", ""),
+                "n_slides"           : patient_data.get("n_slides", 1),
+                "n_tiles"            : patient_data.get("n_tiles", 0),
+                "status"             : "done",
+            }
+
+        if kept_here == 0:
+            patients_all_dropped.append(patient_id)
+            log.warning(f"  [{patient_id}] every drug unresolved — patient lost")
 
     # ── Save SMILES cache ─────────────────────────────────────────────────
     with open(cache_path, "w") as f:
@@ -399,18 +435,29 @@ def main():
         json.dump(results, f, indent=2)
 
     # ── Summary ───────────────────────────────────────────────────────────
+    patients_kept = {r["group_id"] for r in results.values()}
+    drugs_kept    = {r["drug_name"] for r in results.values()}
+    pair_pos = sum(1 for r in results.values() if r["true_label"] == 1)
+    pat_pos  = len({r["group_id"] for r in results.values() if r["true_label"] == 1})
+
     log.info("\n" + "=" * 60)
-    log.info(f"  Slides fused : {len(results)}")
-    for sid, r in results.items():
-        log.info(
-            f"  {sid}"
-            f"\n    drug        = {r['drug_name']}"
-            f"\n    active bits = {r['drug_active_bits']}/{FINGERPRINT_BITS}"
-            f"\n    fused shape = {r['fused_shape']}"
-            f"\n    response    = {r['drug_response']}"
-        )
+    log.info(f"  Samples (patient × drug) : {len(results)}")
+    log.info(f"  Patients retained        : {len(patients_kept)}")
+    log.info(f"  Distinct drugs           : {len(drugs_kept)}")
+    log.info(f"  Pair-level labels        : {pair_pos} responder / "
+             f"{len(results) - pair_pos} non-responder")
+    log.info(f"  Patient-level labels     : {pat_pos} responder / "
+             f"{len(patients_kept) - pat_pos} non-responder")
+    if n_pairs_dropped:
+        log.info(f"  Pairs dropped (unresolved drug) : {n_pairs_dropped}")
+    if patients_all_dropped:
+        log.info(f"  Patients lost entirely   : {len(patients_all_dropped)} "
+                 f"({', '.join(patients_all_dropped[:8])}"
+                 f"{' …' if len(patients_all_dropped) > 8 else ''})")
     log.info(f"\n  Fusion manifest → {fusion_manifest_path}")
     log.info("=" * 60)
+    log.info("REMINDER: cross-validation must group on 'group_id' (the patient "
+             "barcode). A patient's pairs must never straddle a fold.")
     log.info("Step 4 complete. Next → Step 5: Drug Response Prediction.")
 
 
