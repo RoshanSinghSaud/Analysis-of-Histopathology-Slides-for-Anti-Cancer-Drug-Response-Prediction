@@ -31,8 +31,9 @@ SAFEGUARDS for 200+ cases
 1. CHECKPOINT / RESUME : the run manifest is written after EVERY slide and
    completed slides are skipped on restart. Crash at slide 150 -> rerun resumes
    at 151. Outputs are written atomically (temp file -> os.replace).
-2. TILE CAP : MAX_TILES_PER_SLIDE caps tiles/slide (seeded random sample) so a
-   huge slide cannot blow up memory or runtime.
+2. TILE CAP : MAX_TILES_PER_SLIDE caps tiles/slide (per-slide seeded random
+   sample) so a huge slide cannot blow up memory or runtime. Currently 4000
+   -> 16.4 MB of features per slide.
 3. COHORT CHECK : every slide is matched to a patient in the cohort CSV by
    TCGA barcode. Labels come from that CSV and are never re-derived here --
    see scripts/cohort_labels.py for why. Slides outside the cohort are skipped
@@ -45,6 +46,8 @@ Run:
     python scripts/01_preprocess_and_extract.py
 =============================================================================
 """
+
+from __future__ import annotations
 
 import os
 import json
@@ -73,7 +76,7 @@ FEAT_DIR   = OUTPUT_DIR / "features"
 # --- Labels ---
 # Which cohort arm to label against. None = auto-detect a single cohort_*.csv
 # in cohort/, and refuse to guess when there are several.
-COHORT_TAG = None
+COHORT_TAG = "arm_a"   # set on the pod for the Gate 4 Arm A run, 28 Aug 2026
 
 # --- Tiling ---
 TILE_SIZE   = 256     # tile size in pixels at the processing level
@@ -82,7 +85,12 @@ TISSUE_THRESH = 0.50  # min fraction of a tile that must be tissue to keep it
 MASK_DOWNSAMPLE = 32  # build the fast tissue mask at ~this downsample factor
 
 # --- 200+ case safeguards ---
-MAX_TILES_PER_SLIDE = 1000   # hard cap; seeded random sample if exceeded
+MAX_TILES_PER_SLIDE = 4000   # hard cap; seeded per-slide random sample if exceeded
+#   Raised 1000 -> 4000 on 2026-08-25. 1000 was ~3-10% of the tissue on the
+#   two test slides (10,381 and 32,632 tiles found), which is hard to defend
+#   in a methods section. 4000 costs 16.4 MB/slide instead of 4.1 MB.
+#   DO NOT change this mid-cohort: every slide in a feature store must share
+#   one cap. Changing it means re-embedding everything (--no-resume).
 SEED                = 42     # makes the tile sampling reproducible
 SKIP_EXISTING       = True   # resume: skip slides already extracted
 SKIP_NOT_IN_COHORT  = True   # don't spend GPU time on slides outside the cohort
@@ -95,8 +103,14 @@ STAIN_REF_SAMPLE = 100   # tiles sampled to compute the LAB reference stats
 # --- UNI feature extractor ---
 UNI_REPO   = "hf-hub:MahmoodLab/UNI"
 EMBED_DIM  = 1024
-BATCH_SIZE = 32          # raise on a CUDA GPU; 16-32 is safe on Mac MPS
-NUM_WORKERS = 0          # keep 0 on MPS
+
+# Throughput knobs. None = auto-tune for the detected device in configure_run().
+# Tile decoding (openslide read_region + the timm transform) is CPU work and it
+# is what actually limits this script, so NUM_WORKERS matters more than the GPU
+# tier. Set any of these to a number to override, or pass the CLI flags.
+BATCH_SIZE  = None       # auto: CUDA 128, MPS 32, CPU 16
+NUM_WORKERS = None       # auto: CUDA min(8, cpu_count-1), MPS/CPU 0 (MPS needs 0)
+USE_AMP     = None       # auto: fp16 autocast on CUDA only; never on MPS/CPU
 
 # =============================================================================
 
@@ -107,8 +121,26 @@ logging.basicConfig(
 )
 log = logging.getLogger("preprocess+uni")
 
-random.seed(SEED)
 np.random.seed(SEED)
+
+# NOTE: there is deliberately no module-level random.seed() here. Tile sampling
+# used to draw from the global RNG, which made a slide's tile set depend on how
+# many slides had been drawn before it in the same process — so a resumed run,
+# or a run launched per-batch by 00_fetch_embed_batches.py, silently sampled
+# DIFFERENT tiles for the same slide than a fresh run did. The pre-registration
+# claims a seeded sample, so the seed is now derived per slide instead; see
+# slide_rng().
+
+
+def slide_rng(slide_id: str) -> random.Random:
+    """
+    A private, reproducible RNG for one slide.
+
+    Seeded from (SEED, slide_id) rather than from a shared global stream, so the
+    tiles chosen for a slide depend only on its ID and the tissue mask — never
+    on processing order, resume state, batch boundaries or which machine ran it.
+    """
+    return random.Random(f"{SEED}:{slide_id}")
 
 
 # =============================================================================
@@ -166,10 +198,11 @@ def tile_fraction(mask: np.ndarray, mask_ds: float,
     return float(region.mean())
 
 
-def list_tissue_tiles(slide: openslide.OpenSlide) -> list[tuple[int, int]]:
+def list_tissue_tiles(slide: openslide.OpenSlide, rng: random.Random):
     """
-    Return level-0 (x, y) top-left coords of all tissue tiles for the slide,
-    capped/sampled to MAX_TILES_PER_SLIDE.
+    Return (coords, n_total, level, downsample) where coords are the level-0
+    (x, y) top-left corners of the tissue tiles, capped/sampled to
+    MAX_TILES_PER_SLIDE using the slide's own RNG (see slide_rng).
     """
     mask, mask_ds = build_tissue_mask(slide)
 
@@ -191,7 +224,9 @@ def list_tissue_tiles(slide: openslide.OpenSlide) -> list[tuple[int, int]]:
 
     total = len(coords)
     if total > MAX_TILES_PER_SLIDE:
-        coords = random.sample(coords, MAX_TILES_PER_SLIDE)   # seeded above
+        # rng is per-slide, so this sample is reproducible from the slide ID
+        # alone — independent of processing order or resume state.
+        coords = rng.sample(coords, MAX_TILES_PER_SLIDE)
     coords.sort()
     return coords, total, level, ds
 
@@ -200,9 +235,10 @@ def list_tissue_tiles(slide: openslide.OpenSlide) -> list[tuple[int, int]]:
 # 3. STAIN NORMALIZATION (optional, LAB/Reinhard — self-contained, no extra deps)
 # =============================================================================
 
-def compute_lab_reference(slide, coords, level, n_sample=STAIN_REF_SAMPLE):
+def compute_lab_reference(slide, coords, level, rng, n_sample=STAIN_REF_SAMPLE):
     from skimage.color import rgb2lab
-    sample = random.sample(coords, min(n_sample, len(coords)))
+    # per-slide rng, same reproducibility argument as list_tissue_tiles
+    sample = rng.sample(coords, min(n_sample, len(coords)))
     means, stds = [], []
     for (x0, y0) in sample:
         t = slide.read_region((x0, y0), level, (TILE_SIZE, TILE_SIZE)).convert("RGB")
@@ -236,7 +272,7 @@ def load_uni(device: torch.device):
     #   (b) set an env var:  export HF_TOKEN=hf_xxxxxxxx   (handled below), OR
     #   (c) uncomment the two lines below and paste your token (do NOT commit it):
     # from huggingface_hub import login
-    # login(token="hf_xxxxxxxxxxxxxxxxxxxxxxxx")
+    # login(token="hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     hf_token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
     if hf_token:
         from huggingface_hub import login
@@ -253,28 +289,86 @@ def load_uni(device: torch.device):
     return model, transform
 
 
+class TileDataset(torch.utils.data.Dataset):
+    """
+    Serves decoded, transformed tiles so DataLoader workers can decode in
+    parallel while the GPU is busy with the previous batch.
+
+    Why this exists: the old implementation was one serial loop —
+    read_region -> transform -> accumulate 32 -> GPU. Every JPEG decode left the
+    GPU idle, which made the script CPU-bound and meant a faster GPU bought
+    nothing. Decoding across N workers is what turns a rented GPU into value.
+
+    OpenSlide handles are not safe to share across processes, so each worker
+    opens its own lazily on first access and keeps it for the worker's life.
+    Note `_slide` must stay None at fork/spawn time — never touch it in the
+    parent process.
+    """
+
+    def __init__(self, svs_path, coords, level, transform,
+                 ref_mean=None, ref_std=None):
+        self.svs_path  = str(svs_path)
+        self.coords    = coords
+        self.level     = level
+        self.transform = transform
+        self.ref_mean  = ref_mean
+        self.ref_std   = ref_std
+        self._slide    = None
+
+    def __len__(self):
+        return len(self.coords)
+
+    def _handle(self):
+        if self._slide is None:
+            self._slide = openslide.OpenSlide(self.svs_path)
+        return self._slide
+
+    def __getitem__(self, i):
+        x0, y0 = self.coords[i]
+        tile = self._handle().read_region(
+            (x0, y0), self.level, (TILE_SIZE, TILE_SIZE)).convert("RGB")
+        if self.ref_mean is not None:
+            tile = stain_normalize(tile, self.ref_mean, self.ref_std)
+        return self.transform(tile)
+
+
 @torch.no_grad()
-def extract_features(slide, coords, level, model, transform, device,
+def extract_features(svs_path, coords, level, model, transform, device,
                      ref_mean=None, ref_std=None) -> torch.Tensor:
-    """Read tissue tiles, (optionally) stain-normalize, run UNI in batches."""
-    feats, batch = [], []
+    """
+    Decode tissue tiles in parallel workers and run UNI in batches.
 
-    def flush():
-        if not batch:
-            return
-        x = torch.stack(batch).to(device)
-        out = model(x)                       # [B, 1024]
+    Row i of the returned [N, EMBED_DIM] tensor corresponds to coords[i]:
+    shuffle stays off so step 06 can map attention back onto the slide.
+    """
+    ds = TileDataset(svs_path, coords, level, transform,
+                     ref_mean if APPLY_STAIN_NORM else None, ref_std)
+
+    loader_kwargs = dict(
+        batch_size=BATCH_SIZE,
+        num_workers=NUM_WORKERS,
+        shuffle=False,                       # row order must match coords
+        pin_memory=(device.type == "cuda"),
+    )
+    if NUM_WORKERS > 0:
+        # keep the queue ahead of the GPU without ballooning RAM
+        loader_kwargs["prefetch_factor"] = 4
+        loader_kwargs["persistent_workers"] = False
+    loader = torch.utils.data.DataLoader(ds, **loader_kwargs)
+
+    feats = []
+    n_batches = (len(coords) + BATCH_SIZE - 1) // BATCH_SIZE
+    for x in tqdm(loader, desc="  tiles", unit="batch",
+                  total=n_batches, leave=False):
+        x = x.to(device, non_blocking=(device.type == "cuda"))
+        if USE_AMP:
+            # inference-only, so fp16 needs no loss scaling; features are cast
+            # back to fp32 below and stored fp32, as they were before.
+            with torch.autocast("cuda", dtype=torch.float16):
+                out = model(x)
+        else:
+            out = model(x)
         feats.append(out.float().cpu())
-        batch.clear()
-
-    for (x0, y0) in tqdm(coords, desc="  tiles", unit="tile", leave=False):
-        tile = slide.read_region((x0, y0), level, (TILE_SIZE, TILE_SIZE)).convert("RGB")
-        if APPLY_STAIN_NORM and ref_mean is not None:
-            tile = stain_normalize(tile, ref_mean, ref_std)
-        batch.append(transform(tile))
-        if len(batch) >= BATCH_SIZE:
-            flush()
-    flush()
 
     if not feats:
         return torch.empty(0, EMBED_DIM)
@@ -312,6 +406,65 @@ def pick_device() -> torch.device:
     return torch.device("cpu")
 
 
+def configure_run(device: torch.device) -> None:
+    """
+    Fill in whichever of BATCH_SIZE / NUM_WORKERS / USE_AMP were left as None.
+
+    The defaults differ per device for real reasons, not taste:
+      - MPS requires num_workers=0 and has no usable fp16 autocast path here.
+      - On CUDA the limit is tile decoding, so workers scale with vCPU count.
+        A pod is worth renting only to the extent these workers are busy.
+    """
+    global BATCH_SIZE, NUM_WORKERS, USE_AMP
+
+    n_cpu = os.cpu_count() or 4
+    if device.type == "cuda":
+        auto_bs, auto_nw, auto_amp = 128, max(1, min(8, n_cpu - 1)), True
+    elif device.type == "mps":
+        auto_bs, auto_nw, auto_amp = 32, 0, False
+    else:
+        auto_bs, auto_nw, auto_amp = 16, 0, False
+
+    BATCH_SIZE  = auto_bs  if BATCH_SIZE  is None else BATCH_SIZE
+    NUM_WORKERS = auto_nw  if NUM_WORKERS is None else NUM_WORKERS
+    USE_AMP     = auto_amp if USE_AMP     is None else USE_AMP
+
+    if USE_AMP and device.type != "cuda":
+        log.warning("fp16 autocast requested off CUDA — disabling it.")
+        USE_AMP = False
+    if NUM_WORKERS > 0 and device.type == "mps":
+        log.warning("MPS cannot use DataLoader workers — forcing NUM_WORKERS=0.")
+        NUM_WORKERS = 0
+
+    log.info(f"[RUN] device={device.type}  batch_size={BATCH_SIZE}  "
+             f"num_workers={NUM_WORKERS}  fp16={USE_AMP}  (vCPU={n_cpu})")
+    if device.type == "cuda" and NUM_WORKERS < 4:
+        log.warning(f"Only {NUM_WORKERS} decode workers on a GPU box — tile "
+                    f"decoding will bottleneck the GPU. Rent more vCPUs.")
+
+
+def rel_to_repo(p: Path) -> str:
+    """
+    Store manifest paths relative to the repo root.
+
+    Absolute paths used to be written here, so a manifest produced on a rented
+    Linux pod said /workspace/... and broke the moment it came back to the Mac.
+    Relative paths travel; see resolve_repo_path() for the read side.
+    """
+    try:
+        return str(Path(p).resolve().relative_to(BASE_DIR))
+    except ValueError:                       # outside the repo — keep absolute
+        return str(Path(p).resolve())
+
+
+def resolve_repo_path(p: str | None, base: Path = BASE_DIR) -> Path | None:
+    """Read side of rel_to_repo(). Absolute paths from older manifests still work."""
+    if not p:
+        return None
+    q = Path(p)
+    return q if q.is_absolute() else (base / q)
+
+
 def main():
     FEAT_DIR.mkdir(parents=True, exist_ok=True)
     manifest_path = FEAT_DIR / "feature_manifest.json"
@@ -337,6 +490,7 @@ def main():
     log.info(f"[SVS] Found {len(svs_files)} slides")
 
     device = pick_device()
+    configure_run(device)
     model, transform = load_uni(device)
 
     unmatched = []
@@ -369,8 +523,9 @@ def main():
                  f"(label match: {match_status})")
 
         try:
+            rng = slide_rng(slide_id)        # reproducible from the ID alone
             slide = openslide.OpenSlide(str(svs))
-            coords, n_total, level, ds = list_tissue_tiles(slide)
+            coords, n_total, level, ds = list_tissue_tiles(slide, rng)
             log.info(f"    tissue tiles: {len(coords)} kept "
                      f"(of {n_total} found; cap={MAX_TILES_PER_SLIDE})")
 
@@ -383,13 +538,16 @@ def main():
 
             ref_mean = ref_std = None
             if APPLY_STAIN_NORM:
-                ref_mean, ref_std = compute_lab_reference(slide, coords, level)
+                ref_mean, ref_std = compute_lab_reference(slide, coords, level, rng)
+
+            # Close the parent handle before the workers open their own: an
+            # OpenSlide handle inherited across fork is not safe to use.
+            slide.close()
 
             t0 = time.time()
-            features = extract_features(slide, coords, level, model, transform,
+            features = extract_features(svs, coords, level, model, transform,
                                         device, ref_mean, ref_std)
             dt = time.time() - t0
-            slide.close()
 
             assert features.shape == (len(coords), EMBED_DIM), \
                 f"shape mismatch {tuple(features.shape)}"
@@ -403,8 +561,10 @@ def main():
                  "tile_size": TILE_SIZE}, out_coords)
 
             manifest[slide_id] = {
-                "feature_path": str(out_feat),
-                "coords_path":  str(out_coords),
+                # repo-relative so the manifest survives the trip between the
+                # Mac and a rented pod — see rel_to_repo()
+                "feature_path": rel_to_repo(out_feat),
+                "coords_path":  rel_to_repo(out_coords),
                 "shape": list(features.shape),
                 "embed_dim": EMBED_DIM,
                 "n_tiles": int(features.shape[0]),
@@ -413,6 +573,13 @@ def main():
                 "match_status": match_status,
                 "label": label,
                 "seconds": round(dt, 1),
+                # provenance: what these vectors were actually produced with,
+                # so a mixed Mac/pod feature store is auditable rather than a
+                # guess when the methods section gets written
+                "seed": SEED,
+                "max_tiles": MAX_TILES_PER_SLIDE,
+                "device": device.type,
+                "fp16": bool(USE_AMP),
                 "status": "done",
             }
             atomic_json_save(manifest, manifest_path)   # checkpoint EVERY slide
@@ -443,16 +610,36 @@ def main():
             log.info(f"      - {s}")
     log.info(f"  Manifest → {manifest_path}")
     log.info("=" * 64)
-    log.info("Done. Next → scripts/03_abmil_aggregation.py (set INPUT_DIM=1024).")
+    log.info("Done. Next → scripts/08_evaluate_ablation.py --tag <tag>.")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-resume", action="store_true",
                         help="ignore existing outputs and re-extract everything")
+    parser.add_argument("--batch-size", type=int, default=None,
+                        help="tiles per GPU batch (default: auto per device)")
+    parser.add_argument("--num-workers", type=int, default=None,
+                        help="parallel tile-decode workers (default: auto; "
+                             "must be 0 on Apple MPS)")
+    parser.add_argument("--max-tiles", type=int, default=None,
+                        help=f"override MAX_TILES_PER_SLIDE (default: "
+                             f"{MAX_TILES_PER_SLIDE}). Changing this mid-cohort "
+                             f"makes the feature store inconsistent.")
+    parser.add_argument("--no-amp", action="store_true",
+                        help="disable fp16 autocast on CUDA (slower, exactly "
+                             "reproduces fp32 features)")
     args = parser.parse_args()
     if args.no_resume:
         SKIP_EXISTING = False
+    if args.batch_size is not None:
+        BATCH_SIZE = args.batch_size
+    if args.num_workers is not None:
+        NUM_WORKERS = args.num_workers
+    if args.max_tiles is not None:
+        MAX_TILES_PER_SLIDE = args.max_tiles
+    if args.no_amp:
+        USE_AMP = False
     try:
         main()
     except CohortError as e:
