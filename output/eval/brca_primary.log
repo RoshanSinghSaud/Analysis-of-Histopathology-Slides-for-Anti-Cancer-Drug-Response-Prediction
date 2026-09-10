@@ -1,0 +1,134 @@
+Loading REAL data — cohort tag 'brca'
+  These are real labels. Every run from here is logged (§8).
+  cohort: cohort_brca.csv — 199 patients (177 responder / 22 non-responder), 561 drug-outcome pairs, 36 distinct drugs
+  7 drugs have no small-molecule structure and are excluded: bevacizumab, clinical trial agent, denosumab, hormone therapy, pegfilgrastim, rituximab, trastuzumab
+  31 (patient, drug) records dropped: no verified structure for that drug (biologic or unresolved)
+  drug encoder: 1024-bit Morgan -> 28-d frozen PCA (29 molecules)
+  528 (patient, drug) samples · 195 patients (22 non-responder / 173 responder) · 29 drugs · embed_dim 1024
+
+  === seed 1/5 ===
+    fold 1 · without_smiles  inner-val AUROC 1.000
+    fold 1 · with_smiles     inner-val AUROC 0.938
+    fold 1 · shuffled_drug   inner-val AUROC 0.938
+    fold 1 · onehot_drug     inner-val AUROC 1.000
+    fold 2 · without_smiles  inner-val AUROC 0.805
+    fold 2 · with_smiles     inner-val AUROC 0.800
+    fold 2 · shuffled_drug   inner-val AUROC 0.800
+    fold 2 · onehot_drug     inner-val AUROC 0.774
+    fold 3 · without_smiles  inner-val AUROC 0.729
+    fold 3 · with_smiles     inner-val AUROC 0.788
+    fold 3 · shuffled_drug   inner-val AUROC 0.729
+    fold 3 · onehot_drug     inner-val AUROC 0.695
+    fold 4 · without_smiles  inner-val AUROC 0.656
+    fold 4 · with_smiles     inner-val AUROC 0.576
+    fold 4 · shuffled_drug   inner-val AUROC 0.576
+    fold 4 · onehot_drug     inner-val AUROC 0.652
+    fold 5 · without_smiles  inner-val AUROC 0.855
+    fold 5 · with_smiles     inner-val AUROC 0.675
+    fold 5 · shuffled_drug   inner-val AUROC 0.660
+    fold 5 · onehot_drug     inner-val AUROC 0.653
+
+  === seed 2/5 ===
+    fold 1 · without_smiles  inner-val AUROC 0.533
+    fold 1 · with_smiles     inner-val AUROC 0.652
+    fold 1 · shuffled_drug   inner-val AUROC 0.652
+    fold 1 · onehot_drug     inner-val AUROC 0.631
+    fold 2 · without_smiles  inner-val AUROC 0.496
+    fold 2 · with_smiles     inner-val AUROC 0.448
+    fold 2 · shuffled_drug   inner-val AUROC 0.426
+    fold 2 · onehot_drug     inner-val AUROC 0.564
+    fold 3 · without_smiles  inner-val AUROC 0.556
+    fold 3 · with_smiles     inner-val AUROC 0.530
+    fold 3 · shuffled_drug   inner-val AUROC 0.530
+    fold 3 · onehot_drug     inner-val AUROC 0.504
+    fold 4 · without_smiles  inner-val AUROC 0.235
+    fold 4 · with_smiles     inner-val AUROC 0.588
+    fold 4 · shuffled_drug   inner-val AUROC 0.588
+    fold 4 · onehot_drug     inner-val AUROC 0.333
+    fold 5 · without_smiles  inner-val AUROC 0.758
+    fold 5 · with_smiles     inner-val AUROC 0.633
+    fold 5 · shuffled_drug   inner-val AUROC 0.636
+    fold 5 · onehot_drug     inner-val AUROC 0.608
+
+  === seed 3/5 ===
+    fold 1 · without_smiles  inner-val AUROC 0.821
+    fold 1 · with_smiles     inner-val AUROC 0.806
+    fold 1 · shuffled_drug   inner-val AUROC 0.806
+    fold 1 · onehot_drug     inner-val AUROC 0.896
+    fold 2 · without_smiles  inner-val AUROC 0.516
+    fold 2 · with_smiles     inner-val AUROC 0.581
+    fold 2 · shuffled_drug   inner-val AUROC 0.544
+    fold 2 · onehot_drug     inner-val AUROC 0.722
+    fold 3 · without_smiles  inner-val AUROC 1.000
+    fold 3 · with_smiles     inner-val AUROC 0.906
+    fold 3 · shuffled_drug   inner-val AUROC 0.906
+    fold 3 · onehot_drug     inner-val AUROC 1.000
+    fold 4 · without_smiles  inner-val AUROC 0.960
+    fold 4 · with_smiles     inner-val AUROC 0.947
+    fold 4 · shuffled_drug   inner-val AUROC 0.947
+    fold 4 · onehot_drug     inner-val AUROC 0.920
+    fold 5 · without_smiles  inner-val AUROC 0.678
+    fold 5 · with_smiles     inner-val AUROC 0.543
+    fold 5 · shuffled_drug   inner-val AUROC 0.552
+    fold 5 · onehot_drug     inner-val AUROC 0.779
+
+  === seed 4/5 ===
+    fold 1 · without_smiles  inner-val AUROC 0.328
+    fold 1 · with_smiles     inner-val AUROC 0.276
+    fold 1 · shuffled_drug   inner-val AUROC 0.276
+    fold 1 · onehot_drug     inner-val AUROC 0.276
+    fold 2 · without_smiles  inner-val AUROC 0.238
+    fold 2 · with_smiles     inner-val AUROC 0.143
+    fold 2 · shuffled_drug   inner-val AUROC 0.143
+    fold 2 · onehot_drug     inner-val AUROC 0.556
+    fold 3 · without_smiles  inner-val AUROC 0.679
+    fold 3 · with_smiles     inner-val AUROC 0.692
+    fold 3 · shuffled_drug   inner-val AUROC 0.692
+    fold 3 · onehot_drug     inner-val AUROC 0.629
+    fold 4 · without_smiles  inner-val AUROC 0.769
+    fold 4 · with_smiles     inner-val AUROC 0.676
+    fold 4 · shuffled_drug   inner-val AUROC 0.676
+    fold 4 · onehot_drug     inner-val AUROC 0.755
+    fold 5 · without_smiles  inner-val AUROC 0.546
+    fold 5 · with_smiles     inner-val AUROC 0.678
+    fold 5 · shuffled_drug   inner-val AUROC 0.678
+    fold 5 · onehot_drug     inner-val AUROC 0.664
+
+  === seed 5/5 ===
+    fold 1 · without_smiles  inner-val AUROC 0.424
+    fold 1 · with_smiles     inner-val AUROC 0.409
+    fold 1 · shuffled_drug   inner-val AUROC 0.409
+    fold 1 · onehot_drug     inner-val AUROC 0.389
+    fold 2 · without_smiles  inner-val AUROC 0.769
+    fold 2 · with_smiles     inner-val AUROC 0.769
+    fold 2 · shuffled_drug   inner-val AUROC 0.769
+    fold 2 · onehot_drug     inner-val AUROC 0.702
+    fold 3 · without_smiles  inner-val AUROC 0.649
+    fold 3 · with_smiles     inner-val AUROC 0.710
+    fold 3 · shuffled_drug   inner-val AUROC 0.710
+    fold 3 · onehot_drug     inner-val AUROC 0.719
+    fold 4 · without_smiles  inner-val AUROC 0.500
+    fold 4 · with_smiles     inner-val AUROC 0.500
+    fold 4 · shuffled_drug   inner-val AUROC 0.500
+    fold 4 · onehot_drug     inner-val AUROC 0.500
+    fold 5 · without_smiles  inner-val AUROC 0.940
+    fold 5 · with_smiles     inner-val AUROC 0.927
+    fold 5 · shuffled_drug   inner-val AUROC 0.927
+    fold 5 · onehot_drug     inner-val AUROC 0.800
+Run logged to /Users/Roshan_Singh_Saud/Desktop/Research/output/eval/run_log.jsonl (config 0b1ee333fd49)
+
+==========================================================================
+PRIMARY ANALYSIS — real(tag=brca)
+==========================================================================
+arm                      AUROC (mean±sd)     AUPRC   baseline
+without_smiles            0.5286 ± 0.0470    0.1394     0.1128
+with_smiles               0.5282 ± 0.0578    0.1377     0.1128
+shuffled_drug             0.5226 ± 0.0570    0.1332     0.1128
+onehot_drug               0.5503 ± 0.0376    0.1497     0.1128
+
+contrast                              ΔAUROC       sd   DeLong p (seed 1)   sig
+with_smiles_vs_without_smiles        -0.0005   0.0424               0.508   0/5
+shuffled_drug_vs_without_smiles      -0.0060   0.0405              0.6828   0/5
+onehot_drug_vs_without_smiles         0.0217   0.0405              0.8403   1/5
+with_smiles_vs_shuffled_drug          0.0055   0.0043              0.5265   0/5
+

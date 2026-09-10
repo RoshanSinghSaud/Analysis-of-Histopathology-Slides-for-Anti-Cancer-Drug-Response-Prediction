@@ -7,7 +7,22 @@ test-data/*.svs
 *.tiff
 
 # --- Generated outputs / model artifacts ---
-output/
+# output/ is 18 GB of re-derivable features, BUT a handful of small files in
+# there are the paper's integrity record and cannot be reconstructed at any
+# price. Exclude the directory contents, then carve those back in.
+# (Note: this must be `output/*`, not `output/`. Git cannot re-include a file
+#  whose parent DIRECTORY is excluded, so the negations below would be dead.)
+output/*
+!output/eval/
+output/eval/*
+!output/eval/*.json
+!output/eval/*.jsonl
+!output/eval/*.log
+!output/gate4_run_summary.log
+!output/fetch_state_arm_a_final.json
+!output/features/
+output/features/*
+!output/features/feature_manifest.json
 *.pt
 *.pth
 *.npy

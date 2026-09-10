@@ -1,0 +1,255 @@
+{
+  "tag": "brca",
+  "arm": "without_smiles",
+  "grid": {
+    "dropout": [
+      0.25,
+      0.45
+    ],
+    "weight_decay": [
+      0.01,
+      0.1,
+      1.0
+    ],
+    "max_epochs": [
+      15,
+      40
+    ]
+  },
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "folds": 5,
+  "selection_metric": "mean_pos_weighted_inner_val_loss",
+  "winner": {
+    "config": {
+      "dropout": 0.25,
+      "weight_decay": 1.0,
+      "max_epochs": 40
+    },
+    "patience": 8,
+    "mean_inner_val_loss": 0.7042757957350366,
+    "sd_inner_val_loss": 0.3575338399493206,
+    "n_inner_val_points": 15,
+    "seconds": 518.9,
+    "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+      0.5788229111928535,
+      0.5136626379400946,
+      0.49868628481345245
+    ]
+  },
+  "ranking": [
+    {
+      "config": {
+        "dropout": 0.25,
+        "weight_decay": 1.0,
+        "max_epochs": 40
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7042757957350366,
+      "sd_inner_val_loss": 0.3575338399493206,
+      "n_inner_val_points": 15,
+      "seconds": 518.9,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5788229111928535,
+        0.5136626379400946,
+        0.49868628481345245
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.25,
+        "weight_decay": 1.0,
+        "max_epochs": 15
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.705495919054172,
+      "sd_inner_val_loss": 0.35506694724221644,
+      "n_inner_val_points": 15,
+      "seconds": 504.3,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.578560168155544,
+        0.5136626379400946,
+        0.49868628481345245
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.25,
+        "weight_decay": 0.1,
+        "max_epochs": 15
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.707857534384424,
+      "sd_inner_val_loss": 0.3603540917561562,
+      "n_inner_val_points": 15,
+      "seconds": 471.4,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5772464529689963,
+        0.5149763531266421,
+        0.5023646873357857
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.25,
+        "weight_decay": 0.1,
+        "max_epochs": 40
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.707857534384424,
+      "sd_inner_val_loss": 0.3603540917561562,
+      "n_inner_val_points": 15,
+      "seconds": 411.4,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5772464529689963,
+        0.5149763531266421,
+        0.5023646873357857
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.25,
+        "weight_decay": 0.01,
+        "max_epochs": 15
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7079871786187638,
+      "sd_inner_val_loss": 0.3609825478507007,
+      "n_inner_val_points": 15,
+      "seconds": 399.0,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5756699947451392,
+        0.5149763531266421,
+        0.5013137151865475
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.25,
+        "weight_decay": 0.01,
+        "max_epochs": 40
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7079871786187638,
+      "sd_inner_val_loss": 0.3609825478507007,
+      "n_inner_val_points": 15,
+      "seconds": 552.2,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5756699947451392,
+        0.5149763531266421,
+        0.5013137151865475
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.45,
+        "weight_decay": 1.0,
+        "max_epochs": 40
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7107637855268626,
+      "sd_inner_val_loss": 0.36494842671365985,
+      "n_inner_val_points": 15,
+      "seconds": 310.4,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5853914871255912,
+        0.5501839201261167,
+        0.5015764582238571
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.45,
+        "weight_decay": 1.0,
+        "max_epochs": 15
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7123308122703361,
+      "sd_inner_val_loss": 0.36195161290133154,
+      "n_inner_val_points": 15,
+      "seconds": 268.6,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5754072517078297,
+        0.5501839201261167,
+        0.4931686810299527
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.45,
+        "weight_decay": 0.1,
+        "max_epochs": 40
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7161678132502334,
+      "sd_inner_val_loss": 0.37594612795521337,
+      "n_inner_val_points": 15,
+      "seconds": 320.6,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5746190225959011,
+        0.5491329479768786,
+        0.498423541776143
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.45,
+        "weight_decay": 0.01,
+        "max_epochs": 40
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7171949155388125,
+      "sd_inner_val_loss": 0.3764451747485932,
+      "n_inner_val_points": 15,
+      "seconds": 497.4,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5777719390436153,
+        0.5488702049395691,
+        0.5094587493431424
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.45,
+        "weight_decay": 0.1,
+        "max_epochs": 15
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7204670359578624,
+      "sd_inner_val_loss": 0.3677800179029726,
+      "n_inner_val_points": 15,
+      "seconds": 312.2,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5767209668943772,
+        0.5491329479768786,
+        0.48975302154492906
+      ]
+    },
+    {
+      "config": {
+        "dropout": 0.45,
+        "weight_decay": 0.01,
+        "max_epochs": 15
+      },
+      "patience": 8,
+      "mean_inner_val_loss": 0.7218019939723309,
+      "sd_inner_val_loss": 0.3676917251432563,
+      "n_inner_val_points": 15,
+      "seconds": 425.1,
+      "oof_auroc_RECORDED_FOR_AUDIT_NOT_USED_FOR_SELECTION": [
+        0.5775091960063058,
+        0.5488702049395691,
+        0.5021019442984761
+      ]
+    }
+  ],
+  "winner_on_grid_edge_for": [
+    "dropout",
+    "weight_decay",
+    "max_epochs"
+  ],
+  "total_seconds": 4991.7
+}

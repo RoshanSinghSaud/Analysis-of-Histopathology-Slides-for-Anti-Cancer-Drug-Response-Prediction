@@ -1,0 +1,277 @@
+  cohort: cohort_brca.csv — 199 patients (177 responder / 22 non-responder), 561 drug-outcome pairs, 36 distinct drugs
+  7 drugs have no small-molecule structure and are excluded: bevacizumab, clinical trial agent, denosumab, hormone therapy, pegfilgrastim, rituximab, trastuzumab
+  receptor context: 199 patients, 184 with all three known (92.5%)
+  31 (patient, drug) records dropped: no verified structure for that drug (biologic or unresolved)
+  drug encoder: 1024-bit Morgan -> 28-d frozen PCA (29 molecules)
+    fold 1 · without_smiles  inner-val loss 0.0393 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6145 (AUROC 0.662)
+    fold 3 · without_smiles  inner-val loss 0.7331 (AUROC 0.153)
+    fold 4 · without_smiles  inner-val loss 1.1400 (AUROC 0.420)
+    fold 5 · without_smiles  inner-val loss 1.0486 (AUROC 0.748)
+    fold 1 · without_smiles  inner-val loss 1.0693 (AUROC 0.637)
+    fold 2 · without_smiles  inner-val loss 0.8958 (AUROC 0.387)
+    fold 3 · without_smiles  inner-val loss 1.1849 (AUROC 0.506)
+    fold 4 · without_smiles  inner-val loss 0.7247 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 0.9970 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4216 (AUROC 0.866)
+    fold 2 · without_smiles  inner-val loss 0.5590 (AUROC 0.778)
+    fold 3 · without_smiles  inner-val loss 0.1032 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3648 (AUROC 0.937)
+    fold 5 · without_smiles  inner-val loss 0.7239 (AUROC 0.630)
+    fold 1 · without_smiles  inner-val loss 0.0393 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6145 (AUROC 0.662)
+    fold 3 · without_smiles  inner-val loss 0.7331 (AUROC 0.153)
+    fold 4 · without_smiles  inner-val loss 1.1400 (AUROC 0.420)
+    fold 5 · without_smiles  inner-val loss 1.0486 (AUROC 0.748)
+    fold 1 · without_smiles  inner-val loss 1.0693 (AUROC 0.637)
+    fold 2 · without_smiles  inner-val loss 0.8958 (AUROC 0.387)
+    fold 3 · without_smiles  inner-val loss 1.1849 (AUROC 0.506)
+    fold 4 · without_smiles  inner-val loss 0.7247 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 0.9970 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4216 (AUROC 0.866)
+    fold 2 · without_smiles  inner-val loss 0.5590 (AUROC 0.778)
+    fold 3 · without_smiles  inner-val loss 0.1032 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3648 (AUROC 0.937)
+    fold 5 · without_smiles  inner-val loss 0.7239 (AUROC 0.630)
+    fold 1 · without_smiles  inner-val loss 0.0370 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6143 (AUROC 0.662)
+    fold 3 · without_smiles  inner-val loss 0.7327 (AUROC 0.153)
+    fold 4 · without_smiles  inner-val loss 1.1386 (AUROC 0.420)
+    fold 5 · without_smiles  inner-val loss 1.0478 (AUROC 0.748)
+    fold 1 · without_smiles  inner-val loss 1.0687 (AUROC 0.637)
+    fold 2 · without_smiles  inner-val loss 0.8952 (AUROC 0.387)
+    fold 3 · without_smiles  inner-val loss 1.1837 (AUROC 0.506)
+    fold 4 · without_smiles  inner-val loss 0.7252 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 0.9962 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4221 (AUROC 0.866)
+    fold 2 · without_smiles  inner-val loss 0.5606 (AUROC 0.778)
+    fold 3 · without_smiles  inner-val loss 0.1074 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3643 (AUROC 0.937)
+    fold 5 · without_smiles  inner-val loss 0.7240 (AUROC 0.630)
+    fold 1 · without_smiles  inner-val loss 0.0370 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6143 (AUROC 0.662)
+    fold 3 · without_smiles  inner-val loss 0.7327 (AUROC 0.153)
+    fold 4 · without_smiles  inner-val loss 1.1386 (AUROC 0.420)
+    fold 5 · without_smiles  inner-val loss 1.0478 (AUROC 0.748)
+    fold 1 · without_smiles  inner-val loss 1.0687 (AUROC 0.637)
+    fold 2 · without_smiles  inner-val loss 0.8952 (AUROC 0.387)
+    fold 3 · without_smiles  inner-val loss 1.1837 (AUROC 0.506)
+    fold 4 · without_smiles  inner-val loss 0.7252 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 0.9962 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4221 (AUROC 0.866)
+    fold 2 · without_smiles  inner-val loss 0.5606 (AUROC 0.778)
+    fold 3 · without_smiles  inner-val loss 0.1074 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3643 (AUROC 0.937)
+    fold 5 · without_smiles  inner-val loss 0.7240 (AUROC 0.630)
+    fold 1 · without_smiles  inner-val loss 0.0417 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6124 (AUROC 0.662)
+    fold 3 · without_smiles  inner-val loss 0.7306 (AUROC 0.153)
+    fold 4 · without_smiles  inner-val loss 1.1364 (AUROC 0.420)
+    fold 5 · without_smiles  inner-val loss 1.0310 (AUROC 0.748)
+    fold 1 · without_smiles  inner-val loss 1.0616 (AUROC 0.637)
+    fold 2 · without_smiles  inner-val loss 0.8902 (AUROC 0.387)
+    fold 3 · without_smiles  inner-val loss 1.1756 (AUROC 0.506)
+    fold 4 · without_smiles  inner-val loss 0.7224 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 0.9865 (AUROC 0.367)
+    fold 1 · without_smiles  inner-val loss 0.4268 (AUROC 0.866)
+    fold 2 · without_smiles  inner-val loss 0.5603 (AUROC 0.778)
+    fold 3 · without_smiles  inner-val loss 0.1097 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3763 (AUROC 0.937)
+    fold 5 · without_smiles  inner-val loss 0.7210 (AUROC 0.630)
+    fold 1 · without_smiles  inner-val loss 0.0234 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6124 (AUROC 0.662)
+    fold 3 · without_smiles  inner-val loss 0.7306 (AUROC 0.153)
+    fold 4 · without_smiles  inner-val loss 1.1364 (AUROC 0.420)
+    fold 5 · without_smiles  inner-val loss 1.0310 (AUROC 0.748)
+    fold 1 · without_smiles  inner-val loss 1.0616 (AUROC 0.637)
+    fold 2 · without_smiles  inner-val loss 0.8902 (AUROC 0.387)
+    fold 3 · without_smiles  inner-val loss 1.1756 (AUROC 0.506)
+    fold 4 · without_smiles  inner-val loss 0.7224 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 0.9865 (AUROC 0.367)
+    fold 1 · without_smiles  inner-val loss 0.4268 (AUROC 0.866)
+    fold 2 · without_smiles  inner-val loss 0.5603 (AUROC 0.778)
+    fold 3 · without_smiles  inner-val loss 0.1097 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3763 (AUROC 0.937)
+    fold 5 · without_smiles  inner-val loss 0.7210 (AUROC 0.630)
+    fold 1 · without_smiles  inner-val loss 0.0564 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6457 (AUROC 0.585)
+    fold 3 · without_smiles  inner-val loss 0.7056 (AUROC 0.288)
+    fold 4 · without_smiles  inner-val loss 1.0458 (AUROC 0.432)
+    fold 5 · without_smiles  inner-val loss 1.0073 (AUROC 0.660)
+    fold 1 · without_smiles  inner-val loss 1.1632 (AUROC 0.635)
+    fold 2 · without_smiles  inner-val loss 0.8862 (AUROC 0.395)
+    fold 3 · without_smiles  inner-val loss 1.2946 (AUROC 0.513)
+    fold 4 · without_smiles  inner-val loss 0.7103 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 1.0620 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4931 (AUROC 0.731)
+    fold 2 · without_smiles  inner-val loss 0.5027 (AUROC 0.802)
+    fold 3 · without_smiles  inner-val loss 0.1129 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3772 (AUROC 0.923)
+    fold 5 · without_smiles  inner-val loss 0.7640 (AUROC 0.569)
+    fold 1 · without_smiles  inner-val loss 0.0137 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6457 (AUROC 0.585)
+    fold 3 · without_smiles  inner-val loss 0.7056 (AUROC 0.288)
+    fold 4 · without_smiles  inner-val loss 1.0458 (AUROC 0.432)
+    fold 5 · without_smiles  inner-val loss 1.0073 (AUROC 0.660)
+    fold 1 · without_smiles  inner-val loss 1.1632 (AUROC 0.635)
+    fold 2 · without_smiles  inner-val loss 0.8862 (AUROC 0.395)
+    fold 3 · without_smiles  inner-val loss 1.2946 (AUROC 0.513)
+    fold 4 · without_smiles  inner-val loss 0.7103 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 1.0620 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4931 (AUROC 0.731)
+    fold 2 · without_smiles  inner-val loss 0.5027 (AUROC 0.802)
+    fold 3 · without_smiles  inner-val loss 0.0865 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3772 (AUROC 0.923)
+    fold 5 · without_smiles  inner-val loss 0.7640 (AUROC 0.569)
+    fold 1 · without_smiles  inner-val loss 0.0513 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6451 (AUROC 0.585)
+    fold 3 · without_smiles  inner-val loss 0.7054 (AUROC 0.288)
+    fold 4 · without_smiles  inner-val loss 1.0448 (AUROC 0.432)
+    fold 5 · without_smiles  inner-val loss 1.0028 (AUROC 0.675)
+    fold 1 · without_smiles  inner-val loss 1.1616 (AUROC 0.635)
+    fold 2 · without_smiles  inner-val loss 0.8855 (AUROC 0.395)
+    fold 3 · without_smiles  inner-val loss 1.2934 (AUROC 0.513)
+    fold 4 · without_smiles  inner-val loss 0.7099 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 1.0610 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4932 (AUROC 0.731)
+    fold 2 · without_smiles  inner-val loss 0.5029 (AUROC 0.802)
+    fold 3 · without_smiles  inner-val loss 0.1153 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3715 (AUROC 0.950)
+    fold 5 · without_smiles  inner-val loss 0.7634 (AUROC 0.569)
+    fold 1 · without_smiles  inner-val loss 0.0117 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6451 (AUROC 0.585)
+    fold 3 · without_smiles  inner-val loss 0.7054 (AUROC 0.288)
+    fold 4 · without_smiles  inner-val loss 1.0448 (AUROC 0.432)
+    fold 5 · without_smiles  inner-val loss 1.0028 (AUROC 0.675)
+    fold 1 · without_smiles  inner-val loss 1.1616 (AUROC 0.635)
+    fold 2 · without_smiles  inner-val loss 0.8855 (AUROC 0.395)
+    fold 3 · without_smiles  inner-val loss 1.2934 (AUROC 0.513)
+    fold 4 · without_smiles  inner-val loss 0.7099 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 1.0610 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4932 (AUROC 0.731)
+    fold 2 · without_smiles  inner-val loss 0.5029 (AUROC 0.802)
+    fold 3 · without_smiles  inner-val loss 0.0903 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3715 (AUROC 0.950)
+    fold 5 · without_smiles  inner-val loss 0.7634 (AUROC 0.569)
+    fold 1 · without_smiles  inner-val loss 0.0533 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6403 (AUROC 0.585)
+    fold 3 · without_smiles  inner-val loss 0.7039 (AUROC 0.288)
+    fold 4 · without_smiles  inner-val loss 1.0364 (AUROC 0.432)
+    fold 5 · without_smiles  inner-val loss 0.9666 (AUROC 0.670)
+    fold 1 · without_smiles  inner-val loss 1.1327 (AUROC 0.623)
+    fold 2 · without_smiles  inner-val loss 0.8804 (AUROC 0.416)
+    fold 3 · without_smiles  inner-val loss 1.2837 (AUROC 0.513)
+    fold 4 · without_smiles  inner-val loss 0.7063 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 1.0491 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4985 (AUROC 0.731)
+    fold 2 · without_smiles  inner-val loss 0.5037 (AUROC 0.802)
+    fold 3 · without_smiles  inner-val loss 0.1066 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3638 (AUROC 0.950)
+    fold 5 · without_smiles  inner-val loss 0.7596 (AUROC 0.569)
+    fold 1 · without_smiles  inner-val loss 0.0370 (AUROC 1.000)
+    fold 2 · without_smiles  inner-val loss 0.6403 (AUROC 0.585)
+    fold 3 · without_smiles  inner-val loss 0.7039 (AUROC 0.288)
+    fold 4 · without_smiles  inner-val loss 1.0364 (AUROC 0.432)
+    fold 5 · without_smiles  inner-val loss 0.9666 (AUROC 0.670)
+    fold 1 · without_smiles  inner-val loss 1.1327 (AUROC 0.623)
+    fold 2 · without_smiles  inner-val loss 0.8804 (AUROC 0.416)
+    fold 3 · without_smiles  inner-val loss 1.2837 (AUROC 0.513)
+    fold 4 · without_smiles  inner-val loss 0.7063 (AUROC 0.137)
+    fold 5 · without_smiles  inner-val loss 1.0491 (AUROC 0.350)
+    fold 1 · without_smiles  inner-val loss 0.4985 (AUROC 0.731)
+    fold 2 · without_smiles  inner-val loss 0.5037 (AUROC 0.802)
+    fold 3 · without_smiles  inner-val loss 0.0994 (AUROC 1.000)
+    fold 4 · without_smiles  inner-val loss 0.3638 (AUROC 0.950)
+    fold 5 · without_smiles  inner-val loss 0.7596 (AUROC 0.569)
+==========================================================================
+BASELINE TUNING — the ONE pass §6 permits
+==========================================================================
+  arm               : without_smiles only
+  configurations    : 12
+  seeds x folds     : 3 x 5
+  total trainings   : 180
+  selection metric  : mean POS-WEIGHTED INNER-validation loss (lower is better)
+  NEVER consulted   : out-of-fold predictions, outer-fold AUROC
+     1. dropout=0.25  weight_decay=0.01  max_epochs=15
+     2. dropout=0.25  weight_decay=0.01  max_epochs=40
+     3. dropout=0.25  weight_decay=0.1  max_epochs=15
+     4. dropout=0.25  weight_decay=0.1  max_epochs=40
+     5. dropout=0.25  weight_decay=1.0  max_epochs=15
+     6. dropout=0.25  weight_decay=1.0  max_epochs=40
+     7. dropout=0.45  weight_decay=0.01  max_epochs=15
+     8. dropout=0.45  weight_decay=0.01  max_epochs=40
+     9. dropout=0.45  weight_decay=0.1  max_epochs=15
+    10. dropout=0.45  weight_decay=0.1  max_epochs=40
+    11. dropout=0.45  weight_decay=1.0  max_epochs=15
+    12. dropout=0.45  weight_decay=1.0  max_epochs=40
+
+
+[1/12] dropout=0.25  weight_decay=0.01  max_epochs=15   (patience 8)
+     mean inner-val loss 0.7080 ± 0.3610   (399s)
+
+[2/12] dropout=0.25  weight_decay=0.01  max_epochs=40   (patience 8)
+     mean inner-val loss 0.7080 ± 0.3610   (552s)
+
+[3/12] dropout=0.25  weight_decay=0.1  max_epochs=15   (patience 8)
+     mean inner-val loss 0.7079 ± 0.3604   (471s)
+
+[4/12] dropout=0.25  weight_decay=0.1  max_epochs=40   (patience 8)
+     mean inner-val loss 0.7079 ± 0.3604   (411s)
+
+[5/12] dropout=0.25  weight_decay=1.0  max_epochs=15   (patience 8)
+     mean inner-val loss 0.7055 ± 0.3551   (504s)
+
+[6/12] dropout=0.25  weight_decay=1.0  max_epochs=40   (patience 8)
+     mean inner-val loss 0.7043 ± 0.3575   (519s)
+
+[7/12] dropout=0.45  weight_decay=0.01  max_epochs=15   (patience 8)
+     mean inner-val loss 0.7218 ± 0.3677   (425s)
+
+[8/12] dropout=0.45  weight_decay=0.01  max_epochs=40   (patience 8)
+     mean inner-val loss 0.7172 ± 0.3764   (497s)
+
+[9/12] dropout=0.45  weight_decay=0.1  max_epochs=15   (patience 8)
+     mean inner-val loss 0.7205 ± 0.3678   (312s)
+
+[10/12] dropout=0.45  weight_decay=0.1  max_epochs=40   (patience 8)
+     mean inner-val loss 0.7162 ± 0.3759   (321s)
+
+[11/12] dropout=0.45  weight_decay=1.0  max_epochs=15   (patience 8)
+     mean inner-val loss 0.7123 ± 0.3620   (269s)
+
+[12/12] dropout=0.45  weight_decay=1.0  max_epochs=40   (patience 8)
+     mean inner-val loss 0.7108 ± 0.3649   (310s)
+
+==========================================================================
+RANKING — by mean pos-weighted inner-validation loss (lower is better)
+==========================================================================
+rank  dropout      wd epochs       loss      sd
+   1     0.25     1.0     40     0.7043  0.3575
+   2     0.25     1.0     15     0.7055  0.3551
+   3     0.25     0.1     15     0.7079  0.3604
+   4     0.25     0.1     40     0.7079  0.3604
+   5     0.25    0.01     15     0.7080  0.3610
+   6     0.25    0.01     40     0.7080  0.3610
+   7     0.45     1.0     40     0.7108  0.3649
+   8     0.45     1.0     15     0.7123  0.3620
+   9     0.45     0.1     40     0.7162  0.3759
+  10     0.45    0.01     40     0.7172  0.3764
+  11     0.45     0.1     15     0.7205  0.3678
+  12     0.45    0.01     15     0.7218  0.3677
+
+==========================================================================
+WINNER — freeze these into HPARAMS and record them in §10
+==========================================================================
+  dropout        = 0.25
+  weight_decay   = 1.0
+  max_epochs     = 40
+  patience       = 8
+  mean inner-val loss = 0.7043 ± 0.3575 over 15 fold-seed points
+  margin over 2nd     = 0.0012  (WITHIN NOISE — report this)
+
+  ⚠️  the winner sits on an EDGE of the grid for: dropout, weight_decay, max_epochs
+      §10 requires this be REPORTED, not quietly widened.
+
+  written to /Users/Roshan_Singh_Saud/Desktop/Research/output/eval/tuning_baseline_brca.json
+  total 83.2 min
+
