@@ -1,0 +1,47 @@
+# Python dependencies for the histopathology drug-response pipeline.
+#
+# Torch is deliberately NOT pinned here: the right build depends on the CUDA
+# version of whatever box you are on. Install it first, separately:
+#
+#   RunPod / Linux CUDA 12.x :  pip install torch torchvision \
+#                                 --index-url https://download.pytorch.org/whl/cu121
+#   Apple Silicon Mac        :  pip install torch torchvision
+#
+# then:  pip install -r requirements.txt
+#
+# scripts/setup_pod.sh does both, plus the gdc-client binary.
+
+# --- WSI reading -------------------------------------------------------------
+# openslide-python is only a wrapper around a C library. On a bare Linux image
+# `pip install openslide-python` succeeds and `import openslide` then fails with
+# "OpenSlide library not found". openslide-bin ships the shared library as a
+# wheel, which is why it is listed first and why no apt step is needed.
+openslide-bin>=4.0.0.6
+openslide-python>=1.3.1
+
+# --- feature extractor -------------------------------------------------------
+# UNI is a gated Hugging Face model loaded through timm:
+#   1. accept the licence at huggingface.co/MahmoodLab/UNI
+#   2. export HF_TOKEN=hf_...   (load_uni() reads it)
+timm>=1.0.9
+huggingface_hub>=0.25.0
+
+# --- image / array work ------------------------------------------------------
+numpy>=1.26,<3
+pillow>=10.0
+scikit-image>=0.22          # Otsu threshold + LAB conversion for stain norm
+tqdm>=4.66
+
+# --- steps 04-07 -------------------------------------------------------------
+# rdkit is not needed for steps 00-03 (download, tile, embed, MIL). It is only
+# imported by 08_/11_ for Morgan fingerprints and SMILES parsing, so a GPU pod
+# doing Gate 1 or Gate 2 can skip it entirely.
+rdkit>=2024.3.1
+pandas>=2.0
+scikit-learn>=1.4
+
+# --- frozen molecular encoder (scripts/11_) ----------------------------------
+# Only needed to BUILD drugs/drug_embeddings_chemberta_zinc.npz. Once that
+# artefact exists, 08_evaluate_ablation.py reads it with numpy alone and does
+# not import transformers — so a machine running the ablation does not need it.
+transformers>=4.40
