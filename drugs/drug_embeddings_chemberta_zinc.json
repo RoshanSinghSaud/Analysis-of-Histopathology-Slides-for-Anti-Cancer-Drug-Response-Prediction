@@ -1,0 +1,18 @@
+{
+  "model_id": "seyonec/ChemBERTa-zinc-base-v1",
+  "revision": "761d6a18cf99db371e0b43baf3e2d21b3e865a20",
+  "pooling": "mean",
+  "embed_dim": 768,
+  "n_drug_names": 94,
+  "n_molecules": 82,
+  "batching": "none \u2014 one molecule per forward pass (see embed())",
+  "weights_file": "pytorch_model.bin (use_safetensors=False, pin-safe)",
+  "cohort_tag": "arm_a",
+  "smiles_sha256": "aedf598b0b686b8a3df589168d344c2e7e08e248eae1b4fa8b61f31a93b1ea29",
+  "embeddings_sha256": "1e367eb7651ad6895b0df2e70b0d80bc2e64bcf9c9d182603e1197a8ccf26582",
+  "tokenizer_guard": "round-trip exact and collision-free on all molecules",
+  "torch": "2.13.0+cpu",
+  "transformers": "5.16.1",
+  "numpy": "2.4.4",
+  "script": "11_build_drug_embeddings.py"
+}
