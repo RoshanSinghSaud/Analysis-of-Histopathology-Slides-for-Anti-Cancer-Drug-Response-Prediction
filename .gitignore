@@ -53,3 +53,18 @@ hf_token*
 _to_delete/
 *.tgz
 ._*
+
+# --- Not part of the code repo (10 Sep 2026) ---
+# Raw GDC downloads: re-fetchable from cohort/gdc_manifest_*.txt. The derived
+# cohort/receptor_status_*.csv IS tracked; these 199 XMLs were 72% of the files.
+cohort/bcr_xml/
+# Superseded May/June GDC manifests
+test-data/
+# Local editor / tool config
+.vscode/
+.claude/
+CLAUDE.md.bak-*
+# Planning, collaborator and pharmacist material -> its own private repo
+notes-private/
+# Safety copy of .git taken before the 10 Sep history rewrite
+.git-backup-*
