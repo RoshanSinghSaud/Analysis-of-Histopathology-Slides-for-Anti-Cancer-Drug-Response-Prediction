@@ -36,3 +36,5 @@ scripts/__pycache__/
 *.token
 hf_token*
 _to_delete/
+*.tgz
+._*
