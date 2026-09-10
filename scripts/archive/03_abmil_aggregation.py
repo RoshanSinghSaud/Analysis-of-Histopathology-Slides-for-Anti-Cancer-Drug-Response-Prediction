@@ -205,10 +205,23 @@ def load_patient_bag(slides: list, device: torch.device):
     parts, slide_order, offset = [], [], 0
 
     for slide_id, entry in slides:
-        feat_path = entry.get("feature_path")
-        if not feat_path or not Path(feat_path).exists():
+        # Manifests written by step 01 now store repo-relative paths so they
+        # survive moving between the Mac and a rented pod; older manifests
+        # stored absolute paths, and both are resolved here. The final fallback
+        # is the canonical filename, so a manifest carrying a dead absolute path
+        # from another machine still finds features that are actually present.
+        raw = entry.get("feature_path")
+        feat_path = None
+        for cand in (Path(raw) if raw and Path(raw).is_absolute() else None,
+                     BASE_DIR / raw if raw else None,
+                     FEATURE_MANIFEST.parent / f"{slide_id}_features.pt"):
+            if cand is not None and cand.exists():
+                feat_path = cand
+                break
+        if feat_path is None:
             raise FileNotFoundError(
-                f"{slide_id}: feature file missing ({feat_path}). The bag for "
+                f"{slide_id}: feature file missing (manifest said {raw!r}; also "
+                f"tried {FEATURE_MANIFEST.parent / f'{slide_id}_features.pt'}). The bag for "
                 f"this patient would be incomplete, which silently changes who "
                 f"the patient is. Re-run step 01 for this slide."
             )
