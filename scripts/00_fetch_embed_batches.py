@@ -8,7 +8,10 @@ Walks a GDC manifest in batches, and for each batch:
     download → verify MD5 → embed with step 01 → verify features → delete .svs
 
 The point is that the raw slides are a TRANSIENT. BRCA is 173.7 GB of .svs but
-only ~845 MB of features; full Arm A is ~1.42 TB of .svs but ~5 GB of features.
+only ~3.4 GB of features; full Arm A is ~1.42 TB of .svs but ~21 GB of features.
+(Those figures are for MAX_TILES_PER_SLIDE = 4000 in step 01, at 16.4 MB/slide.
+They were ~845 MB / ~5 GB back when the cap was 1000 — if you change the cap,
+change these too.)
 Peak disk is one batch, not the cohort — so a 528 GB laptop can process a
 cohort many times larger than its own disk.
 
@@ -50,6 +53,7 @@ import argparse
 import hashlib
 import json
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -59,7 +63,7 @@ from pathlib import Path
 BASE_DIR    = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = BASE_DIR / "scripts"
 MANIFEST     = BASE_DIR / "cohort" / "gdc_manifest_brca.txt"
-GDC_CLIENT   = BASE_DIR / "tools" / "gdc-client"
+TOOLS_DIR    = BASE_DIR / "tools"
 RAW_DIR      = BASE_DIR / "data" / "raw"
 WSI_DIR      = BASE_DIR / "data" / "wsi"
 FEAT_DIR     = BASE_DIR / "output" / "features"
@@ -68,6 +72,64 @@ EMBED_SCRIPT = SCRIPTS_DIR / "01_preprocess_and_extract.py"
 
 EMBED_DIM = 1024          # must match step 01
 GB = 1024 ** 3
+
+
+# ---------------------------------------------------------------------------
+# gdc-client: the binary is platform-specific
+# ---------------------------------------------------------------------------
+#
+# tools/gdc-client is the macOS build. Running it on a Linux GPU pod fails with
+# "Exec format error", and the old os.access(X_OK) check passed happily right
+# before subprocess.run blew up — so the failure surfaced only after a pod was
+# already billing. Keep one binary per platform and choose at runtime.
+
+def find_gdc_client() -> Path:
+    system = platform.system()
+    candidates = {
+        "Darwin": ["gdc-client-macos", "gdc-client"],
+        "Linux":  ["gdc-client-linux", "gdc-client"],
+    }.get(system, ["gdc-client"])
+
+    for name in candidates:
+        p = TOOLS_DIR / name
+        if not p.exists():
+            continue
+        if not os.access(p, os.X_OK):
+            raise SystemExit(f"{p} is not executable. Run:\n    chmod +x {p}")
+        # Refuse a binary built for the wrong OS instead of dying inside
+        # subprocess with a bare "Exec format error".
+        try:
+            subprocess.run([str(p), "--version"], check=True,
+                           capture_output=True, timeout=60)
+        except (OSError, subprocess.SubprocessError) as e:
+            raise SystemExit(
+                f"{p} exists but will not run on {system}: {e}\n"
+                f"This is almost certainly a binary built for another OS.\n"
+                f"Fetch the right build with:  bash scripts/setup_pod.sh --gdc-only"
+            )
+        return p
+
+    raise SystemExit(
+        f"No usable gdc-client found in {TOOLS_DIR} for {system}.\n"
+        f"Looked for: {', '.join(candidates)}\n"
+        f"On Linux, get it with:  bash scripts/setup_pod.sh --gdc-only"
+    )
+
+
+def resolve_feature_path(raw: str | None, slide_stem: str) -> Path | None:
+    """
+    Resolve a manifest path written by step 01.
+
+    Step 01 now writes repo-relative paths so a manifest produced on a pod still
+    works on the Mac; older manifests hold absolute paths. Both are accepted,
+    and the canonical filename is the last resort.
+    """
+    for cand in (Path(raw) if raw and Path(raw).is_absolute() else None,
+                 BASE_DIR / raw if raw else None,
+                 FEAT_DIR / f"{slide_stem}_features.pt"):
+        if cand is not None and cand.exists():
+            return cand
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -145,7 +207,7 @@ def download_batch(batch: list[dict], batch_no: int, quiet: bool) -> float:
     sub.write_text("id\tfilename\tmd5\tsize\tstate\n" + "".join(
         f"{r['id']}\t{r['filename']}\t{r['md5']}\t{r['size']}\treleased\n" for r in batch))
 
-    cmd = [str(GDC_CLIENT), "download", "-m", str(sub), "-d", str(RAW_DIR)]
+    cmd = [str(find_gdc_client()), "download", "-m", str(sub), "-d", str(RAW_DIR)]
     if quiet:
         cmd.append("--log-file")
         cmd.append(str(RAW_DIR / f"_batch_{batch_no:03d}.log"))
@@ -211,9 +273,8 @@ def feature_ok(slide_stem: str, fmanifest: dict) -> tuple[bool, str]:
     if entry.get("status") != "done":
         return False, f"status={entry.get('status')}"
 
-    fp = entry.get("feature_path")
-    if not fp or not Path(fp).exists():
-        return False, "feature file missing on disk"
+    if resolve_feature_path(entry.get("feature_path"), slide_stem) is None:
+        return False, f"feature file missing on disk (manifest: {entry.get('feature_path')!r})"
 
     shape = entry.get("shape") or []
     if len(shape) != 2 or shape[0] < 1 or shape[1] != EMBED_DIM:
@@ -321,11 +382,11 @@ def main() -> None:
         print("\nDry run — nothing downloaded. Drop --dry-run to start.")
         return
 
-    for tool, path in (("gdc-client", GDC_CLIENT), ("step 01", EMBED_SCRIPT)):
-        if not path.exists():
-            raise SystemExit(f"{tool} not found at {path}")
-    if not os.access(GDC_CLIENT, os.X_OK):
-        raise SystemExit(f"gdc-client is not executable. Run:\n    chmod +x {GDC_CLIENT}")
+    if not EMBED_SCRIPT.exists():
+        raise SystemExit(f"step 01 not found at {EMBED_SCRIPT}")
+    # exits with an actionable message if the binary is missing or wrong-OS
+    client = find_gdc_client()
+    print(f"  gdc-client      : {client.name}  ({platform.system()})")
 
     state["started"] = state.get("started") or time.strftime("%Y-%m-%d %H:%M:%S")
     save_state(state)
@@ -424,7 +485,7 @@ def main() -> None:
         print("  the download figure does not change at all.")
     print("=" * 70)
     if len(state["embedded"]) >= len(rows):
-        print("Cohort fully embedded. Next → python scripts/03_abmil_aggregation.py")
+        print("Cohort fully embedded. Next → python scripts/08_evaluate_ablation.py --tag <tag> --dry-run")
     else:
         print("Re-run the same command to continue with the next batches.")
 
