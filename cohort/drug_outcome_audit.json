@@ -1,93 +1,85 @@
 {
   "scope": "TCGA",
-  "generated_utc": "2026-08-09T10:40:51Z",
+  "generated_utc": "2026-08-26T04:51:31Z",
   "counts": {
     "cases_total": 11428,
-    "with_named_drug": 4985,
-    "with_os_label": 11064,
+    "with_named_drug": 4986,
+    "with_os_label": 8513,
     "with_pfi_label": 3320,
     "with_treatment_outcome_label": 2595,
     "with_diagnostic_slide": 9752,
     "with_tissue_slide_only": 1368,
-    "USABLE_drug_and_OS_and_slide": 3894,
-    "USABLE_drug_and_PFI_and_slide": 1513,
-    "USABLE_drug_and_TREATMENTOUTCOME_and_slide": 1565,
-    "USABLE_drug_and_TREATMENTOUTCOME_and_slide_loose": 1759
+    "USABLE_drug_and_OS_and_slide": 2771,
+    "USABLE_drug_and_PFI_and_slide": 1515,
+    "USABLE_drug_and_TREATMENTOUTCOME_and_slide": 1564,
+    "USABLE_drug_and_TREATMENTOUTCOME_and_slide_loose": 1758
   },
   "drug_variation": {
-    "distinct_drugs_in_usable_os_cohort": 273,
-    "drugs_with_ge_20_patients": 63,
-    "drugs_with_ge_50_patients": 32,
-    "monotherapy_patients": 1599,
-    "combination_patients": 2295,
+    "distinct_drugs_in_usable_os_cohort": 248,
+    "drugs_with_ge_20_patients": 53,
+    "drugs_with_ge_50_patients": 24,
+    "monotherapy_patients": 1208,
+    "combination_patients": 1563,
     "top_40_drugs": [
       [
         "tamoxifen",
-        833
+        605
       ],
       [
         "cisplatin",
-        718
-      ],
-      [
-        "paclitaxel",
-        615
-      ],
-      [
-        "cyclophosphamide",
-        578
+        538
       ],
       [
         "carboplatin",
-        561
+        466
       ],
       [
         "temozolomide",
-        492
+        441
       ],
       [
         "fluorouracil",
-        480
+        375
       ],
       [
-        "docetaxel",
-        291
-      ],
-      [
-        "doxorubicin",
-        287
+        "paclitaxel",
+        373
       ],
       [
         "gemcitabine",
-        271
-      ],
-      [
-        "anastrozole",
-        247
-      ],
-      [
-        "bevacizumab",
-        217
+        245
       ],
       [
         "oxaliplatin",
-        209
+        208
       ],
       [
-        "doxorubicin hydrochloride",
-        197
+        "bevacizumab",
+        187
       ],
       [
         "etoposide",
-        181
+        168
       ],
       [
         "capecitabine",
-        146
+        142
       ],
       [
         "leucovorin",
-        145
+        142
+      ],
+      [
+        "cyclophosphamide",
+        109
+      ],
+      [
+        "docetaxel",
+        105
+      ],
+      [
+        "doxorubicin",
+        96
       ],
       [
         "leucovorin calcium",
@@ -95,99 +87,107 @@
       ],
       [
         "bleomycin",
-        91
+        90
       ],
       [
         "vincristine",
-        80
-      ],
-      [
-        "lomustine",
-        78
-      ],
-      [
-        "letrozole",
         76
       ],
       [
-        "trastuzumab",
-        75
-      ],
-      [
-        "epirubicin",
-        75
-      ],
-      [
-        "irinotecan",
+        "lomustine",
         74
       ],
       [
-        "gemcitabine hydrochloride",
-        68
+        "irinotecan",
+        71
       ],
       [
-        "pemetrexed disodium",
-        61
+        "gemcitabine hydrochloride",
+        63
       ],
       [
         "dexamethasone",
-        59
+        58
       ],
       [
         "mitotane",
         56
       ],
       [
-        "leuprolide acetate",
-        54
-      ],
-      [
         "irinotecan hydrochloride",
-        54
+        53
       ],
       [
         "interferon",
-        50
-      ],
-      [
-        "methotrexate",
-        49
-      ],
-      [
-        "sorafenib",
-        47
-      ],
-      [
-        "exemestane",
-        45
-      ],
-      [
-        "dacarbazine",
-        45
-      ],
-      [
-        "pemetrexed",
         44
       ],
       [
-        "vinorelbine",
-        43
+        "carmustine",
+        42
+      ],
+      [
+        "sorafenib",
+        40
+      ],
+      [
+        "doxorubicin hydrochloride",
+        40
+      ],
+      [
+        "dacarbazine",
+        39
+      ],
+      [
+        "prednisone",
+        38
+      ],
+      [
+        "procarbazine",
+        38
+      ],
+      [
+        "cetuximab",
+        37
+      ],
+      [
+        "epirubicin",
+        33
       ],
       [
         "erlotinib hydrochloride",
-        43
+        32
       ],
       [
-        "carmustine",
-        43
+        "rituximab",
+        32
+      ],
+      [
+        "vinorelbine",
+        31
+      ],
+      [
+        "pemetrexed",
+        31
+      ],
+      [
+        "pegylated liposomal doxorubicin hydrochloride",
+        31
+      ],
+      [
+        "vinorelbine tartrate",
+        29
+      ],
+      [
+        "topotecan",
+        29
       ]
     ]
   },
   "recist_response_cohort": {
-    "patients_strict_same_treatment_record": 1565,
-    "patients_loose_case_level": 1759,
+    "patients_strict_same_treatment_record": 1564,
+    "patients_loose_case_level": 1758,
     "drug_outcome_pairs_strict": 3657,
-    "responder_CR_or_PR": 959,
+    "responder_CR_or_PR": 958,
     "nonresponder_SD_or_PD": 554,
     "mixed_records_excluded": 52,
     "distinct_drugs": 170,
@@ -195,7 +195,7 @@
     "top_20_drugs": [
       [
         "cisplatin",
-        496
+        495
       ],
       [
         "fluorouracil",
@@ -276,28 +276,20 @@
     ]
   },
   "per_project": {
-    "TCGA-BRCA": {
-      "usable_os": 753,
-      "distinct_drugs": 63
-    },
     "TCGA-UCEC": {
       "usable_os": 502,
       "distinct_drugs": 28
-    },
-    "TCGA-GBM": {
-      "usable_os": 293,
-      "distinct_drugs": 86
     },
     "TCGA-LGG": {
       "usable_os": 268,
       "distinct_drugs": 42
     },
-    "TCGA-STAD": {
-      "usable_os": 165,
-      "distinct_drugs": 30
+    "TCGA-GBM": {
+      "usable_os": 244,
+      "distinct_drugs": 82
     },
-    "TCGA-LUAD": {
-      "usable_os": 154,
+    "TCGA-STAD": {
+      "usable_os": 161,
       "distinct_drugs": 30
     },
     "TCGA-COAD": {
@@ -305,36 +297,28 @@
       "distinct_drugs": 20
     },
     "TCGA-SKCM": {
-      "usable_os": 148,
-      "distinct_drugs": 59
-    },
-    "TCGA-CESC": {
-      "usable_os": 136,
-      "distinct_drugs": 17
-    },
-    "TCGA-HNSC": {
-      "usable_os": 129,
-      "distinct_drugs": 26
+      "usable_os": 134,
+      "distinct_drugs": 58
     },
     "TCGA-LUSC": {
       "usable_os": 127,
       "distinct_drugs": 35
     },
-    "TCGA-BLCA": {
-      "usable_os": 121,
-      "distinct_drugs": 25
-    },
     "TCGA-PAAD": {
       "usable_os": 116,
       "distinct_drugs": 20
+    },
+    "TCGA-HNSC": {
+      "usable_os": 99,
+      "distinct_drugs": 25
     },
     "TCGA-TGCT": {
       "usable_os": 97,
       "distinct_drugs": 8
     },
-    "TCGA-KIRC": {
-      "usable_os": 96,
-      "distinct_drugs": 49
+    "TCGA-BLCA": {
+      "usable_os": 94,
+      "distinct_drugs": 23
     },
     "TCGA-OV": {
       "usable_os": 85,
@@ -344,13 +328,17 @@
       "usable_os": 71,
       "distinct_drugs": 17
     },
-    "TCGA-PRAD": {
-      "usable_os": 65,
-      "distinct_drugs": 20
+    "TCGA-KIRC": {
+      "usable_os": 61,
+      "distinct_drugs": 40
     },
     "TCGA-ACC": {
       "usable_os": 56,
       "distinct_drugs": 13
+    },
+    "TCGA-BRCA": {
+      "usable_os": 56,
+      "distinct_drugs": 41
     },
     "TCGA-UCS": {
       "usable_os": 55,
@@ -360,21 +348,29 @@
       "usable_os": 54,
       "distinct_drugs": 28
     },
-    "TCGA-LIHC": {
-      "usable_os": 52,
-      "distinct_drugs": 20
+    "TCGA-LUAD": {
+      "usable_os": 51,
+      "distinct_drugs": 22
+    },
+    "TCGA-CESC": {
+      "usable_os": 49,
+      "distinct_drugs": 10
     },
     "TCGA-THCA": {
       "usable_os": 45,
       "distinct_drugs": 10
     },
+    "TCGA-DLBC": {
+      "usable_os": 39,
+      "distinct_drugs": 27
+    },
     "TCGA-ESCA": {
       "usable_os": 39,
       "distinct_drugs": 13
     },
-    "TCGA-DLBC": {
-      "usable_os": 39,
-      "distinct_drugs": 27
+    "TCGA-LIHC": {
+      "usable_os": 37,
+      "distinct_drugs": 18
     },
     "TCGA-KIRP": {
       "usable_os": 27,
@@ -384,13 +380,13 @@
       "usable_os": 16,
       "distinct_drugs": 10
     },
-    "TCGA-THYM": {
-      "usable_os": 9,
-      "distinct_drugs": 9
-    },
     "TCGA-CHOL": {
       "usable_os": 9,
       "distinct_drugs": 4
+    },
+    "TCGA-THYM": {
+      "usable_os": 9,
+      "distinct_drugs": 9
     },
     "TCGA-KICH": {
       "usable_os": 9,
@@ -398,6 +394,10 @@
     },
     "TCGA-PCPG": {
       "usable_os": 6,
+      "distinct_drugs": 7
+    },
+    "TCGA-PRAD": {
+      "usable_os": 3,
       "distinct_drugs": 7
     }
   }

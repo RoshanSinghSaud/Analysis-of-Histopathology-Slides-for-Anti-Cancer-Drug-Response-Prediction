@@ -1,0 +1,119 @@
+{
+  "generated_utc": "2026-08-26T04:51:51Z",
+  "projects": [
+    "TCGA-BLCA",
+    "TCGA-BRCA",
+    "TCGA-CESC",
+    "TCGA-COAD",
+    "TCGA-LGG",
+    "TCGA-LUAD",
+    "TCGA-PAAD",
+    "TCGA-SKCM",
+    "TCGA-STAD",
+    "TCGA-TGCT"
+  ],
+  "slide_policy": "all diagnostic slides per patient, pooled into one MIL bag",
+  "include_mixed": false,
+  "patients": 1031,
+  "patients_mixed_excluded": 36,
+  "responders": 650,
+  "nonresponders": 381,
+  "drug_outcome_pairs": 2448,
+  "distinct_drugs": 127,
+  "slides": 1211,
+  "total_bytes": 1373666218576,
+  "total_gb": 1279.3,
+  "slides_per_patient": {
+    "1": 940,
+    "2": 60,
+    "3": 14,
+    "4": 5,
+    "5": 3,
+    "6": 1,
+    "7": 1,
+    "8": 2,
+    "9": 5
+  },
+  "top_drugs": [
+    [
+      "cisplatin",
+      340
+    ],
+    [
+      "fluorouracil",
+      233
+    ],
+    [
+      "temozolomide",
+      166
+    ],
+    [
+      "cyclophosphamide",
+      165
+    ],
+    [
+      "gemcitabine",
+      127
+    ],
+    [
+      "etoposide",
+      112
+    ],
+    [
+      "paclitaxel",
+      101
+    ],
+    [
+      "carboplatin",
+      89
+    ],
+    [
+      "bleomycin",
+      84
+    ],
+    [
+      "docetaxel",
+      83
+    ],
+    [
+      "oxaliplatin",
+      78
+    ],
+    [
+      "bevacizumab",
+      64
+    ],
+    [
+      "capecitabine",
+      57
+    ],
+    [
+      "doxorubicin hydrochloride",
+      56
+    ],
+    [
+      "doxorubicin",
+      55
+    ],
+    [
+      "epirubicin",
+      49
+    ],
+    [
+      "leucovorin calcium",
+      48
+    ],
+    [
+      "leucovorin",
+      47
+    ],
+    [
+      "dacarbazine",
+      26
+    ],
+    [
+      "tamoxifen",
+      24
+    ]
+  ]
+}

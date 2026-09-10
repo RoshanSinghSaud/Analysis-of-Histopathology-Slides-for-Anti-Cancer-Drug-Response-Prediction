@@ -1,14 +1,14 @@
 # TCGA drug + outcome audit (TCGA)
 
-Generated 2026-08-09T10:40:51Z from the live GDC API.
+Generated 2026-08-26T04:51:31Z from the live GDC API.
 
 ## Funnel
 
 | Step | Patients |
 |---|---:|
 | Cases in scope | 11428 |
-| ...with >=1 NAMED therapeutic agent | 4985 |
-| ...with a usable OS label | 11064 |
+| ...with >=1 NAMED therapeutic agent | 4986 |
+| ...with a usable OS label | 8513 |
 | ...with an explicit progression/recurrence label | 3320 |
 | ...with a per-treatment treatment_outcome | 2595 |
 | ...with >=1 diagnostic (FFPE H&E) slide | 9752 |
@@ -17,75 +17,75 @@ Generated 2026-08-09T10:40:51Z from the live GDC API.
 
 | Cohort (drug AND outcome AND diagnostic slide) | Patients |
 |---|---:|
-| drug + overall survival + slide | **3894** |
-| drug + progression/recurrence + slide | 1513 |
-| drug + RECIST treatment outcome + slide (strict pairing) | **1565** |
+| drug + overall survival + slide | **2771** |
+| drug + progression/recurrence + slide | 1515 |
+| drug + RECIST treatment outcome + slide (strict pairing) | **1564** |
 
 ## Drug variation in the OS cohort
 
-- distinct drugs: **273**
-- drugs seen in >=20 patients: 63
-- drugs seen in >=50 patients: 32
-- monotherapy patients: 1599
-- combination patients: 2295
+- distinct drugs: **248**
+- drugs seen in >=20 patients: 53
+- drugs seen in >=50 patients: 24
+- monotherapy patients: 1208
+- combination patients: 1563
 
 | Drug | Patients |
 |---|---:|
-| tamoxifen | 833 |
-| cisplatin | 718 |
-| paclitaxel | 615 |
-| cyclophosphamide | 578 |
-| carboplatin | 561 |
-| temozolomide | 492 |
-| fluorouracil | 480 |
-| docetaxel | 291 |
-| doxorubicin | 287 |
-| gemcitabine | 271 |
-| anastrozole | 247 |
-| bevacizumab | 217 |
-| oxaliplatin | 209 |
-| doxorubicin hydrochloride | 197 |
-| etoposide | 181 |
-| capecitabine | 146 |
-| leucovorin | 145 |
+| tamoxifen | 605 |
+| cisplatin | 538 |
+| carboplatin | 466 |
+| temozolomide | 441 |
+| fluorouracil | 375 |
+| paclitaxel | 373 |
+| gemcitabine | 245 |
+| oxaliplatin | 208 |
+| bevacizumab | 187 |
+| etoposide | 168 |
+| capecitabine | 142 |
+| leucovorin | 142 |
+| cyclophosphamide | 109 |
+| docetaxel | 105 |
+| doxorubicin | 96 |
 | leucovorin calcium | 94 |
-| bleomycin | 91 |
-| vincristine | 80 |
-| lomustine | 78 |
-| letrozole | 76 |
-| trastuzumab | 75 |
-| epirubicin | 75 |
-| irinotecan | 74 |
-| gemcitabine hydrochloride | 68 |
-| pemetrexed disodium | 61 |
-| dexamethasone | 59 |
+| bleomycin | 90 |
+| vincristine | 76 |
+| lomustine | 74 |
+| irinotecan | 71 |
+| gemcitabine hydrochloride | 63 |
+| dexamethasone | 58 |
 | mitotane | 56 |
-| leuprolide acetate | 54 |
-| irinotecan hydrochloride | 54 |
-| interferon | 50 |
-| methotrexate | 49 |
-| sorafenib | 47 |
-| exemestane | 45 |
-| dacarbazine | 45 |
-| pemetrexed | 44 |
-| vinorelbine | 43 |
-| erlotinib hydrochloride | 43 |
-| carmustine | 43 |
+| irinotecan hydrochloride | 53 |
+| interferon | 44 |
+| carmustine | 42 |
+| sorafenib | 40 |
+| doxorubicin hydrochloride | 40 |
+| dacarbazine | 39 |
+| prednisone | 38 |
+| procarbazine | 38 |
+| cetuximab | 37 |
+| epirubicin | 33 |
+| erlotinib hydrochloride | 32 |
+| rituximab | 32 |
+| vinorelbine | 31 |
+| pemetrexed | 31 |
+| pegylated liposomal doxorubicin hydrochloride | 31 |
+| vinorelbine tartrate | 29 |
+| topotecan | 29 |
 
 ## RECIST response cohort (the pCR replacement)
 
 Per-treatment `treatment_outcome`, restricted to RECIST-interpretable values only. Administrative states ('treatment ongoing', 'no measurable disease', 'persistent disease') are NOT counted as labels.
 
-- **STRICT** (drug and outcome on the SAME treatment record) + diagnostic slide: **1565** patients, 3657 drug-outcome pairs
-- loose (any drug on the case paired with any outcome on the case): 1759 - do NOT use this as the headline
-- responders (CR or PR): 959
+- **STRICT** (drug and outcome on the SAME treatment record) + diagnostic slide: **1564** patients, 3657 drug-outcome pairs
+- loose (any drug on the case paired with any outcome on the case): 1758 - do NOT use this as the headline
+- responders (CR or PR): 958
 - non-responders (SD, PD or no response): 554
 - mixed / contradictory records (excluded): 52
 - distinct drugs: 170 (31 seen in >=20 patients)
 
 | Drug | Patients |
 |---|---:|
-| cisplatin | 496 |
+| cisplatin | 495 |
 | fluorouracil | 312 |
 | carboplatin | 256 |
 | paclitaxel | 229 |
@@ -110,37 +110,37 @@ Per-treatment `treatment_outcome`, restricted to RECIST-interpretable values onl
 
 | Project | Usable patients | Distinct drugs |
 |---|---:|---:|
-| TCGA-BRCA | 753 | 63 |
 | TCGA-UCEC | 502 | 28 |
-| TCGA-GBM | 293 | 86 |
 | TCGA-LGG | 268 | 42 |
-| TCGA-STAD | 165 | 30 |
-| TCGA-LUAD | 154 | 30 |
+| TCGA-GBM | 244 | 82 |
+| TCGA-STAD | 161 | 30 |
 | TCGA-COAD | 152 | 20 |
-| TCGA-SKCM | 148 | 59 |
-| TCGA-CESC | 136 | 17 |
-| TCGA-HNSC | 129 | 26 |
+| TCGA-SKCM | 134 | 58 |
 | TCGA-LUSC | 127 | 35 |
-| TCGA-BLCA | 121 | 25 |
 | TCGA-PAAD | 116 | 20 |
+| TCGA-HNSC | 99 | 25 |
 | TCGA-TGCT | 97 | 8 |
-| TCGA-KIRC | 96 | 49 |
+| TCGA-BLCA | 94 | 23 |
 | TCGA-OV | 85 | 23 |
 | TCGA-READ | 71 | 17 |
-| TCGA-PRAD | 65 | 20 |
+| TCGA-KIRC | 61 | 40 |
 | TCGA-ACC | 56 | 13 |
+| TCGA-BRCA | 56 | 41 |
 | TCGA-UCS | 55 | 12 |
 | TCGA-MESO | 54 | 28 |
-| TCGA-LIHC | 52 | 20 |
+| TCGA-LUAD | 51 | 22 |
+| TCGA-CESC | 49 | 10 |
 | TCGA-THCA | 45 | 10 |
-| TCGA-ESCA | 39 | 13 |
 | TCGA-DLBC | 39 | 27 |
+| TCGA-ESCA | 39 | 13 |
+| TCGA-LIHC | 37 | 18 |
 | TCGA-KIRP | 27 | 27 |
 | TCGA-UVM | 16 | 10 |
-| TCGA-THYM | 9 | 9 |
 | TCGA-CHOL | 9 | 4 |
+| TCGA-THYM | 9 | 9 |
 | TCGA-KICH | 9 | 8 |
 | TCGA-PCPG | 6 | 7 |
+| TCGA-PRAD | 3 | 7 |
 
 ## Caveats to carry into the paper
 
