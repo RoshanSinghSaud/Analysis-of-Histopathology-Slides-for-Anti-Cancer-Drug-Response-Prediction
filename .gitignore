@@ -68,3 +68,13 @@ CLAUDE.md.bak-*
 notes-private/
 # Safety copy of .git taken before the 10 Sep history rewrite
 .git-backup-*
+
+# --- Moved to the private notes repo (19 Sep 2026) ---
+# CLAUDE.md is agent/project guidance, not code. The real file lives at
+# notes-private/CLAUDE.md and is symlinked back to this root so local tooling
+# still finds it. Do not re-add it here.
+CLAUDE.md
+# Superseded ancestry (steps 02-05, 07, two check_* scripts). Nothing imports
+# it and no feature in the study came from it; it remains in this repo's git
+# history and now lives at notes-private/scripts-archive/.
+scripts/archive/
