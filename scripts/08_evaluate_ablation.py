@@ -715,20 +715,52 @@ class ResponseModel(nn.Module):
 # =============================================================================
 # Bag loading
 # =============================================================================
+def _load_part(path):
+    """
+    Memory-map one slide's feature tensor. Nothing is read from disk until rows
+    are indexed, and the OS page cache -- not this process -- decides what stays
+    in RAM. Falls back to a plain load for a file saved in the legacy format.
+    """
+    try:
+        return torch.load(path, map_location="cpu", mmap=True, weights_only=True)
+    except (RuntimeError, ValueError):
+        return torch.load(path, map_location="cpu", weights_only=True)
+
+
 def get_tiles(s: Sample, n_tiles: int, rng: np.random.Generator, cache: dict) -> torch.Tensor:
-    """Pool all of a patient's slides, then take a seeded random subsample."""
+    """
+    Pool all of a patient's slides, then take a seeded random subsample.
+
+    LAZY LOADER (worklist step 24, 2026-09-29). This used to torch.cat every
+    slide into one float32 bag and keep it in `cache` for the whole run. Arm A
+    is 4.69 M tiles = 19.2 GB in float32, on an 8 GB machine. Now each slide is
+    memory-mapped, the SAME index draw is made over the concatenated row space,
+    and only the selected rows are read and cast. The returned tensor is
+    BIT-IDENTICAL to the old one -- same rng call, same sorted indices, same
+    row order, same cast -- so no result changes; only memory does. `cache` is
+    no longer used for real bags (kept for the call signature).
+    """
     if s.bag is not None:
         bag = s.bag
-    else:
-        key = tuple(str(p) for p in s.bag_paths)
-        bag = cache.get(key)
-        if bag is None:
-            bag = torch.cat([torch.load(p, map_location="cpu").float() for p in s.bag_paths])
-            cache[key] = bag
-    if bag.shape[0] <= n_tiles:
-        return bag
-    idx = rng.choice(bag.shape[0], n_tiles, replace=False)
-    return bag[torch.from_numpy(np.sort(idx))]
+        if bag.shape[0] <= n_tiles:
+            return bag
+        idx = rng.choice(bag.shape[0], n_tiles, replace=False)
+        return bag[torch.from_numpy(np.sort(idx))]
+
+    parts = [_load_part(p) for p in s.bag_paths]
+    sizes = [int(p.shape[0]) for p in parts]
+    total = sum(sizes)
+    if total <= n_tiles:
+        return torch.cat([p.float() for p in parts])
+    idx = np.sort(rng.choice(total, n_tiles, replace=False))
+    offsets = np.cumsum([0] + sizes)
+    out = []
+    for j, p in enumerate(parts):
+        lo, hi = offsets[j], offsets[j + 1]
+        sel = idx[(idx >= lo) & (idx < hi)] - lo
+        if len(sel):
+            out.append(p[torch.from_numpy(sel)].float())
+    return torch.cat(out)
 
 
 def patient_seed(patient_id: str) -> int:
@@ -1032,8 +1064,12 @@ def permutation_null(samples, fps, embed_dim, arms, hp, device, n_perm, n_splits
             s2 = copy.copy(s)
             s2.y = newlab[s.patient]
             perm.append(s2)
-        res = {1: run_cv(perm, fps, embed_dim, arms, hp, seed0 + i, device, n_splits)}
-        rep = summarise_run(res, arms, [1])
+        # Only the two arms of the primary contrast are trained (2026-09-29):
+        # each arm is trained independently from its own seed, so dropping the
+        # other two changes neither of these and halves the cost.
+        null_arms = ["without_smiles", "with_smiles"]
+        res = {1: run_cv(perm, fps, embed_dim, null_arms, hp, seed0 + i, device, n_splits)}
+        rep = summarise_run(res, null_arms, [1])
         d = rep["contrasts"]["with_smiles_vs_without_smiles"]["delta_auroc_mean"]
         deltas.append(d)
         log.info(f"    permutation {i+1}/{n_perm}: delta {d:+.4f}")
@@ -1538,8 +1574,10 @@ def main():
         print(f"  drug embedding dim  : {int(next(iter(fps.values())).shape[0])}")
         print(f"  tissue context dim  : {samples[0].context.size}")
         print(f"  thin-slide patients : {thin} (under {THIN_SLIDE_TILES} tiles)")
-        print(f"  per project         : {dict(per_proj.most_common())}")
-        print(f"  top drugs           : {dict(drugs.most_common(8))}")
+        print(f"  rows per project    : {dict(per_proj.most_common())}")
+        print(f"  patients per project: "
+              f"{dict(Counter(s.project for s in to_training_unit(samples)).most_common())}")
+        print(f"  top drugs (rows)    : {dict(drugs.most_common(8))}")
         print("\n  Check these against your cohort summary JSON before running for real.\n")
         return
 
@@ -1606,6 +1644,23 @@ def main():
                                             "hparams", "code_sha256",
                                             "drug_encoder", "training_unit")},
                    sort_keys=True, default=str).encode()).hexdigest()[:12]
+    # Per-patient out-of-fold predictions (2026-09-29). The within-cancer-type
+    # and single- vs multi-molecule secondaries (pre-registration §10) are
+    # computed from these; without them each would need a second full run.
+    def _preds(res):
+        return {str(seed): {arm: {"patients": list(pats), "y": [int(v) for v in yv],
+                                  "score": [float(v) for v in sv]}
+                            for arm, (yv, sv, pats) in by_arm.items()}
+                for seed, by_arm in res.items()}
+    preds = {"config_hash": payload["config_hash"], "source": source,
+             "training_unit": TRAINING_UNIT, "primary": _preds(results)}
+    if payload.get("sensitivity_thin_slide"):
+        preds["sensitivity_thin_slide"] = _preds(res2)
+    pp = BASE_DIR / "output" / "eval" / f"preds_{payload['config_hash']}.json"
+    pp.write_text(json.dumps(preds))
+    payload["predictions_file"] = pp.name
+    log.info(f"Per-patient predictions written to {pp}")
+
     p = append_run_log(payload)
     log.info(f"Run logged to {p} (config {payload['config_hash']})")
 
