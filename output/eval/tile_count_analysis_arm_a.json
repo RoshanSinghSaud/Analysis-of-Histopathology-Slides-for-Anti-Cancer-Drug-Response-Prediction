@@ -1,0 +1,20 @@
+{
+ "n_patients": 979,
+ "n_nonresponder": 352,
+ "median_tiles_nonresponder": 42647.5,
+ "median_tiles_responder": 34477.0,
+ "mann_whitney_U": 118565.0,
+ "mann_whitney_p": 0.053063096177149945,
+ "auroc_tiles_for_nonresponse": 0.5372127374220675,
+ "logistic_log_tiles": {
+  "coef_log_tiles": 0.0102124439831476,
+  "se": 0.057810084262952734,
+  "odds_ratio_per_e_fold": 1.0102647689594737,
+  "or_ci95": [
+   0.9020409857791845,
+   1.1314728704030148
+  ],
+  "wald_p": 0.8597793414413494
+ },
+ "tile_measure": "n_tiles_found summed over the patient's diagnostic slides"
+}

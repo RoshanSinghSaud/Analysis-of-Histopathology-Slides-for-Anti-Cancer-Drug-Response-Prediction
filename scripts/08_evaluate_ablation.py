@@ -233,6 +233,7 @@ class Sample:
     bag:       object = None                        # synthetic mode: in-memory tensor
     min_tiles: int = 10**9               # smallest slide in this bag (thin-slide filter)
     regimen:   tuple = ()                # drug names whose vectors are pooled; () -> (drug,)
+    negative_start: bool = False         # a record for this drug has days_to_treatment_start < 0
 
 
 # =============================================================================
@@ -250,6 +251,11 @@ class Sample:
 # 'pair' reproduces the pre-2026-09-29 behaviour exactly (a one-element regimen
 # pools to itself) and exists only as a regression baseline for --selftest.
 TRAINING_UNIT = "patient"
+
+# Digest of THIS file, taken at import (2026-09-29). It used to be read when the
+# run finished, so editing the file during a long run logged the hash of code
+# that never ran. Hashing at start ties the run log to the code that executed.
+CODE_SHA256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16]
 
 
 def _load_drug_molecules() -> dict:
@@ -466,13 +472,21 @@ def load_real(tag: str, features_dir: Path):
         min_tiles = min(int(e.get("n_tiles", 0)) for e in entries)
         y = 1 - int(rec["response_binary"])          # NON-RESPONDER is positive
 
+        neg_drugs = set()
+        for pr in rec.get("pairs", []):
+            try:
+                if float(pr.get("days_to_treatment_start")) < 0:
+                    neg_drugs.add(pr.get("drug"))
+            except (TypeError, ValueError):
+                pass                                   # missing day -> not negative
         for drug in rec["drugs"]:
             if drug not in fps:
                 skipped_no_fp += 1
                 continue
             samples.append(Sample(patient=bc, project=rec.get("project", "unknown"),
                                   drug=drug, y=y, context=ctx,
-                                  bag_paths=paths, min_tiles=min_tiles))
+                                  bag_paths=paths, min_tiles=min_tiles,
+                                  negative_start=drug in neg_drugs))
 
     if skipped_no_feat:
         log.warning(f"  {skipped_no_feat} cohort patients have no embedded slide — "
@@ -1472,6 +1486,9 @@ def main():
     ap.add_argument("--thin-slide-sensitivity", action="store_true",
                     help="§3.5: repeat excluding patients whose thinnest slide is "
                          f"under {THIN_SLIDE_TILES} tiles")
+    ap.add_argument("--negative-start-sensitivity", action="store_true",
+                    help="§10 2026-09-19: repeat excluding (patient, drug) records "
+                         "with a negative days_to_treatment_start")
     ap.add_argument("--features-dir", default=str(BASE_DIR / "output" / "features"))
     ap.add_argument("--device", default="cpu", help="cpu | mps | cuda")
     ap.add_argument("--note", default="", help="free text stored in the run log")
@@ -1574,6 +1591,7 @@ def main():
         print(f"  drug embedding dim  : {int(next(iter(fps.values())).shape[0])}")
         print(f"  tissue context dim  : {samples[0].context.size}")
         print(f"  thin-slide patients : {thin} (under {THIN_SLIDE_TILES} tiles)")
+        print(f"  negative-start recs : {sum(s.negative_start for s in samples)}")
         print(f"  rows per project    : {dict(per_proj.most_common())}")
         print(f"  patients per project: "
               f"{dict(Counter(s.project for s in to_training_unit(samples)).most_common())}")
@@ -1611,6 +1629,24 @@ def main():
         print_report(rep2, f"SENSITIVITY (thin slides excluded) — {source}")
         payload["sensitivity_thin_slide"] = {"n_patients_dropped": dropped, "report": rep2}
 
+    if a.negative_start_sensitivity and not a.synthetic:
+        # §10 2026-09-19: repeat the primary without the (patient, drug) records
+        # whose days_to_treatment_start is negative. Records are removed BEFORE
+        # the regimen is formed, so a patient keeps their other drugs and drops
+        # out only if nothing is left.
+        kept_n = [s for s in samples if not s.negative_start]
+        n_rec = len(samples) - len(kept_n)
+        dropped_n = n_pat - len({s.patient for s in kept_n})
+        log.info(f"\n  === treatment-timing sensitivity: {n_rec} records with negative "
+                 f"days_to_treatment_start removed ({dropped_n} patients lost) ===")
+        res3 = {seed: run_cv(kept_n, fps, embed_dim, arms, hp, seed, device,
+                             n_splits=a.folds) for seed in seeds}
+        rep3 = summarise_run(res3, arms, seeds)
+        print_report(rep3, f"SENSITIVITY (negative treatment start removed) — {source}")
+        payload["sensitivity_negative_start"] = {"n_records_removed": n_rec,
+                                                 "n_patients_dropped": dropped_n,
+                                                 "report": rep3}
+
     if a.permutation_null and "with_smiles" in arms:
         obs = rep["contrasts"]["with_smiles_vs_without_smiles"]["delta_auroc_mean"]
         log.info(f"\n  === permutation null: {a.permutation_null} runs "
@@ -1637,8 +1673,7 @@ def main():
     # differing only in --drug-encoder share every hyperparameter and every byte
     # of this file, so without it they would collide in exactly the same way.
     payload["receptor_context"] = bool(RECEPTOR_CONTEXT_USED)
-    payload["code_sha256"] = hashlib.sha256(
-        Path(__file__).read_bytes()).hexdigest()[:16]
+    payload["code_sha256"] = CODE_SHA256
     payload["config_hash"] = hashlib.sha256(
         json.dumps({k: payload[k] for k in ("source", "arms", "seeds", "folds",
                                             "hparams", "code_sha256",
@@ -1656,6 +1691,8 @@ def main():
              "training_unit": TRAINING_UNIT, "primary": _preds(results)}
     if payload.get("sensitivity_thin_slide"):
         preds["sensitivity_thin_slide"] = _preds(res2)
+    if payload.get("sensitivity_negative_start"):
+        preds["sensitivity_negative_start"] = _preds(res3)
     pp = BASE_DIR / "output" / "eval" / f"preds_{payload['config_hash']}.json"
     pp.write_text(json.dumps(preds))
     payload["predictions_file"] = pp.name
