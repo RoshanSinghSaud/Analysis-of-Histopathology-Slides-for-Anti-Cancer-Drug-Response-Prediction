@@ -17,9 +17,10 @@ WHAT IT DOES
   * An inner validation split inside each training fold, for early stopping.
   * Four arms on IDENTICAL folds:
         without_smiles   histology + tissue context only
-        with_smiles      + Morgan fingerprint of the administered drug
-        shuffled_drug    + a fingerprint of a RANDOM drug   (capacity control)
-        onehot_drug      + a one-hot drug ID                (identity control)
+        with_smiles      + frozen molecular embedding, mean-pooled over the regimen
+        shuffled_drug    + the regimen of a RANDOM patient  (capacity control)
+        onehot_drug      + one-hot MOLECULE IDs, pooled     (identity control)
+    One training row per PATIENT from 2026-09-29 (see TRAINING_UNIT).
   * Pooled out-of-fold predictions: every patient scored exactly once, by the
     fold that did not train on them (§4, §5 — this is the power decision).
   * AUROC + AUPRC with the NON-RESPONDER as the positive class (§7), bootstrap
@@ -60,7 +61,7 @@ import re
 import sys
 import time
 from collections import defaultdict
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field, asdict, replace
 from pathlib import Path
 
 import numpy as np
@@ -231,6 +232,73 @@ class Sample:
     bag_paths: list = field(default_factory=list)   # real mode: .pt files to pool
     bag:       object = None                        # synthetic mode: in-memory tensor
     min_tiles: int = 10**9               # smallest slide in this bag (thin-slide filter)
+    regimen:   tuple = ()                # drug names whose vectors are pooled; () -> (drug,)
+
+
+# =============================================================================
+# Unit of training — ONE ROW PER PATIENT (§10, 2026-09-29)
+# =============================================================================
+# The label is the outcome of a REGIMEN, not of one drug: every drug row of a
+# multi-drug patient carries the same slide and the same label, and no Arm A
+# patient has conflicting labels across drugs (0 of 1,031). One row per
+# (patient, drug) therefore gave 626 multi-drug patients 83% of the training
+# rows while adding no within-patient contrast at all. From 2026-09-29 the
+# training unit is the patient: one sample per patient, the drug input pooled
+# (mean) over the DISTINCT MOLECULES of the regimen. The evaluation unit was
+# always the patient, so AUROC, folds and power are unchanged.
+#
+# 'pair' reproduces the pre-2026-09-29 behaviour exactly (a one-element regimen
+# pools to itself) and exists only as a regression baseline for --selftest.
+TRAINING_UNIT = "patient"
+
+
+def _load_drug_molecules() -> dict:
+    """name -> parent InChIKey from the verified map; unknown names map to themselves."""
+    path = BASE_DIR / "drugs" / "drug_smiles_map.json"
+    if not path.exists():
+        return {}
+    dmap = json.loads(path.read_text()).get("map", {})
+    return {n: e["inchikey"] for n, e in dmap.items() if e.get("inchikey")}
+
+
+DRUG_MOLECULE = _load_drug_molecules()
+
+
+def molecule_of(name: str) -> str:
+    return DRUG_MOLECULE.get(name, name)
+
+
+def _dedupe_by_molecule(names) -> tuple:
+    """One name per distinct molecule (salt aliases share one structure)."""
+    seen, out = set(), []
+    for n in sorted(names):
+        m = molecule_of(n)
+        if m not in seen:
+            seen.add(m)
+            out.append(n)
+    return tuple(out)
+
+
+def to_training_unit(samples, unit=None):
+    """Collapse (patient, drug) records to one sample per patient under 'patient'."""
+    unit = unit or TRAINING_UNIT
+    if unit == "pair":
+        return [s if s.regimen else replace(s, regimen=(s.drug,)) for s in samples]
+    if unit != "patient":
+        raise ValueError(f"unknown training unit {unit!r}")
+    by_patient: dict = {}
+    for s in samples:
+        by_patient.setdefault(s.patient, []).append(s)
+    out = []
+    for pid in sorted(by_patient):
+        rows = by_patient[pid]
+        assert len({r.y for r in rows}) == 1, f"conflicting labels for {pid}"
+        names = []
+        for r in rows:
+            names.extend(r.regimen or (r.drug,))
+        reg = _dedupe_by_molecule(names)
+        out.append(replace(rows[0], drug="+".join(reg), regimen=reg))
+    return out
 
 
 # =============================================================================
@@ -783,11 +851,19 @@ def train_fold(train_s, val_s, arm, fps, embed_dim, hp, seed, cache, device, shu
     return model, sel_auc, best_loss
 
 
+def _molecule_index(fps) -> dict:
+    """Column of each distinct molecule in the one-hot identity control."""
+    return {m: i for i, m in enumerate(sorted({molecule_of(n) for n in fps}))}
+
+
 def drug_dim_for(arm, fps):
     if arm == "without_smiles":
         return None
     if arm == "onehot_drug":
-        return len(fps)
+        # keyed on the MOLECULE, not the name (§10, 2026-09-29), so the identity
+        # control partitions drugs exactly as with_smiles does: salt aliases
+        # are one identity in both arms.
+        return len(_molecule_index(fps))
     return int(next(iter(fps.values())).shape[0])
 
 
@@ -803,12 +879,17 @@ def drug_vec(s: Sample, arm, fps, shuffle_map, device):
     """
     if arm == "without_smiles":
         return None
-    name = shuffle_map[id(s)] if arm == "shuffled_drug" else s.drug
+    names = shuffle_map[id(s)] if arm == "shuffled_drug" else (s.regimen or (s.drug,))
+    names = _dedupe_by_molecule(names)
     if arm == "onehot_drug":
-        v = torch.zeros(len(fps))
-        v[sorted(fps).index(name)] = 1.0
+        idx = _molecule_index(fps)
+        v = torch.zeros(len(idx))
+        for n in names:                      # mean of one-hot vectors: 1/k each
+            v[idx[molecule_of(n)]] += 1.0 / len(names)
         return v.to(device)
-    return fps[name].to(device)
+    if len(names) == 1:                      # bit-identical to the pre-pooling path
+        return fps[names[0]].to(device)
+    return torch.stack([fps[n] for n in names]).mean(dim=0).to(device)
 
 
 @torch.no_grad()
@@ -849,6 +930,7 @@ def run_cv(samples, fps, embed_dim, arms, hp, seed, device, n_splits=5, val_log=
     channel the baseline tuning grid (§10, 2026-08-27) is allowed to read: it
     never sees the out-of-fold predictions this function returns.
     """
+    samples = to_training_unit(samples)
     groups = np.array([s.patient for s in samples])
     strat = np.array([f"{s.y}|{s.project}" for s in samples])
     # StratifiedGroupKFold needs integer-ish y; map the combined key
@@ -858,8 +940,19 @@ def run_cv(samples, fps, embed_dim, arms, hp, seed, device, n_splits=5, val_log=
     cache: dict = {}
     # fixed random drug per sample for the capacity control (§6), one draw per seed
     _srng = np.random.default_rng(seed + 99991)
-    drug_names = sorted(fps)
-    shuffle_map = {id(s): drug_names[int(_srng.integers(len(drug_names)))] for s in samples}
+    if TRAINING_UNIT == "pair":
+        # unchanged from the pre-2026-09-29 harness: one random drug per record
+        drug_names = sorted(fps)
+        shuffle_map = {id(s): (drug_names[int(_srng.integers(len(drug_names)))],)
+                       for s in samples}
+    else:
+        # §10 2026-09-29: under the patient unit the capacity control shuffles
+        # WHOLE REGIMENS — each patient receives the regimen of a randomly drawn
+        # patient, so regimen sizes and co-occurrence structure are preserved and
+        # only the regimen-label link is broken.
+        regimens = [s.regimen for s in samples]
+        shuffle_map = {id(s): regimens[int(_srng.integers(len(regimens)))]
+                       for s in samples}
     oof = {arm: defaultdict(list) for arm in arms}   # arm -> patient -> [probs]
     labels = {s.patient: s.y for s in samples}
 
@@ -1363,6 +1456,11 @@ def main():
                          "alone is anti-conservative here because it does not model "
                          "the retraining variance of cross-validation. Costs N full "
                          "CV runs. N=200 is the usual minimum for a 0.05 threshold.")
+    ap.add_argument("--unit", default="patient", choices=["patient", "pair"],
+                    help="training unit. 'patient' (one row per patient, drug input "
+                         "pooled over the regimen) is the pre-registered unit from "
+                         "2026-09-29; 'pair' is the old per-(patient, drug) unit, kept "
+                         "only as a regression baseline.")
     ap.add_argument("--quick", action="store_true",
                     help="SMOKE TEST ONLY — shrinks epochs and tiles so a run finishes "
                          "in minutes. Never use for a reported result; the run log "
@@ -1371,6 +1469,8 @@ def main():
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     device = torch.device(a.device)
+    global TRAINING_UNIT
+    TRAINING_UNIT = a.unit
 
     if a.selftest:
         sys.exit(selftest(device))
@@ -1431,6 +1531,9 @@ def main():
         print("\nDRY RUN — data assembled, nothing trained, no label seen by a model")
         print(f"  patients            : {n_pat}  ({n_pos} non-responder / {n_pat-n_pos} responder)")
         print(f"  (patient, drug) rows: {len(samples)}")
+        print(f"  training unit       : {TRAINING_UNIT} -> "
+              f"{len(to_training_unit(samples))} training rows")
+        print(f"  distinct molecules  : {len({molecule_of(n) for n in fps})}")
         print(f"  drugs with structure: {len(fps)}")
         print(f"  drug embedding dim  : {int(next(iter(fps.values())).shape[0])}")
         print(f"  tissue context dim  : {samples[0].context.size}")
@@ -1454,6 +1557,8 @@ def main():
                "hparams": hp, "quick_smoke_test": bool(a.quick),
                "drug_encoder": drug_encoder_prov,
                "n_samples": len(samples), "n_patients": n_pat,
+               "training_unit": TRAINING_UNIT,
+               "n_training_rows": len(to_training_unit(samples)),
                "device": a.device, "note": a.note, "report": rep,
                "elapsed_s": round(time.time() - t0, 1)}
 
@@ -1499,7 +1604,7 @@ def main():
     payload["config_hash"] = hashlib.sha256(
         json.dumps({k: payload[k] for k in ("source", "arms", "seeds", "folds",
                                             "hparams", "code_sha256",
-                                            "drug_encoder")},
+                                            "drug_encoder", "training_unit")},
                    sort_keys=True, default=str).encode()).hexdigest()[:12]
     p = append_run_log(payload)
     log.info(f"Run logged to {p} (config {payload['config_hash']})")
