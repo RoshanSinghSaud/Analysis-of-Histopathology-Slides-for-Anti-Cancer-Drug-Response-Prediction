@@ -270,6 +270,9 @@ def _load_drug_molecules() -> dict:
 DRUG_MOLECULE = _load_drug_molecules()
 
 
+NO_MOLECULE = ""      # a patient with no resolvable small molecule (biologic secondary)
+
+
 def molecule_of(name: str) -> str:
     return DRUG_MOLECULE.get(name, name)
 
@@ -278,6 +281,8 @@ def _dedupe_by_molecule(names) -> tuple:
     """One name per distinct molecule (salt aliases share one structure)."""
     seen, out = set(), []
     for n in sorted(names):
+        if n == NO_MOLECULE:
+            continue
         m = molecule_of(n)
         if m not in seen:
             seen.add(m)
@@ -367,7 +372,10 @@ def make_synthetic(n_patients=300, n_drugs=12, tiles=200, embed_dim=64,
 # =============================================================================
 # Real data
 # =============================================================================
-def load_real(tag: str, features_dir: Path):
+BIOLOGIC_INFO: dict = {}      # filled by load_real(include_biologics=True); logged
+
+
+def load_real(tag: str, features_dir: Path, include_biologics: bool = False):
     """
     Build samples from the verified feature store + the cohort CSV.
 
@@ -451,13 +459,47 @@ def load_real(tag: str, features_dir: Path):
         log.info(f"  receptor context: {len(receptors)} patients, "
                  f"{_known} with all three known ({100 * _known / max(len(receptors), 1):.1f}%)")
 
+    # -----------------------------------------------------------------------
+    # BIOLOGIC-INCLUSIVE SECONDARY (§10 2026-09-19, design fixed 2026-09-29).
+    # Biologics have no structure, so they are given to BOTH arms as binary
+    # flags in the CONTEXT block -- one per named agent with >= 10 patients
+    # (bevacizumab, trastuzumab, pertuzumab are the candidates named in the
+    # plan) plus one "any other biologic". Because both arms hold them, the
+    # contrast still measures small-molecule structure, now on the scoped
+    # cohort. Patients with no resolvable small molecule (the biologic-only
+    # regimens) stay in with a ZERO molecular input.
+    # -----------------------------------------------------------------------
+    bio_flags, bio_of = [], {}
+    if include_biologics:
+        dmap = json.loads((BASE_DIR / "drugs" / "drug_smiles_map.json").read_text())["map"]
+        is_bio = lambda d: (dmap.get(d.lower().strip()) or {}).get("kind") == "biologic"
+        for bc, rec in cohort.items():
+            bio_of[bc] = {d for d in rec["drugs"] if is_bio(d)}
+        named = []
+        for agent in ("bevacizumab", "trastuzumab", "pertuzumab"):
+            n = sum(1 for s in bio_of.values() if any(agent in d for d in s))
+            if n >= 10:
+                named.append(agent)
+            BIOLOGIC_INFO[f"n_patients_{agent}"] = n
+        bio_flags = named + ["other_biologic"]
+        BIOLOGIC_INFO["flags"] = bio_flags
+        log.info(f"  biologic context flags (both arms): {bio_flags} — "
+                 + ", ".join(f"{k.replace('n_patients_', '')} {v}"
+                             for k, v in BIOLOGIC_INFO.items() if k.startswith("n_")))
+
     samples, skipped_no_feat, skipped_no_fp = [], 0, 0
+    n_zero_molecule = 0
     for bc, rec in cohort.items():
         entries = by_patient.get(bc)
         if not entries:
             skipped_no_feat += 1
             continue
-        ctx = np.zeros(len(stages) + len(projects) + n_rec, dtype=np.float32)
+        ctx = np.zeros(len(stages) + len(projects) + n_rec + len(bio_flags), dtype=np.float32)
+        if bio_flags:
+            _boff = len(stages) + len(projects) + n_rec
+            for d in bio_of.get(bc, ()):
+                hit = [f for f in bio_flags[:-1] if f in d]
+                ctx[_boff + bio_flags.index(hit[0] if hit else "other_biologic")] = 1.0
         ctx[stage_ix[rec.get("stage") or "unknown"]] = 1.0
         ctx[len(stages) + proj_ix[rec.get("project") or "unknown"]] = 1.0
         _rr = receptors.get(bc, {})
@@ -479,6 +521,7 @@ def load_real(tag: str, features_dir: Path):
                     neg_drugs.add(pr.get("drug"))
             except (TypeError, ValueError):
                 pass                                   # missing day -> not negative
+        n_before = len(samples)
         for drug in rec["drugs"]:
             if drug not in fps:
                 skipped_no_fp += 1
@@ -487,6 +530,15 @@ def load_real(tag: str, features_dir: Path):
                                   drug=drug, y=y, context=ctx,
                                   bag_paths=paths, min_tiles=min_tiles,
                                   negative_start=drug in neg_drugs))
+        if include_biologics and len(samples) == n_before:
+            # no resolvable small molecule: kept, with a zero molecular input
+            samples.append(Sample(patient=bc, project=rec.get("project", "unknown"),
+                                  drug=NO_MOLECULE, y=y, context=ctx,
+                                  bag_paths=paths, min_tiles=min_tiles))
+            n_zero_molecule += 1
+    if include_biologics:
+        BIOLOGIC_INFO["n_patients_zero_molecule"] = n_zero_molecule
+        log.info(f"  {n_zero_molecule} patients kept with no small molecule (zero drug input)")
 
     if skipped_no_feat:
         log.warning(f"  {skipped_no_feat} cohort patients have no embedded slide — "
@@ -927,6 +979,8 @@ def drug_vec(s: Sample, arm, fps, shuffle_map, device):
         return None
     names = shuffle_map[id(s)] if arm == "shuffled_drug" else (s.regimen or (s.drug,))
     names = _dedupe_by_molecule(names)
+    if not names:                            # biologic-only / no-structure patient
+        return torch.zeros(drug_dim_for(arm, fps)).to(device)
     if arm == "onehot_drug":
         idx = _molecule_index(fps)
         v = torch.zeros(len(idx))
@@ -1486,6 +1540,10 @@ def main():
     ap.add_argument("--thin-slide-sensitivity", action="store_true",
                     help="§3.5: repeat excluding patients whose thinnest slide is "
                          f"under {THIN_SLIDE_TILES} tiles")
+    ap.add_argument("--include-biologics", action="store_true",
+                    help="§10 biologic-inclusive SECONDARY: scoped cohort, biologic "
+                         "flags in the context of BOTH arms, zero molecular input "
+                         "for patients with no small molecule. Never the primary.")
     ap.add_argument("--negative-start-sensitivity", action="store_true",
                     help="§10 2026-09-19: repeat excluding (patient, drug) records "
                          "with a negative days_to_treatment_start")
@@ -1551,8 +1609,10 @@ def main():
     else:
         log.info(f"Loading REAL data — cohort tag '{a.tag}'")
         log.warning("  These are real labels. Every run from here is logged (§8).")
-        samples, fps, embed_dim = load_real(a.tag, Path(a.features_dir))
-        source = f"real(tag={a.tag})"
+        samples, fps, embed_dim = load_real(a.tag, Path(a.features_dir),
+                                            include_biologics=a.include_biologics)
+        source = (f"real(tag={a.tag},biologic_inclusive)" if a.include_biologics
+                  else f"real(tag={a.tag})")
 
     # Synthetic data has no real molecules behind its fake fingerprints, so the
     # pretrained artefact cannot apply to it; the PCA path is the only coherent
@@ -1614,6 +1674,7 @@ def main():
                "drug_encoder": drug_encoder_prov,
                "n_samples": len(samples), "n_patients": n_pat,
                "training_unit": TRAINING_UNIT,
+               "biologics": dict(BIOLOGIC_INFO) or None,
                "n_training_rows": len(to_training_unit(samples)),
                "device": a.device, "note": a.note, "report": rep,
                "elapsed_s": round(time.time() - t0, 1)}
