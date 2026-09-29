@@ -1,0 +1,312 @@
+{
+ "generated_by": "scripts/14_audit_mixed_outcomes.py",
+ "n_mixed": 36,
+ "classes": {
+  "sequential": 34,
+  "sequential_with_same_day_conflict": 1,
+  "same_start_conflict": 1
+ },
+ "by_project": {
+  "TCGA-LUAD": 3,
+  "TCGA-SKCM": 2,
+  "TCGA-LGG": 3,
+  "TCGA-STAD": 6,
+  "TCGA-COAD": 2,
+  "TCGA-CESC": 2,
+  "TCGA-PAAD": 4,
+  "TCGA-TGCT": 2,
+  "TCGA-BLCA": 6,
+  "TCGA-BRCA": 6
+ },
+ "frozen_cohort_reproduced": true,
+ "patients": [
+  {
+   "submitter_id": "TCGA-86-7701",
+   "project": "TCGA-LUAD",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d27: cisplatin+etoposide -> complete response | d454: docetaxel+tyrosine kinase inhibitor+zoledronic acid -> stable disease"
+  },
+  {
+   "submitter_id": "TCGA-73-4675",
+   "project": "TCGA-LUAD",
+   "class": "sequential",
+   "n_start_dates": 4,
+   "first_line_outcome": "complete response",
+   "timeline": "d27: cisplatin+pemetrexed disodium -> complete response | d110: carboplatin -> complete response | d459: bevacizumab+carboplatin+docetaxel -> stable disease | d592: erlotinib hydrochloride -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-HR-A2OH",
+   "project": "TCGA-SKCM",
+   "class": "sequential",
+   "n_start_dates": 3,
+   "first_line_outcome": "complete response",
+   "timeline": "d108: interferon -> complete response | d1729: dacarbazine -> progressive disease | d1830: recombinant interleukin-2 -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-HW-8319",
+   "project": "TCGA-LGG",
+   "class": "sequential",
+   "n_start_dates": 3,
+   "first_line_outcome": "stable disease",
+   "timeline": "d23: temozolomide -> stable disease | d1028: temozolomide -> partial response | d1058: bevacizumab -> partial response"
+  },
+  {
+   "submitter_id": "TCGA-FG-8185",
+   "project": "TCGA-LGG",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "stable disease",
+   "timeline": "d21: temozolomide -> stable disease | d97: temozolomide -> complete response"
+  },
+  {
+   "submitter_id": "TCGA-BR-8367",
+   "project": "TCGA-STAD",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d61: etoposide+fluorouracil+leucovorin -> complete response | d189: fluorouracil+leucovorin+oxaliplatin -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-BR-8362",
+   "project": "TCGA-STAD",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d24: etoposide+fluorouracil+leucovorin -> complete response | d370: cisplatin+fluorouracil+leucovorin -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-CG-5732",
+   "project": "TCGA-STAD",
+   "class": "sequential",
+   "n_start_dates": 3,
+   "first_line_outcome": "complete response",
+   "timeline": "d366: mitomycin -> complete response | d1949: cisplatin+fluorouracil+leucovorin calcium -> progressive disease | d2070: docetaxel -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-GN-A4U9",
+   "project": "TCGA-SKCM",
+   "class": "sequential",
+   "n_start_dates": 3,
+   "first_line_outcome": "complete response",
+   "timeline": "d60: melphalan -> complete response | d165: ipilimumab -> partial response | d523: axitinib -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-AA-3494",
+   "project": "TCGA-COAD",
+   "class": "sequential",
+   "n_start_dates": 5,
+   "first_line_outcome": "partial response",
+   "timeline": "d92: fluorouracil+leucovorin calcium -> partial response | d184: capecitabine -> stable disease | d212: oxaliplatin -> partial response | d334: irinotecan -> stable disease | d792: cetuximab -> stable disease"
+  },
+  {
+   "submitter_id": "TCGA-NH-A50U",
+   "project": "TCGA-COAD",
+   "class": "sequential_with_same_day_conflict",
+   "n_start_dates": 4,
+   "first_line_outcome": "partial response,progressive disease",
+   "timeline": "d21: bevacizumab+fluorouracil+leucovorin calcium+oxaliplatin -> partial response,progressive disease | d98: capecitabine -> progressive disease | d238: bevacizumab -> progressive disease | d280: regorafenib -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-IR-A3LK",
+   "project": "TCGA-CESC",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d73: cisplatin -> complete response | d598: carboplatin+paclitaxel -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-IR-A3LB",
+   "project": "TCGA-CESC",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d72: cisplatin+fluorouracil -> complete response | d363: carboplatin+paclitaxel -> stable disease | dNone: cisplatin+fluorouracil -> complete response"
+  },
+  {
+   "submitter_id": "TCGA-MX-A666",
+   "project": "TCGA-STAD",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "stable disease",
+   "timeline": "d22: capecitabine+epirubicin+oxaliplatin -> stable disease | d117: fluorouracil+leucovorin -> complete response"
+  },
+  {
+   "submitter_id": "TCGA-HJ-7597",
+   "project": "TCGA-STAD",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d296: fluorouracil+irinotecan hydrochloride -> complete response | d793: methotrexate -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-BR-A44T",
+   "project": "TCGA-STAD",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d47: fluorouracil+leucovorin -> complete response | d682: etoposide+fluorouracil+leucovorin -> stable disease"
+  },
+  {
+   "submitter_id": "TCGA-HZ-7918",
+   "project": "TCGA-PAAD",
+   "class": "sequential",
+   "n_start_dates": 3,
+   "first_line_outcome": "complete response",
+   "timeline": "d98: gemcitabine -> complete response | d553: fluorouracil+irinotecan+leucovorin+oxaliplatin -> stable disease | d910: fluorouracil+irinotecan+leucovorin+oxaliplatin -> stable disease"
+  },
+  {
+   "submitter_id": "TCGA-FB-A545",
+   "project": "TCGA-PAAD",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d113: fluorouracil+gemcitabine -> complete response | d457: fluorouracil+leucovorin+oxaliplatin -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-IB-7645",
+   "project": "TCGA-PAAD",
+   "class": "sequential",
+   "n_start_dates": 4,
+   "first_line_outcome": "complete response",
+   "timeline": "d38: fluorouracil+leucovorin -> complete response | d811: gemcitabine -> stable disease | d1224: carboplatin+gemcitabine hydrochloride -> progressive disease | d1309: fluorouracil+leucovorin+oxaliplatin -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-IB-7891",
+   "project": "TCGA-PAAD",
+   "class": "sequential",
+   "n_start_dates": 3,
+   "first_line_outcome": "complete response",
+   "timeline": "d70: fluorouracil -> complete response | d539: fluorouracil+irinotecan hydrochloride+leucovorin calcium+oxaliplatin -> stable disease | d564: gemcitabine -> stable disease"
+  },
+  {
+   "submitter_id": "TCGA-YU-AA4L",
+   "project": "TCGA-TGCT",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "stable disease",
+   "timeline": "d2: bleomycin -> stable disease | d250: gemcitabine+oxaliplatin -> complete response"
+  },
+  {
+   "submitter_id": "TCGA-XE-AANJ",
+   "project": "TCGA-TGCT",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "progressive disease",
+   "timeline": "d18: bleomycin+etoposide -> progressive disease | d349: ifosfamide+paclitaxel -> complete response"
+  },
+  {
+   "submitter_id": "TCGA-G2-A3IE",
+   "project": "TCGA-BLCA",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "partial response",
+   "timeline": "d29: doxorubicin+gemcitabine+ifosfamide -> partial response | d81: cisplatin+doxorubicin+methotrexate+vinblastine -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-XF-AAN1",
+   "project": "TCGA-BLCA",
+   "class": "same_start_conflict",
+   "n_start_dates": 1,
+   "first_line_outcome": "partial response,progressive disease",
+   "timeline": "d0: bcg solution -> partial response,progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-XF-AAN7",
+   "project": "TCGA-BLCA",
+   "class": "sequential",
+   "n_start_dates": 4,
+   "first_line_outcome": "progressive disease,stable disease",
+   "timeline": "d0: cisplatin+paclitaxel -> progressive disease,stable disease | d162: cisplatin+gemcitabine -> partial response | d351: ifosfamide -> progressive disease | d399: docetaxel+vandetanib -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-HT-8564",
+   "project": "TCGA-LGG",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "progressive disease",
+   "timeline": "d13: temozolomide -> progressive disease | d184: bevacizumab -> complete response"
+  },
+  {
+   "submitter_id": "TCGA-XF-AAME",
+   "project": "TCGA-BLCA",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "partial response",
+   "timeline": "d2500: cisplatin+gemcitabine -> partial response | d2569: carboplatin -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-XF-AAN0",
+   "project": "TCGA-BLCA",
+   "class": "sequential",
+   "n_start_dates": 8,
+   "first_line_outcome": "complete response",
+   "timeline": "d53: gemcitabine hydrochloride+paclitaxel -> complete response | d614: halichondrin b -> partial response | d898: cisplatin+ifosfamide+paclitaxel -> partial response | d1094: doxorubicin hydrochloride+gemcitabine -> partial response | d1265: doxorubicin hydrochloride+gemcitabine -> partial response | d1423: gemcitabine -> partial response | d1465: doxorubicin hydrochloride -> partial response | d1598: doxorubicin hydrochloride+gemcitabine -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-XF-A9T4",
+   "project": "TCGA-BLCA",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "partial response",
+   "timeline": "d158: cisplatin+gemcitabine -> partial response | d402: cisplatin+ifosfamide+paclitaxel -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-A2-A3XS",
+   "project": "TCGA-BRCA",
+   "class": "sequential",
+   "n_start_dates": 7,
+   "first_line_outcome": "complete response",
+   "timeline": "d112: cyclophosphamide+doxorubicin hydrochloride -> complete response | d167: paclitaxel -> complete response | d281: tamoxifen -> progressive disease | d695: docetaxel -> progressive disease | d874: capecitabine -> progressive disease | d895: bevacizumab -> progressive disease | d986: vinorelbine tartrate -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-GM-A2DA",
+   "project": "TCGA-BRCA",
+   "class": "sequential",
+   "n_start_dates": 16,
+   "first_line_outcome": "complete response",
+   "timeline": "d74: cyclophosphamide+doxorubicin hydrochloride+fluorouracil -> complete response | d203: methotrexate+vinblastine -> complete response | d3061: exemestane+tamoxifen -> progressive disease | d3141: docetaxel -> stable disease | d3434: letrozole -> progressive disease | d4347: megestrol acetate -> progressive disease | d4470: capecitabine+trabectedin -> progressive disease | d4515: capecitabine -> stable disease | d4721: exemestane -> stable disease | d5021: capecitabine -> stable disease | d5455: nab-paclitaxel -> stable disease | d5684: ixabepilone -> progressive disease | d5797: trastuzumab -> stable disease | d5909: tamoxifen -> progressive disease | d6051: capecitabine+lapatinib -> stable disease | d6372: trastuzumab+vinorelbine tartrate -> progressive disease,stable disease"
+  },
+  {
+   "submitter_id": "TCGA-AC-A2FE",
+   "project": "TCGA-BRCA",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response,partial response",
+   "timeline": "d67: cyclophosphamide+doxorubicin hydrochloride+paclitaxel -> complete response,partial response | d2516: capecitabine+nab-paclitaxel -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-A2-A0EW",
+   "project": "TCGA-BRCA",
+   "class": "sequential",
+   "n_start_dates": 8,
+   "first_line_outcome": "complete response",
+   "timeline": "d813: letrozole -> complete response | d904: anastrozole -> complete response | d1002: exemestane -> progressive disease | d1158: zoledronic acid -> progressive disease | d1366: fulvestrant -> progressive disease | d1425: denosumab -> progressive disease | d1618: tamoxifen -> progressive disease | d1696: pegylated liposomal doxorubicin hydrochloride -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-E9-A2JS",
+   "project": "TCGA-BRCA",
+   "class": "sequential",
+   "n_start_dates": 2,
+   "first_line_outcome": "complete response",
+   "timeline": "d17: cyclophosphamide+fluorouracil+methotrexate -> complete response | d677: goserelin acetate -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-A2-A3XY",
+   "project": "TCGA-BRCA",
+   "class": "sequential",
+   "n_start_dates": 5,
+   "first_line_outcome": "complete response",
+   "timeline": "d86: cyclophosphamide+doxorubicin hydrochloride -> complete response | d170: cyclophosphamide+doxorubicin hydrochloride -> complete response | d184: paclitaxel -> complete response | d816: carboplatin+denosumab+gemcitabine -> progressive disease | d1040: docetaxel -> progressive disease"
+  },
+  {
+   "submitter_id": "TCGA-55-7281",
+   "project": "TCGA-LUAD",
+   "class": "sequential",
+   "n_start_dates": 3,
+   "first_line_outcome": "progressive disease",
+   "timeline": "d424: carboplatin -> progressive disease | d508: carboplatin+pemetrexed disodium -> progressive disease | d712: bevacizumab+carboplatin+paclitaxel -> partial response"
+  }
+ ]
+}

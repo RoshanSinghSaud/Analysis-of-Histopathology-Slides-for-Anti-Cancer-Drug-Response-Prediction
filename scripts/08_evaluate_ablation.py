@@ -979,6 +979,11 @@ def summarise_run(results_by_seed, arms, seeds):
     pairs = [(arm, "without_smiles") for arm in arms if arm != "without_smiles"]
     if "with_smiles" in arms and "shuffled_drug" in arms:
         pairs.append(("with_smiles", "shuffled_drug"))
+    # Structure vs identity -- the most direct test of the study's actual claim
+    # ("structure beats name"). Declared as a secondary contrast on 2026-09-29,
+    # before any Arm A result (pre-registration SS10). Reported, never the primary.
+    if "with_smiles" in arms and "onehot_drug" in arms:
+        pairs.append(("with_smiles", "onehot_drug"))
 
     for arm, base in pairs:
         deltas, ps, zs = [], [], []
@@ -990,7 +995,7 @@ def summarise_run(results_by_seed, arms, seeds):
             auc_a, auc_b, d, z, p = delong_test(y_a, s_a, s_b)
             deltas.append(d); ps.append(p); zs.append(z)
         report["contrasts"][f"{arm}_vs_{base}"] = {
-            "capacity_matched": base != "without_smiles",
+            "capacity_matched": base == "shuffled_drug",
             "delta_auroc_per_seed": deltas,
             "delta_auroc_mean": float(np.mean(deltas)),
             "delta_auroc_sd":   float(np.std(deltas, ddof=1)) if len(deltas) > 1 else 0.0,
