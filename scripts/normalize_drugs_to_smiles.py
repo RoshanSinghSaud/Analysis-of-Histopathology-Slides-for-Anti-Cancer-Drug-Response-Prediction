@@ -55,6 +55,7 @@ try:
     from rdkit import Chem, RDLogger
     from rdkit.Chem import Descriptors, rdMolDescriptors
     from rdkit.Chem.SaltRemover import SaltRemover
+    from rdkit.Chem.MolStandardize import rdMolStandardize
     RDLogger.DisableLog("rdApp.*")
 except ImportError:
     sys.exit("RDKit is required:  conda install -c conda-forge rdkit")
@@ -98,7 +99,39 @@ PLACEHOLDER_PATTERNS = [
     r"^total androgen blockade$", r"^thyroid extract$", r"^mistletoe extract$",
     r"^gonadotropin-releasing hormone analog$", r"^other",
     r"^unspecified", r"^combination", r"^antineoplastic$",
+    # Added 2026-09-19. A string ENDING in a target class is a class, not an
+    # agent: 'braf inhibitor' and 'tyrosine kinase inhibitor' were each being
+    # resolved to one arbitrary member of the class (CID 53438230 and CID
+    # 24956525), which puts a molecule the patient never received into the arm
+    # that exists to measure molecular structure. 'ras inhibitor' was already
+    # listed by name; this generalises it. Names carrying a compound CODE after
+    # the class -- 'akt inhibitor mk2206', 'aurora kinase/vegfr2 inhibitor
+    # cyc116' -- do NOT match and stay 'unresolved', which is correct: those
+    # name a specific agent that PubChem simply does not have.
+    r"inhibitor$", r"agonist$", r"antagonist$", r"^chemotherapeutic agent",
 ]
+
+# Free-text strings that name the WRONG molecule or no approved molecule, with
+# the name that should be resolved instead. Added 2026-09-19 from the 10 Sep
+# pharmacist-review audit. These are NAME rewrites, never hardcoded structures:
+# the replacement is still resolved through PubChem by CID, per rule 1 at the
+# top of this file. The expected molecular formula is a REFUSAL GATE -- if
+# PubChem returns anything else, the script stops rather than silently
+# substituting a second wrong molecule for the first.
+NAME_CORRECTIONS = {
+    # 'pv-10' resolved to CID 69247748, alpha-pyrrolidinononanophenone, a
+    # synthetic cathinone stimulant. The oncology agent PV-10 is rose bengal
+    # disodium, a halogenated xanthene dye. Wrong molecule, wrong class, wrong
+    # elements. Expected parent after counterion stripping: the free acid,
+    # 4,5,6,7-tetrachloro-2',4',5',7'-tetraiodofluorescein.
+    "pv-10": ("rose bengal", "C20H4Cl4I4O5"),
+    # 'halichondrin b' is a marine natural product that was never an approved
+    # drug. The TCGA string is read as eribulin, its synthetic analogue and an
+    # approved agent. LOWER CONFIDENCE than the correction above: it is an
+    # interpretation of what the submitting institution meant, not a
+    # misresolution, and it is reported as such.
+    "halichondrin b": ("eribulin", "C40H59NO11"),
+}
 
 # Formulation wrappers around a real molecule. The MOLECULE is what the drug
 # branch should see: 'pegylated liposomal doxorubicin hydrochloride' is
@@ -221,6 +254,7 @@ def cid_to_props(cid: int):
 # Chemistry: strip counterions, canonicalise, key on the parent structure
 # ---------------------------------------------------------------------------
 _remover = SaltRemover()
+_uncharger = rdMolStandardize.Uncharger()
 
 # Metals that are part of the DRUG ITSELF, not a counterion. PubChem stores
 # coordination complexes as several disconnected fragments - cisplatin is
@@ -282,6 +316,37 @@ def parent_structure(smiles: str):
         Chem.SanitizeMol(stripped)
     except Exception:
         return None
+
+    # Neutralise the remaining fragment before keying. Added 2026-09-19.
+    #
+    # Counterion stripping alone does NOT merge every salt, because PubChem
+    # often stores the salt as the bare ION with no counterion in the SMILES at
+    # all: 'leucovorin calcium' (CID 135403647) is the DIANION, with no calcium
+    # present, so SaltRemover finds nothing to remove and GetMolFrags sees one
+    # fragment. The deprotonated form then survives as its own parent structure,
+    # and one drug becomes two unrelated inputs -- exactly the defect this
+    # function exists to prevent. The InChIKeys differ only in the protonation
+    # layer (…-ABLWVSNPSA-N vs …-ABLWVSNPSA-L), which is the signature.
+    #
+    # Measured across the whole 274-string vocabulary on 2026-09-19, this merges
+    # FIVE pairs and nothing else: leucovorin/leucovorin calcium,
+    # pemetrexed/pemetrexed disodium, pamidronic acid/pamidronate disodium,
+    # clodronic acid/clodronate disodium, levothyroxine/levothyroxine sodium.
+    # 178 distinct parent structures become 173.
+    #
+    # It correctly does NOT merge dexamethasone with dexamethasone phosphate:
+    # that pair is an ester prodrug, a genuinely different molecule
+    # (C22H29FO5 vs C22H30FO8P), not a salt. A hand-written merge list had it
+    # wrong; the rule gets it right.
+    #
+    # Metal complexes never reach this point -- they return above -- so the
+    # anionic nitrogen notation in carboplatin and oxaliplatin is untouched.
+    try:
+        stripped = _uncharger.uncharge(stripped)
+        Chem.SanitizeMol(stripped)
+    except Exception:
+        pass
+
     return {
         "smiles": Chem.MolToSmiles(stripped, canonical=True),
         "inchikey": Chem.MolToInchiKey(stripped),
@@ -311,55 +376,121 @@ def main():
 
     entries = {}
     for i, name in enumerate(names, 1):
-        if name in cache:
-            entries[name] = cache[name]
-            continue
-
         rec = {"name": name, "status": None, "cid": None}
 
+        # ------------------------------------------------------------------
+        # CLASSIFICATION RUNS BEFORE THE CACHE IS CONSULTED. Reordered
+        # 2026-09-19. The cache comment above promises that "re-deriving the
+        # classification statuses is cheap and lets classification rules be
+        # edited without a stale cache silently freezing the old answer" -- but
+        # the cache lookup used to come FIRST, so a name already cached as
+        # 'resolved' never reached these tests and an edit to
+        # PLACEHOLDER_PATTERNS had no effect on it. That is precisely how
+        # 'braf inhibitor' and 'tyrosine kinase inhibitor' would have survived
+        # the 2026-09-19 pattern additions. The promise is now kept.
+        # ------------------------------------------------------------------
         if is_placeholder_name(name):
             rec["status"] = "not_a_specific_drug"
             rec["note"] = "free-text placeholder, not a molecule; excluded from cohort"
-        elif is_biologic_name(name):
+            entries[name] = rec
+            cache.pop(name, None)
+            continue
+        if is_biologic_name(name):
             rec["status"] = "biologic_no_smiles"
             rec["note"] = "matched a biologic naming stem; no small-molecule structure"
+            entries[name] = rec
+            cache.pop(name, None)
+            continue
+
+        # A declared correction always bypasses the cache -- the cached answer
+        # is the wrong molecule, which is the whole reason the entry exists.
+        correction = NAME_CORRECTIONS.get(name)
+
+        if correction is None and name in cache:
+            # The cache holds the expensive part -- the PubChem round trip --
+            # but NOT the cheap local chemistry derived from it. Added
+            # 2026-09-19: re-derive the parent structure on every run from the
+            # cached raw SMILES, so an edit to parent_structure() takes effect
+            # for cached names too.
+            #
+            # This is the same defect the classification reordering above fixes,
+            # one layer down, and it bit on 2026-09-19: the charge-neutralisation
+            # rule was added, the script re-run, and leucovorin/leucovorin
+            # calcium stayed unmerged because both were cached as 'resolved'
+            # with an inchikey computed under the OLD rule. A cache that freezes
+            # derived values is a cache that silently vetoes bug fixes.
+            hit = dict(cache[name])
+            if hit.get("smiles_raw"):
+                par = parent_structure(hit["smiles_raw"])
+                if par is not None:
+                    hit.update({
+                        "parent_smiles": par["smiles"],
+                        "inchikey":      par["inchikey"],
+                        "formula":       par["formula"],
+                        "mw":            par["mw"],
+                    })
+            entries[name] = hit
+            cache[name] = hit
+            continue
+
+        if correction is not None:
+            lookup_name, expect_formula = correction
+            rec["corrected_from"] = name
+            rec["resolved_via_name"] = lookup_name
+            rec["correction_expected_formula"] = expect_formula
         else:
-            cid = name_to_cid(name)
-            if cid is None:
-                # retry with formulation wrappers stripped, recording the rewrite
-                for alt in name_variants(name):
-                    cid = name_to_cid(alt)
-                    if cid is not None:
-                        rec["resolved_via_name"] = alt
-                        break
-            if cid is None:
-                rec["status"] = "unresolved_not_in_pubchem"
+            lookup_name, expect_formula = name, None
+
+        cid = name_to_cid(lookup_name)
+        if cid is None:
+            # retry with formulation wrappers stripped, recording the rewrite
+            for alt in name_variants(lookup_name):
+                cid = name_to_cid(alt)
+                if cid is not None:
+                    rec["resolved_via_name"] = alt
+                    break
+        if cid is None:
+            rec["status"] = "unresolved_not_in_pubchem"
+        else:
+            props = cid_to_props(cid)
+            if props is None:
+                rec["status"] = "unresolved_no_structure_for_cid"
+                rec["cid"] = cid
             else:
-                props = cid_to_props(cid)
-                if props is None:
-                    rec["status"] = "unresolved_no_structure_for_cid"
-                    rec["cid"] = cid
+                par = parent_structure(props["smiles_raw"])
+                if par is None:
+                    rec["status"] = "unresolved_rdkit_parse_failed"
+                    rec.update(props)
                 else:
-                    par = parent_structure(props["smiles_raw"])
-                    if par is None:
-                        rec["status"] = "unresolved_rdkit_parse_failed"
-                        rec.update(props)
+                    rec.update(props)
+                    rec.update({
+                        "parent_smiles": par["smiles"],
+                        "inchikey": par["inchikey"],
+                        "formula": par["formula"],
+                        "mw": par["mw"],
+                        "salt_stripped": par["smiles"] !=
+                                         Chem.MolToSmiles(
+                                             Chem.MolFromSmiles(props["smiles_raw"]),
+                                             canonical=True),
+                    })
+                    # A declared correction must land on the molecule it
+                    # declared. If PubChem returns anything else the script
+                    # STOPS: substituting a second wrong molecule for the
+                    # first, silently, is the failure this table exists to
+                    # prevent, and a guard that refuses beats one that warns.
+                    if expect_formula and par["formula"] != expect_formula:
+                        sys.exit(
+                            f"\nNAME_CORRECTIONS refused for {name!r}:\n"
+                            f"  looked up   : {lookup_name!r} -> CID {cid}\n"
+                            f"  expected    : {expect_formula}\n"
+                            f"  PubChem gave: {par['formula']} "
+                            f"({par['mw']} g/mol, {rec.get('title','?')})\n"
+                            "Resolve by hand and update NAME_CORRECTIONS "
+                            "before re-running.")
+                    if par["mw"] > MW_SMALL_MOLECULE_MAX:
+                        rec["status"] = "review_mw_too_large"
                     else:
-                        rec.update(props)
-                        rec.update({
-                            "parent_smiles": par["smiles"],
-                            "inchikey": par["inchikey"],
-                            "formula": par["formula"],
-                            "mw": par["mw"],
-                            "salt_stripped": par["smiles"] !=
-                                             Chem.MolToSmiles(
-                                                 Chem.MolFromSmiles(props["smiles_raw"]),
-                                                 canonical=True),
-                        })
-                        if par["mw"] > MW_SMALL_MOLECULE_MAX:
-                            rec["status"] = "review_mw_too_large"
-                        else:
-                            rec["status"] = "resolved"
+                        rec["status"] = "resolved"
 
         entries[name] = rec
         cache[name] = rec

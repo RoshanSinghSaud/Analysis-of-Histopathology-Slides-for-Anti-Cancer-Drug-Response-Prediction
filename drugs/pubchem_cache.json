@@ -128,10 +128,10 @@
     "mw_raw": "197.841",
     "pubchem_title": "Arsenic Trioxide",
     "iupac": "bis(arsenic(3+));tris(oxygen(2-))",
-    "parent_smiles": "[As+3]",
-    "inchikey": "LULLIKNODDLMDQ-UHFFFAOYSA-N",
-    "formula": "As+3",
-    "mw": 74.92,
+    "parent_smiles": "[As+3].[As+3].[O-2].[O-2].[O-2]",
+    "inchikey": "QTLQKAJBUDWPIB-UHFFFAOYSA-N",
+    "formula": "As2O3",
+    "mw": 197.84,
     "salt_stripped": true
   },
   "axitinib": {
@@ -254,21 +254,6 @@
     "mw": 384.25,
     "salt_stripped": false
   },
-  "braf inhibitor": {
-    "name": "braf inhibitor",
-    "status": "resolved",
-    "cid": 53438230,
-    "smiles_raw": "CC(C)S(=O)(=O)NC1=C(C(=C(C=C1)F)C(=O)C2=CNC3=C2C=C(C=N3)C4=CN=CC=C4)F",
-    "formula_raw": "C22H18F2N4O3S",
-    "mw_raw": "456.5",
-    "pubchem_title": "Plx4032",
-    "iupac": "N-[2,4-difluoro-3-(5-pyridin-3-yl-1H-pyrrolo[2,3-b]pyridine-3-carbonyl)phenyl]propane-2-sulfonamide",
-    "parent_smiles": "CC(C)S(=O)(=O)Nc1ccc(F)c(C(=O)c2c[nH]c3ncc(-c4cccnc4)cc23)c1F",
-    "inchikey": "SUNCACOTKLUNHD-UHFFFAOYSA-N",
-    "formula": "C22H18F2N4O3S",
-    "mw": 456.47,
-    "salt_stripped": false
-  },
   "broxuridine": {
     "name": "broxuridine",
     "status": "resolved",
@@ -338,10 +323,10 @@
     "mw_raw": "371.25",
     "pubchem_title": "Platinum, diammine[1,1-cyclobutanedi(carboxylato-kO)(2-)]-, (SP-4-2)-",
     "iupac": "azanide;cyclobutane-1,1-dicarboxylic acid;platinum(2+)",
-    "parent_smiles": "O=C(O)C1(C(=O)O)CCC1",
-    "inchikey": "CCQPAEQGAVNNIA-UHFFFAOYSA-N",
-    "formula": "C6H8O4",
-    "mw": 144.13,
+    "parent_smiles": "O=C(O)C1(C(=O)O)CCC1.[NH2-].[NH2-].[Pt+2]",
+    "inchikey": "VSRXQHXAPYXROS-UHFFFAOYSA-N",
+    "formula": "C6H12N2O4Pt",
+    "mw": 371.25,
     "salt_stripped": true
   },
   "carboxyamidotriazole": {
@@ -443,10 +428,10 @@
     "mw_raw": "300.05",
     "pubchem_title": "azane;dichloroplatinum",
     "iupac": "azane;dichloroplatinum",
-    "parent_smiles": "[Cl][Pt][Cl]",
-    "inchikey": "CLSUSRZJUQMOHH-UHFFFAOYSA-L",
-    "formula": "Cl2Pt",
-    "mw": 265.98,
+    "parent_smiles": "N.N.[Cl][Pt][Cl]",
+    "inchikey": "LXZZYRPGZAFOLE-UHFFFAOYSA-L",
+    "formula": "H6Cl2N2Pt",
+    "mw": 300.05,
     "salt_stripped": true
   },
   "clodronate disodium": {
@@ -458,10 +443,10 @@
     "mw_raw": "360.91",
     "pubchem_title": "Clodronate Disodium",
     "iupac": "disodium;[dichloro-[hydroxy(oxido)phosphoryl]methyl]-hydroxyphosphinate;tetrahydrate",
-    "parent_smiles": "O=P([O-])(O)C(Cl)(Cl)P(=O)([O-])O",
-    "inchikey": "ACSIXWWBWUQEHA-UHFFFAOYSA-L",
-    "formula": "CH2Cl2O6P2-2",
-    "mw": 242.88,
+    "parent_smiles": "O=P(O)(O)C(Cl)(Cl)P(=O)(O)O",
+    "inchikey": "ACSIXWWBWUQEHA-UHFFFAOYSA-N",
+    "formula": "CH4Cl2O6P2",
+    "mw": 244.89,
     "salt_stripped": true
   },
   "clodronic acid": {
@@ -1112,16 +1097,19 @@
   "halichondrin b": {
     "name": "halichondrin b",
     "status": "resolved",
-    "cid": 5488895,
-    "smiles_raw": "C[C@@H]1C[C@@H]2CC[C@H]3C(=C)C[C@@H](O3)CC[C@]45C[C@@H]6[C@H](O4)[C@H]7[C@@H](O6)[C@@H](O5)[C@@H]8[C@@H](O7)CC[C@@H](O8)CC(=O)O[C@@H]9[C@H]([C@H]3[C@H](C[C@@H]4[C@H](O3)C[C@@]3(O4)C[C@H]4[C@@H](O3)[C@H](C[C@]3(O4)C[C@@H]([C@H]4[C@@H](O3)C[C@H](O4)[C@H](C[C@H](CO)O)O)C)C)O[C@H]9C[C@H](C1=C)O2)C",
-    "formula_raw": "C60H86O19",
-    "mw_raw": "1111.3",
-    "pubchem_title": "Halichondrin B",
-    "iupac": null,
-    "parent_smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)O[C@@H]3[C@@H](C)[C@@H]4O[C@@H]5C[C@]6(C[C@@H]7O[C@]8(C[C@H](C)[C@@H]9O[C@H]([C@@H](O)C[C@@H](O)CO)C[C@@H]9O8)C[C@H](C)[C@@H]7O6)O[C@@H]5C[C@@H]4O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
-    "inchikey": "FXNFULJVOQMBCW-VZBLNRDYSA-N",
-    "formula": "C60H86O19",
-    "mw": 1111.33,
+    "cid": 11354606,
+    "corrected_from": "halichondrin b",
+    "resolved_via_name": "eribulin",
+    "correction_expected_formula": "C40H59NO11",
+    "smiles_raw": "C[C@@H]1C[C@@H]2CC[C@H]3C(=C)C[C@@H](O3)CC[C@]45C[C@@H]6[C@H](O4)[C@H]7[C@@H](O6)[C@@H](O5)[C@@H]8[C@@H](O7)CC[C@@H](O8)CC(=O)C[C@H]9[C@H](C[C@H](C1=C)O2)O[C@@H]([C@@H]9OC)C[C@@H](CN)O",
+    "formula_raw": "C40H59NO11",
+    "mw_raw": "729.9",
+    "pubchem_title": "Eribulin",
+    "iupac": "(1S,3S,6S,9S,12S,14R,16R,18S,20R,21R,22S,26R,29S,31R,32S,33R,35R,36S)-20-[(2S)-3-amino-2-hydroxypropyl]-21-methoxy-14-methyl-8,15-dimethylidene-2,19,30,34,37,39,40,41-octaoxanonacyclo[24.9.2.13,32.13,33.16,9.112,16.018,22.029,36.031,35]hentetracontan-24-one",
+    "parent_smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
+    "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
+    "formula": "C40H59NO11",
+    "mw": 729.91,
     "salt_stripped": false
   },
   "hpph": {
@@ -1178,10 +1166,10 @@
     "mw_raw": "359.23",
     "pubchem_title": "Ibandronate Sodium",
     "iupac": "sodium;hydroxy-[1-hydroxy-3-[methyl(pentyl)amino]-1-phosphonopropyl]phosphinate;hydrate",
-    "parent_smiles": "CCCCCN(C)CCC(O)(P(=O)([O-])O)P(=O)(O)O",
-    "inchikey": "MPBVHIBUJCELCL-UHFFFAOYSA-M",
-    "formula": "C9H22NO7P2-",
-    "mw": 318.22,
+    "parent_smiles": "CCCCCN(C)CCC(O)(P(=O)(O)O)P(=O)(O)O",
+    "inchikey": "MPBVHIBUJCELCL-UHFFFAOYSA-N",
+    "formula": "C9H23NO7P2",
+    "mw": 319.23,
     "salt_stripped": true
   },
   "ifosfamide": {
@@ -1448,10 +1436,10 @@
     "mw_raw": "511.5",
     "pubchem_title": "Leucovorin Calcium",
     "iupac": "calcium (2S)-2-[[4-[(2-amino-5-formyl-4-oxo-3,6,7,8-tetrahydropteridin-6-yl)methylamino]benzoyl]amino]pentanedioate",
-    "parent_smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc1)CN2",
-    "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-L",
-    "formula": "C20H21N7O7-2",
-    "mw": 471.43,
+    "parent_smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1)CN2",
+    "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-N",
+    "formula": "C20H23N7O7",
+    "mw": 473.45,
     "salt_stripped": true
   },
   "leuprolide": {
@@ -1523,10 +1511,10 @@
     "mw_raw": "798.85",
     "pubchem_title": "Levothyroxine Sodium",
     "iupac": "sodium (2S)-2-amino-3-[4-(4-hydroxy-3,5-diiodophenoxy)-3,5-diiodophenyl]propanoate",
-    "parent_smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)[O-]",
-    "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-M",
-    "formula": "C15H10I4NO4-",
-    "mw": 775.86,
+    "parent_smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)O",
+    "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-N",
+    "formula": "C15H11I4NO4",
+    "mw": 776.87,
     "salt_stripped": true
   },
   "liothyronine sodium": {
@@ -1538,10 +1526,10 @@
     "mw_raw": "672.95",
     "pubchem_title": "Liothyronine Sodium",
     "iupac": "sodium (2S)-2-amino-3-[4-(4-hydroxy-3-iodophenoxy)-3,5-diiodophenyl]propanoate",
-    "parent_smiles": "N[C@@H](Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)[O-]",
-    "inchikey": "AUYYCJSJGJYCDS-LBPRGKRZSA-M",
-    "formula": "C15H11I3NO4-",
-    "mw": 649.97,
+    "parent_smiles": "N[C@@H](Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)O",
+    "inchikey": "AUYYCJSJGJYCDS-LBPRGKRZSA-N",
+    "formula": "C15H12I3NO4",
+    "mw": 650.98,
     "salt_stripped": true
   },
   "lomustine": {
@@ -1643,10 +1631,10 @@
     "mw_raw": "164.18",
     "pubchem_title": "Mesna",
     "iupac": "sodium 2-sulfanylethanesulfonate",
-    "parent_smiles": "O=S(=O)([O-])CCS",
-    "inchikey": "ZNEWHQLOPFWXOF-UHFFFAOYSA-M",
-    "formula": "C2H5O3S2-",
-    "mw": 141.19,
+    "parent_smiles": "O=S(=O)(O)CCS",
+    "inchikey": "ZNEWHQLOPFWXOF-UHFFFAOYSA-N",
+    "formula": "C2H6O3S2",
+    "mw": 142.2,
     "salt_stripped": true
   },
   "metformin": {
@@ -1793,10 +1781,10 @@
     "mw_raw": "1148.4",
     "pubchem_title": "Motexafin gadolinium",
     "iupac": "3-[4,5-diethyl-24-(3-hydroxypropyl)-16,17-bis[2-[2-(2-methoxyethoxy)ethoxy]ethoxy]-10,23-dimethyl-13,20,25,26-tetraza-27-azanidapentacyclo[20.2.1.13,6.18,11.014,19]heptacosa-1(25),2,4,6,8(26),9,11,13,15,17,19,21,23-tridecaen-9-yl]propan-1-ol;gadolinium(3+);diacetate",
-    "parent_smiles": "CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO",
-    "inchikey": "WUXHULIBBXBTMH-UHFFFAOYSA-N",
-    "formula": "C48H66N5O10-",
-    "mw": 873.08,
+    "parent_smiles": "CC(=O)[O-].CC(=O)[O-].CCc1c(CC)c2cc3nc(cnc4cc(OCCOCCOCCOC)c(OCCOCCOCCOC)cc4ncc4nc(cc1[n-]2)C(CCCO)=C4C)C(C)=C3CCCO.[Gd+3]",
+    "inchikey": "VAZLWPAHMORDGR-UHFFFAOYSA-L",
+    "formula": "C52H72GdN5O14",
+    "mw": 1148.42,
     "salt_stripped": true
   },
   "nab-paclitaxel": {
@@ -1913,10 +1901,10 @@
     "mw_raw": "397.29",
     "pubchem_title": "cis-oxalato-trans-l-1,2-diaminocyclohexaneplatinum(II)",
     "iupac": "[(1R,2R)-2-azanidylcyclohexyl]azanide;oxalic acid;platinum(2+)",
-    "parent_smiles": "[NH-][C@@H]1CCCC[C@H]1[NH-]",
-    "inchikey": "SBDHODHEVRCXGI-PHDIDXHHSA-N",
-    "formula": "C6H12N2-2",
-    "mw": 112.18,
+    "parent_smiles": "O=C(O)C(=O)O.[NH-][C@@H]1CCCC[C@H]1[NH-].[Pt+2]",
+    "inchikey": "DRMCATBEKSVAPL-BNTLRKBRSA-N",
+    "formula": "C8H14N2O4Pt",
+    "mw": 397.29,
     "salt_stripped": true
   },
   "oxcarbazepine": {
@@ -1973,10 +1961,10 @@
     "mw_raw": "279.03",
     "pubchem_title": "Pamidronate Disodium Anhydrous",
     "iupac": "disodium;[3-amino-1-hydroxy-1-[hydroxy(oxido)phosphoryl]propyl]-hydroxyphosphinate",
-    "parent_smiles": "NCCC(O)(P(=O)([O-])O)P(=O)([O-])O",
-    "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-L",
-    "formula": "C3H9NO7P2-2",
-    "mw": 233.05,
+    "parent_smiles": "NCCC(O)(P(=O)(O)O)P(=O)(O)O",
+    "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-N",
+    "formula": "C3H11NO7P2",
+    "mw": 235.07,
     "salt_stripped": true
   },
   "pamidronic acid": {
@@ -2078,10 +2066,10 @@
     "mw_raw": "471.4",
     "pubchem_title": "Pemetrexed Disodium",
     "iupac": "disodium;(2S)-2-[[4-[2-(2-amino-4-oxo-3,7-dihydropyrrolo[2,3-d]pyrimidin-5-yl)ethyl]benzoyl]amino]pentanedioate",
-    "parent_smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc3)c2c(=O)[nH]1",
-    "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-L",
-    "formula": "C20H19N5O6-2",
-    "mw": 425.4,
+    "parent_smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1",
+    "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-N",
+    "formula": "C20H21N5O6",
+    "mw": 427.42,
     "salt_stripped": true
   },
   "perifosine": {
@@ -2108,10 +2096,10 @@
     "mw_raw": "274.25",
     "pubchem_title": "Phenytoin Sodium",
     "iupac": "sodium 5,5-diphenylimidazolidin-3-ide-2,4-dione",
-    "parent_smiles": "O=C1[N-]C(=O)C(c2ccccc2)(c2ccccc2)N1",
-    "inchikey": "CXOFVDLJLONNDW-UHFFFAOYSA-M",
-    "formula": "C15H11N2O2-",
-    "mw": 251.26,
+    "parent_smiles": "O=C1NC(=O)C(c2ccccc2)(c2ccccc2)N1",
+    "inchikey": "CXOFVDLJLONNDW-UHFFFAOYSA-N",
+    "formula": "C15H12N2O2",
+    "mw": 252.27,
     "salt_stripped": true
   },
   "plicamycin": {
@@ -2177,17 +2165,20 @@
   "pv-10": {
     "name": "pv-10",
     "status": "resolved",
-    "cid": 69247748,
-    "smiles_raw": "CCCCCCCC(C(=O)C1=CC=CC=C1)N2CCCC2",
-    "formula_raw": "C19H29NO",
-    "mw_raw": "287.4",
-    "pubchem_title": "alpha-Pyrrolidinononanophenone",
-    "iupac": "1-phenyl-2-pyrrolidin-1-ylnonan-1-one",
-    "parent_smiles": "CCCCCCCC(C(=O)c1ccccc1)N1CCCC1",
-    "inchikey": "RYJXAZXFWIWTOJ-UHFFFAOYSA-N",
-    "formula": "C19H29NO",
-    "mw": 287.45,
-    "salt_stripped": false
+    "cid": 25473,
+    "corrected_from": "pv-10",
+    "resolved_via_name": "rose bengal",
+    "correction_expected_formula": "C20H4Cl4I4O5",
+    "smiles_raw": "C1=C2C(=C3C=C(C(=O)C(=C3OC2=C(C(=C1I)[O-])I)I)I)C4=C(C(=C(C(=C4Cl)Cl)Cl)Cl)C(=O)[O-].[K+].[K+]",
+    "formula_raw": "C20H2Cl4I4K2O5",
+    "mw_raw": "1049.8",
+    "pubchem_title": "Rose Bengal",
+    "iupac": "dipotassium;2,3,4,5-tetrachloro-6-(2,4,5,7-tetraiodo-3-oxido-6-oxoxanthen-9-yl)benzoate",
+    "parent_smiles": "O=C(O)c1c(Cl)c(Cl)c(Cl)c(Cl)c1-c1c2cc(I)c(=O)c(I)c-2oc2c(I)c(O)c(I)cc12",
+    "inchikey": "VDNLFJGJEQUWRB-UHFFFAOYSA-N",
+    "formula": "C20H4Cl4I4O5",
+    "mw": 973.67,
+    "salt_stripped": true
   },
   "pyrazinamide": {
     "name": "pyrazinamide",
@@ -2744,21 +2735,6 @@
     "mw": 1311.47,
     "salt_stripped": true
   },
-  "tyrosine kinase inhibitor": {
-    "name": "tyrosine kinase inhibitor",
-    "status": "resolved",
-    "cid": 24956525,
-    "smiles_raw": "C1CC1(C(=O)NC2=CC=C(C=C2)OC3=C4C=C(NC4=NC=C3)C(=O)NCCN5CCOCC5)C(=O)NC6=CC=C(C=C6)F",
-    "formula_raw": "C31H31FN6O5",
-    "mw_raw": "586.6",
-    "pubchem_title": "N~1~-(4-Fluorophenyl)-N'~1~-(4-((2-((2-(morpholin-4-yl)ethyl)carbamoyl)-1H-pyrrolo(2,3-b)pyridin-4-yl)oxy)phenyl)cyclopropane-1,1-dicarboxamide",
-    "iupac": "1-N'-(4-fluorophenyl)-1-N-[4-[[2-(2-morpholin-4-ylethylcarbamoyl)-1H-pyrrolo[2,3-b]pyridin-4-yl]oxy]phenyl]cyclopropane-1,1-dicarboxamide",
-    "parent_smiles": "O=C(NCCN1CCOCC1)c1cc2c(Oc3ccc(NC(=O)C4(C(=O)Nc5ccc(F)cc5)CC4)cc3)ccnc2[nH]1",
-    "inchikey": "PKOVTRMHYNEBDU-UHFFFAOYSA-N",
-    "formula": "C31H31FN6O5",
-    "mw": 586.62,
-    "salt_stripped": false
-  },
   "valproic acid": {
     "name": "valproic acid",
     "status": "resolved",
@@ -3002,81 +2978,6 @@
     "mw": 362.47,
     "salt_stripped": false
   },
-  "ae37 peptide/gm-csf vaccine": {
-    "name": "ae37 peptide/gm-csf vaccine",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "akt inhibitor mk2206": {
-    "name": "akt inhibitor mk2206",
-    "status": "unresolved_not_in_pubchem",
-    "cid": null
-  },
-  "aldesleukin": {
-    "name": "aldesleukin",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "amatuximab": {
-    "name": "amatuximab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "amino acid injection": {
-    "name": "amino acid injection",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "anti-dr5 agonistic antibody ds-8273a": {
-    "name": "anti-dr5 agonistic antibody ds-8273a",
-    "status": "unresolved_not_in_pubchem",
-    "cid": null
-  },
-  "anti-egfrviii immunotoxin mr1-1": {
-    "name": "anti-egfrviii immunotoxin mr1-1",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "anti-vegf anticalin prs-050-peg40": {
-    "name": "anti-vegf anticalin prs-050-peg40",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "antineoplastic vaccine": {
-    "name": "antineoplastic vaccine",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "astuprotimut-r": {
-    "name": "astuprotimut-r",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "aurora kinase/vegfr2 inhibitor cyc116": {
-    "name": "aurora kinase/vegfr2 inhibitor cyc116",
-    "status": "unresolved_not_in_pubchem",
-    "cid": null
-  },
-  "bcg solution": {
-    "name": "bcg solution",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "bevacizumab": {
-    "name": "bevacizumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
   "carmustine implant": {
     "name": "carmustine implant",
     "status": "resolved",
@@ -3093,359 +2994,44 @@
     "mw": 214.05,
     "salt_stripped": false
   },
-  "cetuximab": {
-    "name": "cetuximab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
+  "akt inhibitor mk2206": {
+    "name": "akt inhibitor mk2206",
+    "status": "unresolved_not_in_pubchem",
+    "cid": null
   },
-  "chimeric monoclonal antibody 81c6": {
-    "name": "chimeric monoclonal antibody 81c6",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
+  "anti-dr5 agonistic antibody ds-8273a": {
+    "name": "anti-dr5 agonistic antibody ds-8273a",
+    "status": "unresolved_not_in_pubchem",
+    "cid": null
   },
-  "cintredekin besudotox": {
-    "name": "cintredekin besudotox",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "clinical trial": {
-    "name": "clinical trial",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "clinical trial agent": {
-    "name": "clinical trial agent",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "conatumumab": {
-    "name": "conatumumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "daclizumab": {
-    "name": "daclizumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "dendritic cell vaccine": {
-    "name": "dendritic cell vaccine",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "denosumab": {
-    "name": "denosumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "filgrastim": {
-    "name": "filgrastim",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
+  "aurora kinase/vegfr2 inhibitor cyc116": {
+    "name": "aurora kinase/vegfr2 inhibitor cyc116",
+    "status": "unresolved_not_in_pubchem",
+    "cid": null
   },
   "glutathione pegylated liposomal doxorubicin hydrochloride formulation 2b3-101": {
     "name": "glutathione pegylated liposomal doxorubicin hydrochloride formulation 2b3-101",
     "status": "unresolved_not_in_pubchem",
     "cid": null
   },
-  "gonadotropin-releasing hormone analog": {
-    "name": "gonadotropin-releasing hormone analog",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "hormone therapy": {
-    "name": "hormone therapy",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "interferon": {
-    "name": "interferon",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "interferon alfa-2b": {
-    "name": "interferon alfa-2b",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "iodine i 131 monoclonal antibody 81c6": {
-    "name": "iodine i 131 monoclonal antibody 81c6",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "ipilimumab": {
-    "name": "ipilimumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "light-emitting oncolytic vaccinia virus gl-onc1": {
-    "name": "light-emitting oncolytic vaccinia virus gl-onc1",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "lontucirev": {
-    "name": "lontucirev",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "mage-a3 peptide vaccine": {
-    "name": "mage-a3 peptide vaccine",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "mistletoe extract": {
-    "name": "mistletoe extract",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "monoclonal antibody 81c6": {
-    "name": "monoclonal antibody 81c6",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
   "muparfostat": {
     "name": "muparfostat",
     "status": "unresolved_not_in_pubchem",
     "cid": null
-  },
-  "nivolumab": {
-    "name": "nivolumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "ofatumumab": {
-    "name": "ofatumumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "ontuxizumab": {
-    "name": "ontuxizumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
   },
   "paclitaxel poliglumex": {
     "name": "paclitaxel poliglumex",
     "status": "unresolved_not_in_pubchem",
     "cid": null
   },
-  "panitumumab": {
-    "name": "panitumumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
   "pegdinetanib": {
     "name": "pegdinetanib",
     "status": "unresolved_not_in_pubchem",
     "cid": null
   },
-  "pegfilgrastim": {
-    "name": "pegfilgrastim",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "peginterferon alfa-2b": {
-    "name": "peginterferon alfa-2b",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "pelareorep": {
-    "name": "pelareorep",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "pembrolizumab": {
-    "name": "pembrolizumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "pep-3-klh conjugate vaccine": {
-    "name": "pep-3-klh conjugate vaccine",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "poly iclc": {
-    "name": "poly iclc",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "polysaccharide-k": {
-    "name": "polysaccharide-k",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
   "porfimer sodium": {
     "name": "porfimer sodium",
     "status": "unresolved_not_in_pubchem",
     "cid": null
-  },
-  "ras inhibitor": {
-    "name": "ras inhibitor",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "recombinant erythropoietin": {
-    "name": "recombinant erythropoietin",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant granulocyte-macrophage colony-stimulating factor": {
-    "name": "recombinant granulocyte-macrophage colony-stimulating factor",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant interferon alfa": {
-    "name": "recombinant interferon alfa",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant interferon alfa-2a": {
-    "name": "recombinant interferon alfa-2a",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant interferon alfa-2b": {
-    "name": "recombinant interferon alfa-2b",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant interleukin-18": {
-    "name": "recombinant interleukin-18",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant interleukin-2": {
-    "name": "recombinant interleukin-2",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant luteinizing hormone": {
-    "name": "recombinant luteinizing hormone",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant mage-3.1 antigen": {
-    "name": "recombinant mage-3.1 antigen",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "recombinant prame protein plus as15 adjuvant gsk2302025a": {
-    "name": "recombinant prame protein plus as15 adjuvant gsk2302025a",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "rilotumumab": {
-    "name": "rilotumumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "rituximab": {
-    "name": "rituximab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "sargramostim": {
-    "name": "sargramostim",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "talimogene laherparepvec": {
-    "name": "talimogene laherparepvec",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "taxane compound": {
-    "name": "taxane compound",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "teprotumumab": {
-    "name": "teprotumumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "thyroid extract": {
-    "name": "thyroid extract",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "total androgen blockade": {
-    "name": "total androgen blockade",
-    "status": "not_a_specific_drug",
-    "cid": null,
-    "note": "free-text placeholder, not a molecule; excluded from cohort"
-  },
-  "tovetumab": {
-    "name": "tovetumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "trastuzumab": {
-    "name": "trastuzumab",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "vitespen": {
-    "name": "vitespen",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
-  },
-  "ziv-aflibercept": {
-    "name": "ziv-aflibercept",
-    "status": "biologic_no_smiles",
-    "cid": null,
-    "note": "matched a biologic naming stem; no small-molecule structure"
   }
 }

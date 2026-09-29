@@ -1,15 +1,17 @@
 {
-  "generated_utc": "2026-08-10T09:03:00Z",
+  "generated_utc": "2026-09-19T12:32:13Z",
   "source": "PubChem PUG-REST, resolved by CID, salts stripped with RDKit",
   "n_input_strings": 274,
-  "n_distinct_molecules": 178,
+  "n_distinct_molecules": 170,
   "n_biologic": 55,
   "n_unresolved": 8,
-  "n_not_a_specific_drug": 10,
+  "n_not_a_specific_drug": 12,
   "name_rewrites": {
     "carmustine implant": "carmustine",
+    "halichondrin b": "eribulin",
     "nanoparticle albumin-bound rapamycin": "rapamycin",
     "pegylated liposomal doxorubicin hydrochloride": "doxorubicin hydrochloride",
+    "pv-10": "rose bengal",
     "therapeutic hydrocortisone": "hydrocortisone"
   },
   "map": {
@@ -97,6 +99,20 @@
       "cid": 5394,
       "kind": "small_molecule"
     },
+    "leucovorin": {
+      "canonical_name": "leucovorin",
+      "smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1)CN2",
+      "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-N",
+      "cid": 135403648,
+      "kind": "small_molecule"
+    },
+    "leucovorin calcium": {
+      "canonical_name": "leucovorin",
+      "smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1)CN2",
+      "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-N",
+      "cid": 135403648,
+      "kind": "small_molecule"
+    },
     "etoposide": {
       "canonical_name": "etoposide",
       "smiles": "COc1cc([C@@H]2c3cc4c(cc3[C@@H](O[C@@H]3O[C@@H]5CO[C@@H](C)O[C@H]5[C@H](O)[C@H]3O)[C@H]3COC(=O)[C@H]23)OCO4)cc(OC)c1O",
@@ -132,18 +148,18 @@
       "cid": 5360373,
       "kind": "small_molecule"
     },
-    "leucovorin calcium": {
-      "canonical_name": "leucovorin calcium",
-      "smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc1)CN2",
-      "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-L",
-      "cid": 135403647,
+    "pemetrexed": {
+      "canonical_name": "pemetrexed disodium",
+      "smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1",
+      "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-N",
+      "cid": 135410875,
       "kind": "small_molecule"
     },
-    "leucovorin": {
-      "canonical_name": "leucovorin",
-      "smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1)CN2",
-      "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-N",
-      "cid": 135403648,
+    "pemetrexed disodium": {
+      "canonical_name": "pemetrexed disodium",
+      "smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1",
+      "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-N",
+      "cid": 135410875,
       "kind": "small_molecule"
     },
     "epirubicin": {
@@ -186,20 +202,6 @@
       "smiles": "CN(C)/N=N/c1nc[nH]c1C(N)=O",
       "inchikey": "FDKXTQMXEQVLRF-ZHACJKMWSA-N",
       "cid": 135398738,
-      "kind": "small_molecule"
-    },
-    "pemetrexed": {
-      "canonical_name": "pemetrexed",
-      "smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1",
-      "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-N",
-      "cid": 135410875,
-      "kind": "small_molecule"
-    },
-    "pemetrexed disodium": {
-      "canonical_name": "pemetrexed disodium",
-      "smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc3)c2c(=O)[nH]1",
-      "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-L",
-      "cid": 135413520,
       "kind": "small_molecule"
     },
     "tamoxifen": {
@@ -393,8 +395,8 @@
     },
     "liothyronine sodium": {
       "canonical_name": "liothyronine sodium",
-      "smiles": "N[C@@H](Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)[O-]",
-      "inchikey": "AUYYCJSJGJYCDS-LBPRGKRZSA-M",
+      "smiles": "N[C@@H](Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)O",
+      "inchikey": "AUYYCJSJGJYCDS-LBPRGKRZSA-N",
       "cid": 23666110,
       "kind": "small_molecule"
     },
@@ -435,8 +437,8 @@
     },
     "mesna": {
       "canonical_name": "mesna",
-      "smiles": "O=S(=O)([O-])CCS",
-      "inchikey": "ZNEWHQLOPFWXOF-UHFFFAOYSA-M",
+      "smiles": "O=S(=O)(O)CCS",
+      "inchikey": "ZNEWHQLOPFWXOF-UHFFFAOYSA-N",
       "cid": 23662354,
       "kind": "small_molecule"
     },
@@ -503,13 +505,6 @@
       "cid": 6450551,
       "kind": "small_molecule"
     },
-    "braf inhibitor": {
-      "canonical_name": "braf inhibitor",
-      "smiles": "CC(C)S(=O)(=O)Nc1ccc(F)c(C(=O)c2c[nH]c3ncc(-c4cccnc4)cc23)c1F",
-      "inchikey": "SUNCACOTKLUNHD-UHFFFAOYSA-N",
-      "cid": 53438230,
-      "kind": "small_molecule"
-    },
     "cabazitaxel": {
       "canonical_name": "cabazitaxel",
       "smiles": "CO[C@H]1C(=O)[C@]2(C)[C@@H](OC)C[C@H]3OC[C@@]3(OC(C)=O)[C@H]2[C@H](OC(=O)c2ccccc2)[C@]2(O)C[C@H](OC(=O)[C@H](O)[C@@H](NC(=O)OC(C)(C)C)c3ccccc3)C(C)=C1C2(C)C",
@@ -538,6 +533,27 @@
       "cid": 3045,
       "kind": "small_molecule"
     },
+    "eribulin": {
+      "canonical_name": "halichondrin b",
+      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
+      "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
+      "cid": 11354606,
+      "kind": "small_molecule"
+    },
+    "eribulin mesylate": {
+      "canonical_name": "halichondrin b",
+      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
+      "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
+      "cid": 11354606,
+      "kind": "small_molecule"
+    },
+    "halichondrin b": {
+      "canonical_name": "halichondrin b",
+      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
+      "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
+      "cid": 11354606,
+      "kind": "small_molecule"
+    },
     "imatinib": {
       "canonical_name": "imatinib mesylate",
       "smiles": "Cc1ccc(NC(=O)c2ccc(CN3CCN(C)CC3)cc2)cc1Nc1nccc(-c2cccnc2)n1",
@@ -554,8 +570,15 @@
     },
     "pamidronate disodium": {
       "canonical_name": "pamidronate disodium",
-      "smiles": "NCCC(O)(P(=O)([O-])O)P(=O)([O-])O",
-      "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-L",
+      "smiles": "NCCC(O)(P(=O)(O)O)P(=O)(O)O",
+      "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-N",
+      "cid": 73351,
+      "kind": "small_molecule"
+    },
+    "pamidronic acid": {
+      "canonical_name": "pamidronate disodium",
+      "smiles": "NCCC(O)(P(=O)(O)O)P(=O)(O)O",
+      "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-N",
       "cid": 73351,
       "kind": "small_molecule"
     },
@@ -585,13 +608,6 @@
       "smiles": "C[C@H]1O[C@@H](n2cc(F)c(=O)[nH]c2=O)[C@H](O)[C@@H]1O",
       "inchikey": "ZWAOHEXOSAUJHY-ZIYNGMLESA-N",
       "cid": 18343,
-      "kind": "small_molecule"
-    },
-    "halichondrin b": {
-      "canonical_name": "halichondrin b",
-      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)O[C@@H]3[C@@H](C)[C@@H]4O[C@@H]5C[C@]6(C[C@@H]7O[C@]8(C[C@H](C)[C@@H]9O[C@H]([C@@H](O)C[C@@H](O)CO)C[C@@H]9O8)C[C@H](C)[C@@H]7O6)O[C@@H]5C[C@@H]4O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
-      "inchikey": "FXNFULJVOQMBCW-VZBLNRDYSA-N",
-      "cid": 5488895,
       "kind": "small_molecule"
     },
     "lapatinib": {
@@ -627,13 +643,6 @@
       "smiles": "CC(=O)Nc1cccc(-n2c(=O)n(C3CC3)c(=O)c3c(Nc4ccc(I)cc4F)n(C)c(=O)c(C)c32)c1",
       "inchikey": "LIRYPHYGHXZJBZ-UHFFFAOYSA-N",
       "cid": 11707110,
-      "kind": "small_molecule"
-    },
-    "tyrosine kinase inhibitor": {
-      "canonical_name": "tyrosine kinase inhibitor",
-      "smiles": "O=C(NCCN1CCOCC1)c1cc2c(Oc3ccc(NC(=O)C4(C(=O)Nc5ccc(F)cc5)CC4)cc3)ccnc2[nH]1",
-      "inchikey": "PKOVTRMHYNEBDU-UHFFFAOYSA-N",
-      "cid": 24956525,
       "kind": "small_molecule"
     },
     "veliparib": {
@@ -699,20 +708,6 @@
       "cid": 9400,
       "kind": "small_molecule"
     },
-    "eribulin": {
-      "canonical_name": "eribulin mesylate",
-      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
-      "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
-      "cid": 11354606,
-      "kind": "small_molecule"
-    },
-    "eribulin mesylate": {
-      "canonical_name": "eribulin mesylate",
-      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
-      "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
-      "cid": 11354606,
-      "kind": "small_molecule"
-    },
     "floxuridine": {
       "canonical_name": "floxuridine",
       "smiles": "O=c1[nH]c(=O)n([C@H]2C[C@H](O)[C@@H](CO)O2)cc1F",
@@ -769,11 +764,18 @@
       "cid": 3899,
       "kind": "small_molecule"
     },
+    "levothyroxine": {
+      "canonical_name": "levothyroxine sodium",
+      "smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)O",
+      "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-N",
+      "cid": 5819,
+      "kind": "small_molecule"
+    },
     "levothyroxine sodium": {
       "canonical_name": "levothyroxine sodium",
-      "smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)[O-]",
-      "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-M",
-      "cid": 23666112,
+      "smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)O",
+      "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-N",
+      "cid": 5819,
       "kind": "small_molecule"
     },
     "megestrol acetate": {
@@ -848,9 +850,9 @@
     },
     "pv-10": {
       "canonical_name": "pv-10",
-      "smiles": "CCCCCCCC(C(=O)c1ccccc1)N1CCCC1",
-      "inchikey": "RYJXAZXFWIWTOJ-UHFFFAOYSA-N",
-      "cid": 69247748,
+      "smiles": "O=C(O)c1c(Cl)c(Cl)c(Cl)c(Cl)c1-c1c2cc(I)c(=O)c(I)c-2oc2c(I)c(O)c(I)cc12",
+      "inchikey": "VDNLFJGJEQUWRB-UHFFFAOYSA-N",
+      "cid": 25473,
       "kind": "small_molecule"
     },
     "ralimetinib mesylate": {
@@ -1079,16 +1081,16 @@
     },
     "clodronate disodium": {
       "canonical_name": "clodronate disodium",
-      "smiles": "O=P([O-])(O)C(Cl)(Cl)P(=O)([O-])O",
-      "inchikey": "ACSIXWWBWUQEHA-UHFFFAOYSA-L",
+      "smiles": "O=P(O)(O)C(Cl)(Cl)P(=O)(O)O",
+      "inchikey": "ACSIXWWBWUQEHA-UHFFFAOYSA-N",
       "cid": 23724874,
       "kind": "small_molecule"
     },
     "clodronic acid": {
-      "canonical_name": "clodronic acid",
+      "canonical_name": "clodronate disodium",
       "smiles": "O=P(O)(O)C(Cl)(Cl)P(=O)(O)O",
       "inchikey": "ACSIXWWBWUQEHA-UHFFFAOYSA-N",
-      "cid": 25419,
+      "cid": 23724874,
       "kind": "small_molecule"
     },
     "cytarabine": {
@@ -1177,8 +1179,8 @@
     },
     "ibandronate sodium": {
       "canonical_name": "ibandronate sodium",
-      "smiles": "CCCCCN(C)CCC(O)(P(=O)([O-])O)P(=O)(O)O",
-      "inchikey": "MPBVHIBUJCELCL-UHFFFAOYSA-M",
+      "smiles": "CCCCCN(C)CCC(O)(P(=O)(O)O)P(=O)(O)O",
+      "inchikey": "MPBVHIBUJCELCL-UHFFFAOYSA-N",
       "cid": 23663991,
       "kind": "small_molecule"
     },
@@ -1215,13 +1217,6 @@
       "smiles": "CC[C@@H](C(N)=O)N1CCCC1=O",
       "inchikey": "HPHUVLMMVZITSG-LURJTMIESA-N",
       "cid": 5284583,
-      "kind": "small_molecule"
-    },
-    "levothyroxine": {
-      "canonical_name": "levothyroxine",
-      "smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)O",
-      "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-N",
-      "cid": 5819,
       "kind": "small_molecule"
     },
     "lonafarnib": {
@@ -1308,13 +1303,6 @@
       "cid": 34312,
       "kind": "small_molecule"
     },
-    "pamidronic acid": {
-      "canonical_name": "pamidronic acid",
-      "smiles": "NCCC(O)(P(=O)(O)O)P(=O)(O)O",
-      "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-N",
-      "cid": 4674,
-      "kind": "small_molecule"
-    },
     "patupilone": {
       "canonical_name": "patupilone",
       "smiles": "C/C(=C\\c1csc(C)n1)[C@@H]1C[C@@H]2O[C@]2(C)CCC[C@H](C)[C@H](O)[C@@H](C)C(=O)C(C)(C)[C@@H](O)CC(=O)O1",
@@ -1331,8 +1319,8 @@
     },
     "phenytoin sodium": {
       "canonical_name": "phenytoin sodium",
-      "smiles": "O=C1[N-]C(=O)C(c2ccccc2)(c2ccccc2)N1",
-      "inchikey": "CXOFVDLJLONNDW-UHFFFAOYSA-M",
+      "smiles": "O=C1NC(=O)C(c2ccccc2)(c2ccccc2)N1",
+      "inchikey": "CXOFVDLJLONNDW-UHFFFAOYSA-N",
       "cid": 657302,
       "kind": "small_molecule"
     },
@@ -1868,6 +1856,13 @@
       "cid": null,
       "kind": "not_a_specific_drug"
     },
+    "braf inhibitor": {
+      "canonical_name": "braf inhibitor",
+      "smiles": null,
+      "inchikey": null,
+      "cid": null,
+      "kind": "not_a_specific_drug"
+    },
     "clinical trial": {
       "canonical_name": "clinical trial",
       "smiles": null,
@@ -1926,6 +1921,13 @@
     },
     "total androgen blockade": {
       "canonical_name": "total androgen blockade",
+      "smiles": null,
+      "inchikey": null,
+      "cid": null,
+      "kind": "not_a_specific_drug"
+    },
+    "tyrosine kinase inhibitor": {
+      "canonical_name": "tyrosine kinase inhibitor",
       "smiles": null,
       "inchikey": null,
       "cid": null,
@@ -2058,6 +2060,22 @@
       "os_patients": 492
     },
     {
+      "canonical_name": "leucovorin",
+      "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-N",
+      "cid": 135403648,
+      "smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1)CN2",
+      "formula": "C20H23N7O7",
+      "mw": 473.45,
+      "pubchem_title": "Leucovorin",
+      "aliases": [
+        "leucovorin",
+        "leucovorin calcium"
+      ],
+      "n_strings_collapsed": 2,
+      "recist_patients": 132,
+      "os_patients": 239
+    },
+    {
       "canonical_name": "etoposide",
       "inchikey": "VJJPUSNTGOMMGY-MRVIYFEKSA-N",
       "cid": 36462,
@@ -2133,34 +2151,20 @@
       "os_patients": 91
     },
     {
-      "canonical_name": "leucovorin calcium",
-      "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-L",
-      "cid": 135403647,
-      "smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc1)CN2",
-      "formula": "C20H21N7O7-2",
-      "mw": 471.43,
-      "pubchem_title": "Leucovorin Calcium",
+      "canonical_name": "pemetrexed disodium",
+      "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-N",
+      "cid": 135410875,
+      "smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1",
+      "formula": "C20H21N5O6",
+      "mw": 427.42,
+      "pubchem_title": "Pemetrexed",
       "aliases": [
-        "leucovorin calcium"
+        "pemetrexed",
+        "pemetrexed disodium"
       ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 70,
-      "os_patients": 94
-    },
-    {
-      "canonical_name": "leucovorin",
-      "inchikey": "VVIAGPKUTFNRDU-ABLWVSNPSA-N",
-      "cid": 135403648,
-      "smiles": "Nc1nc2c(c(=O)[nH]1)N(C=O)C(CNc1ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc1)CN2",
-      "formula": "C20H23N7O7",
-      "mw": 473.45,
-      "pubchem_title": "Leucovorin",
-      "aliases": [
-        "leucovorin"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 62,
-      "os_patients": 145
+      "n_strings_collapsed": 2,
+      "recist_patients": 56,
+      "os_patients": 105
     },
     {
       "canonical_name": "epirubicin",
@@ -2223,36 +2227,6 @@
       "n_strings_collapsed": 1,
       "recist_patients": 37,
       "os_patients": 45
-    },
-    {
-      "canonical_name": "pemetrexed",
-      "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-N",
-      "cid": 135410875,
-      "smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c2c(=O)[nH]1",
-      "formula": "C20H21N5O6",
-      "mw": 427.42,
-      "pubchem_title": "Pemetrexed",
-      "aliases": [
-        "pemetrexed"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 29,
-      "os_patients": 44
-    },
-    {
-      "canonical_name": "pemetrexed disodium",
-      "inchikey": "WBXPDJSOTKVWSJ-ZDUSSCGKSA-L",
-      "cid": 135413520,
-      "smiles": "Nc1nc2[nH]cc(CCc3ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc3)c2c(=O)[nH]1",
-      "formula": "C20H19N5O6-2",
-      "mw": 425.4,
-      "pubchem_title": "Pemetrexed Disodium",
-      "aliases": [
-        "pemetrexed disodium"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 27,
-      "os_patients": 61
     },
     {
       "canonical_name": "tamoxifen",
@@ -2535,11 +2509,11 @@
     },
     {
       "canonical_name": "liothyronine sodium",
-      "inchikey": "AUYYCJSJGJYCDS-LBPRGKRZSA-M",
+      "inchikey": "AUYYCJSJGJYCDS-LBPRGKRZSA-N",
       "cid": 23666110,
-      "smiles": "N[C@@H](Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)[O-]",
-      "formula": "C15H11I3NO4-",
-      "mw": 649.97,
+      "smiles": "N[C@@H](Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)O",
+      "formula": "C15H12I3NO4",
+      "mw": 650.98,
       "pubchem_title": "Liothyronine Sodium",
       "aliases": [
         "liothyronine sodium"
@@ -2625,11 +2599,11 @@
     },
     {
       "canonical_name": "mesna",
-      "inchikey": "ZNEWHQLOPFWXOF-UHFFFAOYSA-M",
+      "inchikey": "ZNEWHQLOPFWXOF-UHFFFAOYSA-N",
       "cid": 23662354,
-      "smiles": "O=S(=O)([O-])CCS",
-      "formula": "C2H5O3S2-",
-      "mw": 141.19,
+      "smiles": "O=S(=O)(O)CCS",
+      "formula": "C2H6O3S2",
+      "mw": 142.2,
       "pubchem_title": "Mesna",
       "aliases": [
         "mesna"
@@ -2746,21 +2720,6 @@
       "os_patients": 4
     },
     {
-      "canonical_name": "braf inhibitor",
-      "inchikey": "SUNCACOTKLUNHD-UHFFFAOYSA-N",
-      "cid": 53438230,
-      "smiles": "CC(C)S(=O)(=O)Nc1ccc(F)c(C(=O)c2c[nH]c3ncc(-c4cccnc4)cc23)c1F",
-      "formula": "C22H18F2N4O3S",
-      "mw": 456.47,
-      "pubchem_title": "Plx4032",
-      "aliases": [
-        "braf inhibitor"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 3,
-      "os_patients": 3
-    },
-    {
       "canonical_name": "cabazitaxel",
       "inchikey": "BMQGVNUXMIRLCK-OAGWZNDDSA-N",
       "cid": 9854073,
@@ -2821,6 +2780,23 @@
       "os_patients": 4
     },
     {
+      "canonical_name": "halichondrin b",
+      "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
+      "cid": 11354606,
+      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
+      "formula": "C40H59NO11",
+      "mw": 729.91,
+      "pubchem_title": "Eribulin",
+      "aliases": [
+        "eribulin",
+        "eribulin mesylate",
+        "halichondrin b"
+      ],
+      "n_strings_collapsed": 3,
+      "recist_patients": 3,
+      "os_patients": 4
+    },
+    {
       "canonical_name": "imatinib mesylate",
       "inchikey": "KTUFNOKKBVMGRW-UHFFFAOYSA-N",
       "cid": 5291,
@@ -2838,18 +2814,19 @@
     },
     {
       "canonical_name": "pamidronate disodium",
-      "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-L",
+      "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-N",
       "cid": 73351,
-      "smiles": "NCCC(O)(P(=O)([O-])O)P(=O)([O-])O",
-      "formula": "C3H9NO7P2-2",
-      "mw": 233.05,
+      "smiles": "NCCC(O)(P(=O)(O)O)P(=O)(O)O",
+      "formula": "C3H11NO7P2",
+      "mw": 235.07,
       "pubchem_title": "Pamidronate Disodium Anhydrous",
       "aliases": [
-        "pamidronate disodium"
+        "pamidronate disodium",
+        "pamidronic acid"
       ],
-      "n_strings_collapsed": 1,
+      "n_strings_collapsed": 2,
       "recist_patients": 3,
-      "os_patients": 3
+      "os_patients": 4
     },
     {
       "canonical_name": "temsirolimus",
@@ -2910,21 +2887,6 @@
       "n_strings_collapsed": 1,
       "recist_patients": 2,
       "os_patients": 8
-    },
-    {
-      "canonical_name": "halichondrin b",
-      "inchikey": "FXNFULJVOQMBCW-VZBLNRDYSA-N",
-      "cid": 5488895,
-      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)O[C@@H]3[C@@H](C)[C@@H]4O[C@@H]5C[C@]6(C[C@@H]7O[C@]8(C[C@H](C)[C@@H]9O[C@H]([C@@H](O)C[C@@H](O)CO)C[C@@H]9O8)C[C@H](C)[C@@H]7O6)O[C@@H]5C[C@@H]4O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
-      "formula": "C60H86O19",
-      "mw": 1111.33,
-      "pubchem_title": "Halichondrin B",
-      "aliases": [
-        "halichondrin b"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 2,
-      "os_patients": 2
     },
     {
       "canonical_name": "lapatinib",
@@ -2996,21 +2958,6 @@
       "pubchem_title": "Trametinib",
       "aliases": [
         "trametinib"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 2,
-      "os_patients": 2
-    },
-    {
-      "canonical_name": "tyrosine kinase inhibitor",
-      "inchikey": "PKOVTRMHYNEBDU-UHFFFAOYSA-N",
-      "cid": 24956525,
-      "smiles": "O=C(NCCN1CCOCC1)c1cc2c(Oc3ccc(NC(=O)C4(C(=O)Nc5ccc(F)cc5)CC4)cc3)ccnc2[nH]1",
-      "formula": "C31H31FN6O5",
-      "mw": 586.62,
-      "pubchem_title": "N~1~-(4-Fluorophenyl)-N'~1~-(4-((2-((2-(morpholin-4-yl)ethyl)carbamoyl)-1H-pyrrolo(2,3-b)pyridin-4-yl)oxy)phenyl)cyclopropane-1,1-dicarboxamide",
-      "aliases": [
-        "tyrosine kinase inhibitor"
       ],
       "n_strings_collapsed": 1,
       "recist_patients": 2,
@@ -3152,22 +3099,6 @@
       "os_patients": 1
     },
     {
-      "canonical_name": "eribulin mesylate",
-      "inchikey": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
-      "cid": 11354606,
-      "smiles": "C=C1C[C@@H]2CC[C@@]34C[C@H]5O[C@H]6[C@@H](O3)[C@H]3O[C@H](CC[C@@H]3O[C@H]6[C@H]5O4)CC(=O)C[C@@H]3[C@@H](OC)[C@@H](C[C@H](O)CN)O[C@H]3C[C@H]3O[C@@H](CC[C@@H]1O2)C[C@@H](C)C3=C",
-      "formula": "C40H59NO11",
-      "mw": 729.91,
-      "pubchem_title": "Eribulin",
-      "aliases": [
-        "eribulin",
-        "eribulin mesylate"
-      ],
-      "n_strings_collapsed": 2,
-      "recist_patients": 1,
-      "os_patients": 2
-    },
-    {
       "canonical_name": "floxuridine",
       "inchikey": "ODKNJVUHOIMIIZ-RRKCRQDMSA-N",
       "cid": 5790,
@@ -3289,18 +3220,19 @@
     },
     {
       "canonical_name": "levothyroxine sodium",
-      "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-M",
-      "cid": 23666112,
-      "smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)[O-]",
-      "formula": "C15H10I4NO4-",
-      "mw": 775.86,
-      "pubchem_title": "Levothyroxine Sodium",
+      "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-N",
+      "cid": 5819,
+      "smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)O",
+      "formula": "C15H11I4NO4",
+      "mw": 776.87,
+      "pubchem_title": "Thyroxine",
       "aliases": [
+        "levothyroxine",
         "levothyroxine sodium"
       ],
-      "n_strings_collapsed": 1,
+      "n_strings_collapsed": 2,
       "recist_patients": 1,
-      "os_patients": 21
+      "os_patients": 42
     },
     {
       "canonical_name": "megestrol acetate",
@@ -3454,12 +3386,12 @@
     },
     {
       "canonical_name": "pv-10",
-      "inchikey": "RYJXAZXFWIWTOJ-UHFFFAOYSA-N",
-      "cid": 69247748,
-      "smiles": "CCCCCCCC(C(=O)c1ccccc1)N1CCCC1",
-      "formula": "C19H29NO",
-      "mw": 287.45,
-      "pubchem_title": "alpha-Pyrrolidinononanophenone",
+      "inchikey": "VDNLFJGJEQUWRB-UHFFFAOYSA-N",
+      "cid": 25473,
+      "smiles": "O=C(O)c1c(Cl)c(Cl)c(Cl)c(Cl)c1-c1c2cc(I)c(=O)c(I)c-2oc2c(I)c(O)c(I)cc12",
+      "formula": "C20H4Cl4I4O5",
+      "mw": 973.67,
+      "pubchem_title": "Rose Bengal",
       "aliases": [
         "pv-10"
       ],
@@ -3921,33 +3853,19 @@
     },
     {
       "canonical_name": "clodronate disodium",
-      "inchikey": "ACSIXWWBWUQEHA-UHFFFAOYSA-L",
-      "cid": 23724874,
-      "smiles": "O=P([O-])(O)C(Cl)(Cl)P(=O)([O-])O",
-      "formula": "CH2Cl2O6P2-2",
-      "mw": 242.88,
-      "pubchem_title": "Clodronate Disodium",
-      "aliases": [
-        "clodronate disodium"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 0,
-      "os_patients": 4
-    },
-    {
-      "canonical_name": "clodronic acid",
       "inchikey": "ACSIXWWBWUQEHA-UHFFFAOYSA-N",
-      "cid": 25419,
+      "cid": 23724874,
       "smiles": "O=P(O)(O)C(Cl)(Cl)P(=O)(O)O",
       "formula": "CH4Cl2O6P2",
       "mw": 244.89,
-      "pubchem_title": "Clodronate",
+      "pubchem_title": "Clodronate Disodium",
       "aliases": [
+        "clodronate disodium",
         "clodronic acid"
       ],
-      "n_strings_collapsed": 1,
+      "n_strings_collapsed": 2,
       "recist_patients": 0,
-      "os_patients": 1
+      "os_patients": 5
     },
     {
       "canonical_name": "cytarabine",
@@ -4117,11 +4035,11 @@
     },
     {
       "canonical_name": "ibandronate sodium",
-      "inchikey": "MPBVHIBUJCELCL-UHFFFAOYSA-M",
+      "inchikey": "MPBVHIBUJCELCL-UHFFFAOYSA-N",
       "cid": 23663991,
-      "smiles": "CCCCCN(C)CCC(O)(P(=O)([O-])O)P(=O)(O)O",
-      "formula": "C9H22NO7P2-",
-      "mw": 318.22,
+      "smiles": "CCCCCN(C)CCC(O)(P(=O)(O)O)P(=O)(O)O",
+      "formula": "C9H23NO7P2",
+      "mw": 319.23,
       "pubchem_title": "Ibandronate Sodium",
       "aliases": [
         "ibandronate sodium"
@@ -4204,21 +4122,6 @@
       "n_strings_collapsed": 1,
       "recist_patients": 0,
       "os_patients": 5
-    },
-    {
-      "canonical_name": "levothyroxine",
-      "inchikey": "XUIIKFGFIJCVMT-LBPRGKRZSA-N",
-      "cid": 5819,
-      "smiles": "N[C@@H](Cc1cc(I)c(Oc2cc(I)c(O)c(I)c2)c(I)c1)C(=O)O",
-      "formula": "C15H11I4NO4",
-      "mw": 776.87,
-      "pubchem_title": "Thyroxine",
-      "aliases": [
-        "levothyroxine"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 0,
-      "os_patients": 21
     },
     {
       "canonical_name": "lonafarnib",
@@ -4387,21 +4290,6 @@
       "os_patients": 3
     },
     {
-      "canonical_name": "pamidronic acid",
-      "inchikey": "WRUUGTRCQOWXEG-UHFFFAOYSA-N",
-      "cid": 4674,
-      "smiles": "NCCC(O)(P(=O)(O)O)P(=O)(O)O",
-      "formula": "C3H11NO7P2",
-      "mw": 235.07,
-      "pubchem_title": "Pamidronic Acid",
-      "aliases": [
-        "pamidronic acid"
-      ],
-      "n_strings_collapsed": 1,
-      "recist_patients": 0,
-      "os_patients": 1
-    },
-    {
       "canonical_name": "patupilone",
       "inchikey": "QXRSDHAAWVKZLJ-PVYNADRNSA-N",
       "cid": 448013,
@@ -4433,11 +4321,11 @@
     },
     {
       "canonical_name": "phenytoin sodium",
-      "inchikey": "CXOFVDLJLONNDW-UHFFFAOYSA-M",
+      "inchikey": "CXOFVDLJLONNDW-UHFFFAOYSA-N",
       "cid": 657302,
-      "smiles": "O=C1[N-]C(=O)C(c2ccccc2)(c2ccccc2)N1",
-      "formula": "C15H11N2O2-",
-      "mw": 251.26,
+      "smiles": "O=C1NC(=O)C(c2ccccc2)(c2ccccc2)N1",
+      "formula": "C15H12N2O2",
+      "mw": 252.27,
       "pubchem_title": "Phenytoin Sodium",
       "aliases": [
         "phenytoin sodium"
