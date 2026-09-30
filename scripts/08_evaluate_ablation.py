@@ -1094,7 +1094,7 @@ def run_cv(samples, fps, embed_dim, arms, hp, seed, device, n_splits=5, val_log=
 
 
 def permutation_null(samples, fps, embed_dim, arms, hp, device, n_perm, n_splits, seed0=5000,
-                     out=None):
+                     out=None, observed=None, curtail=False):
     """
     Empirical null distribution for the primary delta, by permuting LABELS.
 
@@ -1142,6 +1142,20 @@ def permutation_null(samples, fps, embed_dim, arms, hp, device, n_perm, n_splits
         d = rep["contrasts"]["with_smiles_vs_without_smiles"]["delta_auroc_mean"]
         deltas.append(d)
         log.info(f"    permutation {i+1}/{n_perm}: delta {d:+.4f}")
+        # CURTAILED TEST (Besag & Clifford 1991), added 2026-09-30. Once
+        # H = floor(alpha * (n_perm + 1)) permuted deltas are at least as
+        # extreme as the observed one, the fixed-N p-value is already
+        # >= (H + 1) / (n_perm + 1) > alpha whatever the remaining runs give,
+        # so the fixed-N DECISION ("do not reject") is determined. Stopping
+        # there cannot change the pre-registered decision; it only saves the
+        # compute. The reject direction can never be curtailed this way.
+        if curtail and observed is not None:
+            H = int(math.floor(ALPHA * (n_perm + 1)))
+            h = sum(1 for x in deltas if abs(x) >= abs(observed))
+            if h >= H:
+                log.info(f"    curtailed after {i+1} runs: {h} permuted deltas >= |observed|; "
+                         f"fixed-N p >= {(h + 1) / (n_perm + 1):.4f} > alpha")
+                break
     return deltas
 
 
@@ -1573,6 +1587,10 @@ def main():
                          "pooled over the regimen) is the pre-registered unit from "
                          "2026-09-29; 'pair' is the old per-(patient, drug) unit, kept "
                          "only as a regression baseline.")
+    ap.add_argument("--curtail-null", action="store_true",
+                    help="stop the permutation null once the fixed-N 'do not reject' "
+                         "decision is mathematically determined (Besag & Clifford 1991). "
+                         "Cannot change the decision; declared in §10 2026-09-30.")
     ap.add_argument("--quick", action="store_true",
                     help="SMOKE TEST ONLY — shrinks epochs and tiles so a run finishes "
                          "in minutes. Never use for a reported result; the run log "
@@ -1769,9 +1787,20 @@ def main():
                                            "null_deltas": nulls, "p": None,
                                            "n_completed": 0}
             permutation_null(samples, fps, embed_dim, arms, hp, device,
-                             a.permutation_null, a.folds, out=nulls)
-            pv = permutation_p(obs, nulls)
-            print(f"\nPERMUTATION NULL ({a.permutation_null} runs)")
+                             a.permutation_null, a.folds, out=nulls,
+                             observed=obs, curtail=a.curtail_null)
+            h = sum(1 for x in nulls if abs(x) >= abs(obs))
+            if len(nulls) < a.permutation_null:
+                # curtailed: report the Besag–Clifford p and the bound on the fixed-N p
+                pv = h / len(nulls)
+                payload["permutation_null"].update(
+                    curtailed=True, exceedances=h,
+                    fixed_n_p_lower_bound=(h + 1) / (a.permutation_null + 1),
+                    p_method="Besag-Clifford sequential Monte Carlo (h/L)")
+            else:
+                pv = permutation_p(obs, nulls)
+            print(f"\nPERMUTATION NULL ({len(nulls)} of {a.permutation_null} runs"
+                  f"{', curtailed' if len(nulls) < a.permutation_null else ''})")
             print(f"  observed delta AUROC : {obs:+.4f}")
             print(f"  null mean / sd       : {np.mean(nulls):+.4f} / {np.std(nulls, ddof=1):.4f}")
             print(f"  permutation p        : {pv:.4f}   "
