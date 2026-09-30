@@ -1093,7 +1093,8 @@ def run_cv(samples, fps, embed_dim, arms, hp, seed, device, n_splits=5, val_log=
     return out
 
 
-def permutation_null(samples, fps, embed_dim, arms, hp, device, n_perm, n_splits, seed0=5000):
+def permutation_null(samples, fps, embed_dim, arms, hp, device, n_perm, n_splits, seed0=5000,
+                     out=None):
     """
     Empirical null distribution for the primary delta, by permuting LABELS.
 
@@ -1122,7 +1123,7 @@ def permutation_null(samples, fps, embed_dim, arms, hp, device, n_perm, n_splits
     patients = sorted({s.patient for s in samples})
     base_labels = {p: next(s.y for s in samples if s.patient == p) for p in patients}
 
-    deltas = []
+    deltas = out if out is not None else []   # caller's list is filled in place
     for i in range(n_perm):
         shuffled = list(base_labels.values())
         rng.shuffle(shuffled)
@@ -1679,52 +1680,6 @@ def main():
                "device": a.device, "note": a.note, "report": rep,
                "elapsed_s": round(time.time() - t0, 1)}
 
-    if a.thin_slide_sensitivity and not a.synthetic:
-        kept = [s for s in samples if s.min_tiles >= THIN_SLIDE_TILES]
-        dropped = n_pat - len({s.patient for s in kept})
-        log.info(f"\n  === thin-slide sensitivity: excluding {dropped} patients "
-                 f"with a slide under {THIN_SLIDE_TILES} tiles ===")
-        res2 = {seed: run_cv(kept, fps, embed_dim, arms, hp, seed, device,
-                             n_splits=a.folds) for seed in seeds}
-        rep2 = summarise_run(res2, arms, seeds)
-        print_report(rep2, f"SENSITIVITY (thin slides excluded) — {source}")
-        payload["sensitivity_thin_slide"] = {"n_patients_dropped": dropped, "report": rep2}
-
-    if a.negative_start_sensitivity and not a.synthetic:
-        # §10 2026-09-19: repeat the primary without the (patient, drug) records
-        # whose days_to_treatment_start is negative. Records are removed BEFORE
-        # the regimen is formed, so a patient keeps their other drugs and drops
-        # out only if nothing is left.
-        kept_n = [s for s in samples if not s.negative_start]
-        n_rec = len(samples) - len(kept_n)
-        dropped_n = n_pat - len({s.patient for s in kept_n})
-        log.info(f"\n  === treatment-timing sensitivity: {n_rec} records with negative "
-                 f"days_to_treatment_start removed ({dropped_n} patients lost) ===")
-        res3 = {seed: run_cv(kept_n, fps, embed_dim, arms, hp, seed, device,
-                             n_splits=a.folds) for seed in seeds}
-        rep3 = summarise_run(res3, arms, seeds)
-        print_report(rep3, f"SENSITIVITY (negative treatment start removed) — {source}")
-        payload["sensitivity_negative_start"] = {"n_records_removed": n_rec,
-                                                 "n_patients_dropped": dropped_n,
-                                                 "report": rep3}
-
-    if a.permutation_null and "with_smiles" in arms:
-        obs = rep["contrasts"]["with_smiles_vs_without_smiles"]["delta_auroc_mean"]
-        log.info(f"\n  === permutation null: {a.permutation_null} runs "
-                 f"(observed delta = {obs:+.4f}) ===")
-        nulls = permutation_null(samples, fps, embed_dim, arms, hp, device,
-                                 a.permutation_null, a.folds)
-        pv = permutation_p(obs, nulls)
-        print(f"\nPERMUTATION NULL ({a.permutation_null} runs)")
-        print(f"  observed delta AUROC : {obs:+.4f}")
-        print(f"  null mean / sd       : {np.mean(nulls):+.4f} / {np.std(nulls, ddof=1):.4f}")
-        print(f"  permutation p        : {pv:.4f}   "
-              f"({'reject' if pv < ALPHA else 'do not reject'} at alpha={ALPHA})")
-        print("  This p-value, not the DeLong one, is the calibrated test when the "
-              "scores come from models retrained per fold.\n")
-        payload["permutation_null"] = {"n": a.permutation_null, "observed": obs,
-                                       "null_deltas": nulls, "p": pv}
-
     # §8 requires that every configuration trained against labels be logged and
     # reported. Hyperparameters alone do NOT identify a configuration: on
     # 2026-08-28 the pre-batch and batched builds of this file produced AUROC
@@ -1740,25 +1695,100 @@ def main():
                                             "hparams", "code_sha256",
                                             "drug_encoder", "training_unit")},
                    sort_keys=True, default=str).encode()).hexdigest()[:12]
-    # Per-patient out-of-fold predictions (2026-09-29). The within-cancer-type
-    # and single- vs multi-molecule secondaries (pre-registration §10) are
-    # computed from these; without them each would need a second full run.
-    def _preds(res):
-        return {str(seed): {arm: {"patients": list(pats), "y": [int(v) for v in yv],
-                                  "score": [float(v) for v in sv]}
-                            for arm, (yv, sv, pats) in by_arm.items()}
-                for seed, by_arm in res.items()}
-    preds = {"config_hash": payload["config_hash"], "source": source,
-             "training_unit": TRAINING_UNIT, "primary": _preds(results)}
-    if payload.get("sensitivity_thin_slide"):
-        preds["sensitivity_thin_slide"] = _preds(res2)
-    if payload.get("sensitivity_negative_start"):
-        preds["sensitivity_negative_start"] = _preds(res3)
-    pp = BASE_DIR / "output" / "eval" / f"preds_{payload['config_hash']}.json"
-    pp.write_text(json.dumps(preds))
-    payload["predictions_file"] = pp.name
-    log.info(f"Per-patient predictions written to {pp}")
+    extra_preds: dict = {}
 
+    def _save(status: str):
+        """
+        Write the predictions and a checkpoint of the payload NOW (2026-09-30).
+        Until this change nothing was written until the permutation null had
+        finished — days after the primary result had already been printed — so
+        stopping a run lost its record. The run log itself still gets exactly
+        one line per run: on completion, or on Ctrl-C with status "interrupted".
+        """
+        def _preds(res):
+            return {str(seed): {arm: {"patients": list(pats), "y": [int(v) for v in yv],
+                                      "score": [float(v) for v in sv]}
+                                for arm, (yv, sv, pats) in by_arm.items()}
+                    for seed, by_arm in res.items()}
+        preds = {"config_hash": payload["config_hash"], "source": source,
+                 "training_unit": TRAINING_UNIT, "primary": _preds(results)}
+        for k, res in extra_preds.items():
+            preds[k] = _preds(res)
+        pp = BASE_DIR / "output" / "eval" / f"preds_{payload['config_hash']}.json"
+        pp.write_text(json.dumps(preds))
+        payload["predictions_file"] = pp.name
+        payload["status"] = status
+        payload["elapsed_s"] = round(time.time() - t0, 1)
+        if payload.get("permutation_null"):
+            payload["permutation_null"]["n_completed"] = len(payload["permutation_null"]["null_deltas"])
+        ck = BASE_DIR / "output" / "eval" / f"checkpoint_{payload['config_hash']}.json"
+        ck.write_text(json.dumps(payload, default=str))
+        return pp, ck
+
+    pp, ck = _save("primary_done")
+    log.info(f"Primary predictions written to {pp}; checkpoint {ck.name}")
+
+    try:
+        if a.thin_slide_sensitivity and not a.synthetic:
+            kept = [s for s in samples if s.min_tiles >= THIN_SLIDE_TILES]
+            dropped = n_pat - len({s.patient for s in kept})
+            log.info(f"\n  === thin-slide sensitivity: excluding {dropped} patients "
+                     f"with a slide under {THIN_SLIDE_TILES} tiles ===")
+            res2 = {seed: run_cv(kept, fps, embed_dim, arms, hp, seed, device,
+                                 n_splits=a.folds) for seed in seeds}
+            extra_preds["sensitivity_thin_slide"] = res2
+            rep2 = summarise_run(res2, arms, seeds)
+            print_report(rep2, f"SENSITIVITY (thin slides excluded) — {source}")
+            payload["sensitivity_thin_slide"] = {"n_patients_dropped": dropped, "report": rep2}
+
+        if a.negative_start_sensitivity and not a.synthetic:
+            # §10 2026-09-19: repeat the primary without the (patient, drug) records
+            # whose days_to_treatment_start is negative. Records are removed BEFORE
+            # the regimen is formed, so a patient keeps their other drugs and drops
+            # out only if nothing is left.
+            kept_n = [s for s in samples if not s.negative_start]
+            n_rec = len(samples) - len(kept_n)
+            dropped_n = n_pat - len({s.patient for s in kept_n})
+            log.info(f"\n  === treatment-timing sensitivity: {n_rec} records with negative "
+                     f"days_to_treatment_start removed ({dropped_n} patients lost) ===")
+            res3 = {seed: run_cv(kept_n, fps, embed_dim, arms, hp, seed, device,
+                                 n_splits=a.folds) for seed in seeds}
+            extra_preds["sensitivity_negative_start"] = res3
+            rep3 = summarise_run(res3, arms, seeds)
+            print_report(rep3, f"SENSITIVITY (negative treatment start removed) — {source}")
+            payload["sensitivity_negative_start"] = {"n_records_removed": n_rec,
+                                                     "n_patients_dropped": dropped_n,
+                                                     "report": rep3}
+
+        if a.permutation_null and "with_smiles" in arms:
+            obs = rep["contrasts"]["with_smiles_vs_without_smiles"]["delta_auroc_mean"]
+            log.info(f"\n  === permutation null: {a.permutation_null} runs "
+                     f"(observed delta = {obs:+.4f}) ===")
+            nulls = []           # filled as it goes, so an interrupt keeps the partial null
+            payload["permutation_null"] = {"n": a.permutation_null, "observed": obs,
+                                           "null_deltas": nulls, "p": None,
+                                           "n_completed": 0}
+            permutation_null(samples, fps, embed_dim, arms, hp, device,
+                             a.permutation_null, a.folds, out=nulls)
+            pv = permutation_p(obs, nulls)
+            print(f"\nPERMUTATION NULL ({a.permutation_null} runs)")
+            print(f"  observed delta AUROC : {obs:+.4f}")
+            print(f"  null mean / sd       : {np.mean(nulls):+.4f} / {np.std(nulls, ddof=1):.4f}")
+            print(f"  permutation p        : {pv:.4f}   "
+                  f"({'reject' if pv < ALPHA else 'do not reject'} at alpha={ALPHA})")
+            print("  This p-value, not the DeLong one, is the calibrated test when the "
+                  "scores come from models retrained per fold.\n")
+            payload["permutation_null"].update(p=pv, n_completed=len(nulls))
+
+    except KeyboardInterrupt:
+        pp, ck = _save("interrupted")
+        p = append_run_log(payload)
+        log.warning(f"\nINTERRUPTED — partial run logged to {p} (config "
+                    f"{payload['config_hash']}, status 'interrupted'); predictions in {pp.name}")
+        raise SystemExit(130)
+
+    pp, ck = _save("complete")
+    log.info(f"Per-patient predictions written to {pp}")
     p = append_run_log(payload)
     log.info(f"Run logged to {p} (config {payload['config_hash']})")
 
