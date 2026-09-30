@@ -232,6 +232,7 @@ class Sample:
     bag_paths: list = field(default_factory=list)   # real mode: .pt files to pool
     bag:       object = None                        # synthetic mode: in-memory tensor
     min_tiles: int = 10**9               # smallest slide in this bag (thin-slide filter)
+    oracle:    tuple = None              # synthetic only: (true logit, true logit without drug)
     regimen:   tuple = ()                # drug names whose vectors are pooled; () -> (drug,)
     negative_start: bool = False         # a record for this drug has days_to_treatment_start < 0
 
@@ -251,6 +252,28 @@ class Sample:
 # 'pair' reproduces the pre-2026-09-29 behaviour exactly (a one-element regimen
 # pools to itself) and exists only as a regression baseline for --selftest.
 TRAINING_UNIT = "patient"
+
+# -----------------------------------------------------------------------------
+# DRUG-GATE VARIANTS — EXPLORATORY ONLY (§10, 2026-09-30)
+# -----------------------------------------------------------------------------
+# 'frozen_prereg' is the pre-registered model and the default: gate initialised
+# at 0, trained with the same lr (3e-4) and weight decay as every other weight.
+# Adam moves a parameter by roughly lr per step, and early stopping selected
+# epochs 4-6 on Arm A (~60 steps per epoch under the patient unit), so the gate
+# cannot have moved much beyond ~0.1: the drug enters the head scaled down
+# about tenfold. The primary result is consistent with that (with_smiles and
+# shuffled_drug nearly identical fold by fold). The variants below exist to
+# measure whether the null is a property of the DATA or of this THROTTLE:
+#   fast_gate  gate still starts at 0 (so the null-safety of the design is
+#              kept at initialisation) but has its own lr = 100 x base and no
+#              weight decay, so it can open within tens of steps
+#   open_init  gate starts at 1 with the base optimiser, i.e. no throttle at all
+# Selected on SYNTHETIC data only, by the rule declared in §10, before any real
+# label is read under them. Never the primary.
+GATE_VARIANTS = ("frozen_prereg", "fast_gate", "open_init")
+GATE_VARIANT = "frozen_prereg"
+GATE_LR_MULT = 100.0
+GATE_LOG: list = []           # (seed, fold, arm, final gate value), every drug-arm fit
 
 # Digest of THIS file, taken at import (2026-09-29). It used to be read when the
 # run finished, so editing the file during a long run logged the hash of code
@@ -360,7 +383,8 @@ def make_synthetic(n_patients=300, n_drugs=12, tiles=200, embed_dim=64,
         for d in drugs:
             s = Sample(patient=pid, project=proj, drug=f"drug_{d}", y=y,
                        context=np.concatenate([ctx, np.eye(n_projects)[i % n_projects]]).astype(np.float32),
-                       min_tiles=tiles)
+                       min_tiles=tiles,
+                       oracle=(float(logit), float(1.1 * m + 0.6 * ctx[0])))
             s.bag = torch.from_numpy(bag)
             samples.append(s)
 
@@ -742,7 +766,8 @@ class ResponseModel(nn.Module):
             # carries a systematic NEGATIVE bias under the null - measured at
             # dAUROC = -0.066 on synthetic data with NO planted effect, which would
             # have been reported as "chemistry hurts". See selftest [2/2].
-            self.drug_gate = nn.Parameter(torch.zeros(1))
+            self.drug_gate = nn.Parameter(
+                torch.ones(1) if GATE_VARIANT == "open_init" else torch.zeros(1))
             head_in += hp["drug_proj_dim"]
 
         self.head = nn.Sequential(
@@ -879,7 +904,15 @@ def train_fold(train_s, val_s, arm, fps, embed_dim, hp, seed, cache, device, shu
 
     drug_dim = drug_dim_for(arm, fps)
     model = ResponseModel(embed_dim, train_s[0].context.size, drug_dim, hp).to(device)
-    opt = torch.optim.AdamW(model.parameters(), lr=hp["lr"], weight_decay=hp["weight_decay"])
+    if GATE_VARIANT == "fast_gate" and drug_dim is not None:
+        gate = [model.drug_gate]
+        rest = [p_ for n_, p_ in model.named_parameters() if n_ != "drug_gate"]
+        opt = torch.optim.AdamW([
+            {"params": rest, "lr": hp["lr"], "weight_decay": hp["weight_decay"]},
+            {"params": gate, "lr": hp["lr"] * GATE_LR_MULT, "weight_decay": 0.0}])
+    else:
+        # the pre-registered optimiser, constructed exactly as before
+        opt = torch.optim.AdamW(model.parameters(), lr=hp["lr"], weight_decay=hp["weight_decay"])
 
     n_pos = sum(s.y for s in train_s)
     pos_weight = torch.tensor([(len(train_s) - n_pos) / max(n_pos, 1)], device=device)
@@ -1081,8 +1114,11 @@ def run_cv(samples, fps, embed_dim, arms, hp, seed, device, n_splits=5, val_log=
             if val_log is not None:
                 val_log.append({"seed": seed, "fold": fold, "arm": arm,
                                 "inner_val_loss": val_loss, "inner_val_auroc": val_auc})
+            g = float(model.drug_gate.detach().cpu()) if getattr(model, "use_drug", False) else None
+            if g is not None:
+                GATE_LOG.append({"seed": seed, "fold": fold, "arm": arm, "gate": g})
             log.info(f"    fold {fold} · {arm:<15} inner-val loss {val_loss:.4f} "
-                     f"(AUROC {val_auc:.3f})")
+                     f"(AUROC {val_auc:.3f})" + (f"  gate {g:+.4f}" if g is not None else ""))
 
     out = {}
     for arm in arms:
@@ -1432,6 +1468,102 @@ def _null_block(title, width_mode, device, hp, arms, n_rep, k, n_patients):
     return (bias, se, rejects), ok
 
 
+def _chemberta_synthetic(seed: int, n_patients: int, delta_signal: float, k: int):
+    """Synthetic labels with a KNOWN drug effect, carried by the REAL frozen molecule vectors."""
+    path = BASE_DIR / "drugs" / DRUG_ENCODERS["chemberta"]
+    blob = np.load(path, allow_pickle=True)
+    names = [str(n) for n in blob["names"]]
+    samples, _, ed = make_synthetic(n_patients=n_patients, n_drugs=len(names),
+                                    delta_signal=delta_signal, seed=seed)
+    remap = {f"drug_{i}": names[i] for i in range(len(names))}
+    for s in samples:
+        s.drug = remap[s.drug]
+    Z = _frozen_pca(blob["X"].astype(np.float64), k)
+    fps = {n: torch.from_numpy(Z[i].astype(np.float32)) for i, n in enumerate(names)}
+    return samples, fps, ed
+
+
+def _oracle_delta(samples) -> float:
+    """AUROC(true logit) - AUROC(true logit without the drug term), per patient."""
+    per = {s.patient: (s.y, s.oracle) for s in samples}
+    y = np.array([v[0] for v in per.values()])
+    full = np.array([v[1][0] for v in per.values()])
+    nod = np.array([v[1][1] for v in per.values()])
+    return float(roc_auc_score(y, full) - roc_auc_score(y, nod))
+
+
+def sensitivity_check(device, n_patients=979, n_null=6, target=0.05):
+    """
+    EXPLORATORY (§10, 2026-09-30). CAN THE DRUG BRANCH SEE A REAL EFFECT?
+
+    For each gate variant, on synthetic labels carried by the real 93 molecule
+    vectors, at Arm A's size and with the PRODUCTION epochs / patience / batch /
+    lr (only the tile counts are reduced, for speed):
+
+      planted  a drug effect whose ORACLE ΔAUROC is ~= the SESOI (0.05); the
+               harness's recovery is reported as a fraction of that oracle
+      null     n_null datasets with no drug effect; mean ΔAUROC and MC SE
+
+    Pre-declared selection rule (§10): a variant PASSES if
+      |null bias| <= 0.01 or within 2 MC SE of zero,  AND
+      planted recovery >= 50% of the oracle ΔAUROC.
+    The first passing variant in the order fast_gate, open_init is the one
+    carried to the single exploratory real-data run. frozen_prereg is measured
+    as the reference. No real label is read here.
+    """
+    global GATE_VARIANT
+    k = HPARAMS["drug_feat_dim"]
+    hp = dict(HPARAMS, train_tiles=128, eval_tiles=200)
+    arms = ["without_smiles", "with_smiles"]
+
+    cands = [0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0]
+    od = {c: _oracle_delta(_chemberta_synthetic(11, n_patients, c, k)[0]) for c in cands}
+    ds = min(cands, key=lambda c: abs(od[c] - target))
+    print(f"\nplanted strength {ds} -> oracle ΔAUROC {od[ds]:+.4f} (target {target})")
+
+    out = {"n_patients": n_patients, "n_null": n_null, "delta_signal": ds,
+           "oracle_delta": od[ds], "oracle_by_strength": od, "hparams": hp,
+           "gate_lr_mult": GATE_LR_MULT, "variants": {}}
+    for v in GATE_VARIANTS:
+        GATE_VARIANT = v
+        print(f"\n=== gate variant: {v} ===")
+        GATE_LOG.clear()
+        s, f, e = _chemberta_synthetic(11, n_patients, ds, k)
+        r = summarise_run({1: run_cv(s, f, e, arms, hp, seed=1, device=device)}, arms, [1])
+        dp = r["contrasts"]["with_smiles_vs_without_smiles"]["delta_auroc_mean"]
+        g_planted = [x["gate"] for x in GATE_LOG]
+        nulls, g_null = [], []
+        for rr in range(n_null):
+            GATE_LOG.clear()
+            s2, f2, e2 = _chemberta_synthetic(200 + rr, n_patients, 0.0, k)
+            r2 = summarise_run({1: run_cv(s2, f2, e2, arms, hp, seed=rr + 1, device=device)},
+                               arms, [1])
+            nulls.append(r2["contrasts"]["with_smiles_vs_without_smiles"]["delta_auroc_mean"])
+            g_null += [x["gate"] for x in GATE_LOG]
+            print(f"  null {rr + 1}/{n_null}: ΔAUROC {nulls[-1]:+.4f}")
+        bias = float(np.mean(nulls))
+        se = float(np.std(nulls, ddof=1) / math.sqrt(n_null)) if n_null > 1 else float("nan")
+        rec = dp / od[ds] if od[ds] else float("nan")
+        passed = (abs(bias) <= 0.01 or abs(bias) <= 2 * se) and rec >= 0.5
+        out["variants"][v] = {"planted_delta": dp, "recovery_fraction": rec,
+                              "null_deltas": nulls, "null_bias": bias, "null_se": se,
+                              "gate_planted_mean_abs": float(np.mean(np.abs(g_planted))),
+                              "gate_null_mean_abs": float(np.mean(np.abs(g_null))),
+                              "passed": bool(passed)}
+        print(f"  planted Δ {dp:+.4f} = {rec:.0%} of oracle · null bias {bias:+.4f} "
+              f"(SE {se:.4f}) · mean |gate| planted {np.mean(np.abs(g_planted)):.3f} "
+              f"· {'PASS' if passed else 'fail'}")
+    GATE_VARIANT = "frozen_prereg"
+    chosen = next((v for v in ("fast_gate", "open_init") if out["variants"][v]["passed"]), None)
+    out["chosen_variant"] = chosen
+    print(f"\nSELECTED for the exploratory real-data run: {chosen or 'NONE — no variant passed'}")
+    out["code_sha256"] = CODE_SHA256
+    pth = BASE_DIR / "output" / "eval" / f"gate_sensitivity_{CODE_SHA256}.json"
+    pth.write_text(json.dumps(out, indent=1, default=float))
+    print(f"written {pth}\n")
+    return 0
+
+
 def selftest(device):
     """
     Four checks:
@@ -1587,6 +1719,13 @@ def main():
                          "pooled over the regimen) is the pre-registered unit from "
                          "2026-09-29; 'pair' is the old per-(patient, drug) unit, kept "
                          "only as a regression baseline.")
+    ap.add_argument("--gate-variant", default="frozen_prereg", choices=list(GATE_VARIANTS),
+                    help="EXPLORATORY: drug-gate variant (§10 2026-09-30). The default is "
+                         "the pre-registered model; anything else is labelled in the run "
+                         "log source and can never be the primary.")
+    ap.add_argument("--sensitivity-check", action="store_true",
+                    help="EXPLORATORY: synthetic test of whether each gate variant can "
+                         "recover a planted effect of the SESOI's size (no real labels)")
     ap.add_argument("--curtail-null", action="store_true",
                     help="stop the permutation null once the fixed-N 'do not reject' "
                          "decision is mathematically determined (Besag & Clifford 1991). "
@@ -1602,6 +1741,10 @@ def main():
     global TRAINING_UNIT
     TRAINING_UNIT = a.unit
 
+    global GATE_VARIANT
+    GATE_VARIANT = a.gate_variant
+    if a.sensitivity_check:
+        sys.exit(sensitivity_check(device))
     if a.selftest:
         sys.exit(selftest(device))
 
@@ -1632,6 +1775,8 @@ def main():
                                             include_biologics=a.include_biologics)
         source = (f"real(tag={a.tag},biologic_inclusive)" if a.include_biologics
                   else f"real(tag={a.tag})")
+    if GATE_VARIANT != "frozen_prereg":
+        source = source[:-1] + f",EXPLORATORY_gate={GATE_VARIANT})"
 
     # Synthetic data has no real molecules behind its fake fingerprints, so the
     # pretrained artefact cannot apply to it; the PCA path is the only coherent
@@ -1696,7 +1841,8 @@ def main():
                "biologics": dict(BIOLOGIC_INFO) or None,
                "n_training_rows": len(to_training_unit(samples)),
                "device": a.device, "note": a.note, "report": rep,
-               "elapsed_s": round(time.time() - t0, 1)}
+               "elapsed_s": round(time.time() - t0, 1),
+               "gate_variant": GATE_VARIANT, "gate_values": GATE_LOG}
 
     # §8 requires that every configuration trained against labels be logged and
     # reported. Hyperparameters alone do NOT identify a configuration: on
