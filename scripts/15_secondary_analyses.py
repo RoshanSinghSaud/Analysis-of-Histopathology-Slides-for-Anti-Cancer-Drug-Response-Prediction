@@ -222,6 +222,28 @@ def cmd_preds(a):
     res = {"preds_file": Path(a.preds).name, "config_hash": blob.get("config_hash")}
     strip = lambda r: {k: v for k, v in r.items() if k not in ("yy", "A", "B")}
 
+    # --- whole-cohort contrasts with a paired bootstrap CI (2026-10-01) -----
+    # The run log gives per-seed deltas; what bounds the effect is the
+    # sampling uncertainty over PATIENTS, so each contrast is re-estimated on
+    # seed-ensembled scores with a stratified paired bootstrap.
+    whole = {}
+    for arm_a, arm_b in (("with_smiles", "without_smiles"),
+                         ("with_smiles", "shuffled_drug"),
+                         ("with_smiles", "onehot_drug"),
+                         ("onehot_drug", "without_smiles")):
+        if arm_a not in arms or arm_b not in arms:
+            continue
+        _, _, s1, p1 = ensembled(prim, arm_a)
+        _, _, s2, p2 = ensembled(prim, arm_b)
+        r = subset_delta(pats, y, s1, s2, p1, p2)
+        bt = boot_delta(r["yy"], r["A"], r["B"], np.random.default_rng(0))
+        r = strip(r)
+        r["delta_ci95"] = [float(v) for v in np.percentile(bt, [2.5, 97.5])]
+        r["delong_p"] = float(2 * norm.sf(abs(r["delta_ensembled"]) / math.sqrt(r["delong_var"]))) \
+            if r["delong_var"] > 0 else 1.0
+        whole[f"{arm_a}_vs_{arm_b}"] = r
+    res["whole_cohort"] = whole
+
     # --- within cancer type ------------------------------------------------
     by_proj = defaultdict(list)
     for p in pats:
@@ -275,7 +297,12 @@ def cmd_preds(a):
     res["tile_staircase"] = st
 
     # --- print ------------------------------------------------------------------
-    print(f"\nSECONDARY ANALYSES from {res['preds_file']} (with_smiles − without_smiles)")
+    print(f"\nSECONDARY ANALYSES from {res['preds_file']}")
+    print("\nWhole cohort (seed-ensembled scores, paired bootstrap 95% CI):")
+    for k, r in whole.items():
+        print(f"  {k:<32} Δ {r['delta_ensembled']:+.4f}  [{r['delta_ci95'][0]:+.4f}, "
+              f"{r['delta_ci95'][1]:+.4f}]  (with {r['auroc_with']:.4f} / base {r['auroc_without']:.4f})")
+    print("\n(below: with_smiles − without_smiles)")
     print("\nWithin cancer type:")
     for proj, r in rows.items():
         if "delta_ensembled" in r:

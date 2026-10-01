@@ -1,0 +1,248 @@
+{
+ "preds_file": "preds_8c72d899249f.json",
+ "config_hash": "8c72d899249f",
+ "whole_cohort": {
+  "with_smiles_vs_without_smiles": {
+   "n": 979,
+   "n_nonresponder": 352,
+   "auroc_with": 0.8214486370885893,
+   "auroc_without": 0.8213852037117587,
+   "delta_ensembled": 6.34333768306794e-05,
+   "delong_var": 8.29000955728475e-06,
+   "delta_mean_of_seeds": 4.2590981586188013e-05,
+   "delta_ci95": [
+    -0.005954694976076602,
+    0.005597542409743352
+   ],
+   "delong_p": 0.9824229800562282
+  },
+  "with_smiles_vs_shuffled_drug": {
+   "n": 979,
+   "n_nonresponder": 352,
+   "auroc_with": 0.8214486370885893,
+   "auroc_without": 0.8204110482818616,
+   "delta_ensembled": 0.0010375888067277739,
+   "delong_var": 1.1938939276457468e-06,
+   "delta_mean_of_seeds": 0.0025409598376105345,
+   "delta_ci95": [
+    -0.0011463317384369232,
+    0.0031444831085980533
+   ],
+   "delong_p": 0.34231364855005864
+  },
+  "with_smiles_vs_onehot_drug": {
+   "n": 979,
+   "n_nonresponder": 352,
+   "auroc_with": 0.8214486370885893,
+   "auroc_without": 0.8217069015513991,
+   "delta_ensembled": -0.000258264462809743,
+   "delong_var": 6.413757861559839e-06,
+   "delta_mean_of_seeds": 0.0019297339422937431,
+   "delta_ci95": [
+    -0.005373826482528749,
+    0.004331933268087563
+   ],
+   "delong_p": 0.9187737868909627
+  },
+  "onehot_drug_vs_without_smiles": {
+   "n": 979,
+   "n_nonresponder": 352,
+   "auroc_with": 0.8217069015513991,
+   "auroc_without": 0.8213852037117587,
+   "delta_ensembled": 0.0003216978396404224,
+   "delong_var": 8.7613689709897e-06,
+   "delta_mean_of_seeds": -0.0018871429607075552,
+   "delta_ci95": [
+    -0.0059226384659996165,
+    0.006407790524865847
+   ],
+   "delong_p": 0.9134538185405235
+  }
+ },
+ "within_cancer_type": {
+  "per_project": {
+   "TCGA-BLCA": {
+    "n": 80,
+    "n_nonresponder": 37,
+    "auroc_with": 0.5901948460087996,
+    "auroc_without": 0.5889377749842866,
+    "delta_ensembled": 0.0012570710245131123,
+    "delong_var": 0.0004763727667269381,
+    "delta_mean_of_seeds": -0.0033940917661847815,
+    "in_pool": true
+   },
+   "TCGA-BRCA": {
+    "n": 195,
+    "n_nonresponder": 22,
+    "auroc_with": 0.5296899632159747,
+    "auroc_without": 0.5517603783499737,
+    "delta_ensembled": -0.022070415133998877,
+    "delong_var": 0.000484051627492447,
+    "delta_mean_of_seeds": -0.01791907514450871,
+    "in_pool": true
+   },
+   "TCGA-CESC": {
+    "n": 81,
+    "n_nonresponder": 16,
+    "auroc_with": 0.601923076923077,
+    "auroc_without": 0.5846153846153845,
+    "delta_ensembled": 0.017307692307692357,
+    "delong_var": 0.0012184418145956598,
+    "delta_mean_of_seeds": 0.0032692307692307907,
+    "in_pool": true
+   },
+   "TCGA-COAD": {
+    "n": 79,
+    "n_nonresponder": 24,
+    "auroc_with": 0.6212121212121212,
+    "auroc_without": 0.6287878787878788,
+    "delta_ensembled": -0.007575757575757569,
+    "delong_var": 0.0008283621236519767,
+    "delta_mean_of_seeds": -0.01393939393939394,
+    "in_pool": true
+   },
+   "TCGA-LGG": {
+    "n": 128,
+    "n_nonresponder": 109,
+    "auroc_with": 0.7600193143408982,
+    "auroc_without": 0.7749879285369387,
+    "delta_ensembled": -0.014968614196040453,
+    "delong_var": 0.0008217281965656022,
+    "delta_mean_of_seeds": -0.015065185900531164,
+    "in_pool": true
+   },
+   "TCGA-LUAD": {
+    "n": 81,
+    "n_nonresponder": 28,
+    "auroc_with": 0.7392183288409704,
+    "auroc_without": 0.7264150943396226,
+    "delta_ensembled": 0.012803234501347793,
+    "delong_var": 0.00047844359177828246,
+    "delta_mean_of_seeds": 0.016442048517520225,
+    "in_pool": true
+   },
+   "TCGA-PAAD": {
+    "n": 74,
+    "n_nonresponder": 44,
+    "auroc_with": 0.6590909090909092,
+    "auroc_without": 0.6325757575757576,
+    "delta_ensembled": 0.02651515151515138,
+    "delong_var": 0.0003005680115288666,
+    "delta_mean_of_seeds": 0.021515151515151508,
+    "in_pool": true
+   },
+   "TCGA-SKCM": {
+    "n": 46,
+    "n_nonresponder": 26,
+    "auroc_with": 0.8538461538461539,
+    "auroc_without": 0.8403846153846155,
+    "delta_ensembled": 0.013461538461538525,
+    "delong_var": 0.0005179539084397377,
+    "delta_mean_of_seeds": 0.008461538461538498,
+    "in_pool": true
+   },
+   "TCGA-STAD": {
+    "n": 122,
+    "n_nonresponder": 43,
+    "auroc_with": 0.6670591698557551,
+    "auroc_without": 0.6844274359729173,
+    "delta_ensembled": -0.017368266117162134,
+    "delong_var": 0.00013378161649909561,
+    "delta_mean_of_seeds": -0.01984103620841926,
+    "in_pool": true
+   },
+   "TCGA-TGCT": {
+    "n": 93,
+    "n_nonresponder": 3,
+    "auroc_with": 0.5518518518518518,
+    "auroc_without": 0.5407407407407406,
+    "delta_ensembled": 0.011111111111111072,
+    "delong_var": 0.00042678133814214037,
+    "delta_mean_of_seeds": 0.01629629629629631,
+    "in_pool": false
+   }
+  },
+  "pooled_delta": -0.0020227782575757583,
+  "pooled_se": 0.0067066308946798206,
+  "pooled_ci95": [
+   -0.015167774811148206,
+   0.011122218295996689
+  ],
+  "pooled_p": 0.762950371402324,
+  "rule": "pool projects with >= 5 patients per class"
+ },
+ "single_vs_multi": {
+  "single": {
+   "n": 353,
+   "n_nonresponder": 172,
+   "auroc_with": 0.8064049852242066,
+   "auroc_without": 0.808171656173712,
+   "delta_ensembled": -0.0017666709495051114,
+   "delong_var": 2.5584872976452456e-05,
+   "delta_mean_of_seeds": -0.0005717589618399188,
+   "delta_ci95": [
+    -0.012335378388796243,
+    0.00790264037003726
+   ]
+  },
+  "multi": {
+   "n": 626,
+   "n_nonresponder": 180,
+   "auroc_with": 0.8105132037867464,
+   "auroc_without": 0.8086447433981068,
+   "delta_ensembled": 0.0018684603886397477,
+   "delong_var": 1.633885039023069e-05,
+   "delta_mean_of_seeds": -3.736920777277497e-05,
+   "delta_ci95": [
+    -0.00588129048330844,
+    0.01002833831589434
+   ]
+  },
+  "single_minus_multi": {
+   "delta": -0.003635131338144859,
+   "ci95": [
+    -0.016883854680915397,
+    0.008892346048754848
+   ],
+   "prediction_committed": "larger in single (\u00a710 2026-09-29)"
+  }
+ },
+ "tile_staircase": {
+  ">=0": {
+   "n": 979,
+   "n_nonresponder": 352,
+   "auroc_with": 0.8214486370885893,
+   "auroc_without": 0.8213852037117587,
+   "delta_ensembled": 6.34333768306794e-05,
+   "delong_var": 8.29000955728475e-06,
+   "delta_mean_of_seeds": 4.2590981586188013e-05
+  },
+  ">=500": {
+   "n": 969,
+   "n_nonresponder": 347,
+   "auroc_with": 0.8225858761826218,
+   "auroc_without": 0.8226322080858437,
+   "delta_ensembled": -4.633190322178571e-05,
+   "delong_var": 8.389479583131485e-06,
+   "delta_mean_of_seeds": 0.00011212320579701007
+  },
+  ">=1000": {
+   "n": 966,
+   "n_nonresponder": 345,
+   "auroc_with": 0.8222642302037387,
+   "auroc_without": 0.8225816238418632,
+   "delta_ensembled": -0.00031739363812455235,
+   "delong_var": 8.418512789833382e-06,
+   "delta_mean_of_seeds": -0.0001400266050549215
+  },
+  ">=2000": {
+   "n": 947,
+   "n_nonresponder": 336,
+   "auroc_with": 0.818544930247058,
+   "auroc_without": 0.8188518042241446,
+   "delta_ensembled": -0.0003068739770866191,
+   "delong_var": 8.845400447576087e-06,
+   "delta_mean_of_seeds": 4.7735951991279e-05
+  }
+ }
+}
