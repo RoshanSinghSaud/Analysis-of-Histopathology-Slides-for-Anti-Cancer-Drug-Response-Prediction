@@ -932,7 +932,7 @@ def train_fold(train_s, val_s, arm, fps, embed_dim, hp, seed, cache, device, shu
             # stream this function consumes is unchanged
             tiles, mask, ctx, drug = collate_bags(
                 [get_tiles(s, hp["train_tiles"], rng, cache) for s in chunk],
-                [torch.as_tensor(s.context, dtype=torch.float32) for s in chunk],
+                [ctx_vec(s, arm) for s in chunk],
                 [drug_vec(s, arm, fps, shuffle_map, "cpu") for s in chunk],
                 device)
             yb = torch.tensor([float(s.y) for s in chunk], device=device)
@@ -987,8 +987,21 @@ def _molecule_index(fps) -> dict:
     return {m: i for i, m in enumerate(sorted({molecule_of(n) for n in fps}))}
 
 
+# EXPLORATORY image-only arm (§10, 2026-10-02): histology alone, no drug and the
+# tissue context ZEROED, so ΔAUROC(image_only − without_smiles) measures what
+# the context block adds over the slide, and image_only alone what the slide
+# carries without cancer type, stage or receptors. Same architecture and
+# capacity as without_smiles (the zeroed inputs simply carry no information).
+NO_DRUG_ARMS = ("without_smiles", "image_only")
+
+
+def ctx_vec(s, arm):
+    c = torch.as_tensor(s.context, dtype=torch.float32)
+    return torch.zeros_like(c) if arm == "image_only" else c
+
+
 def drug_dim_for(arm, fps):
-    if arm == "without_smiles":
+    if arm in NO_DRUG_ARMS:
         return None
     if arm == "onehot_drug":
         # keyed on the MOLECULE, not the name (§10, 2026-09-29), so the identity
@@ -1008,7 +1021,7 @@ def drug_vec(s: Sample, arm, fps, shuffle_map, device):
     entirely, which quietly turns the capacity control into a second copy of
     the baseline and destroys the thing it exists to detect.
     """
-    if arm == "without_smiles":
+    if arm in NO_DRUG_ARMS:
         return None
     names = shuffle_map[id(s)] if arm == "shuffled_drug" else (s.regimen or (s.drug,))
     names = _dedupe_by_molecule(names)
@@ -1040,7 +1053,7 @@ def predict(model, samples, arm, fps, hp, seed, cache, device, shuffle_map):
             # identical across arms — the arms must differ only in the drug branch
             rng = np.random.default_rng(patient_seed(s.patient) + seed)
             bags.append(get_tiles(s, hp["eval_tiles"], rng, cache))
-            ctxs.append(torch.as_tensor(s.context, dtype=torch.float32))
+            ctxs.append(ctx_vec(s, arm))
             drugs.append(drug_vec(s, arm, fps, shuffle_map, "cpu"))
         tiles, mask, ctx, drug = collate_bags(bags, ctxs, drugs, device)
         ss.extend(torch.sigmoid(model(tiles, ctx, drug, mask)).cpu().reshape(-1).tolist())
