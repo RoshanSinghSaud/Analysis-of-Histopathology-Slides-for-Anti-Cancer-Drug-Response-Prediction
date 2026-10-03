@@ -1,0 +1,9 @@
+{"run_config": "5bf172a0aa7b", "status": "EXPLORATORY",
+ "per_seed_mean_auroc": {"without_smiles": 0.8035, "image_only": 0.7968},
+ "per_seed_delta_image_minus_without": {"mean": -0.0066, "sd": 0.0020},
+ "seed_ensembled_auroc": {"without_smiles": 0.8214, "image_only": 0.8158},
+ "seed_ensembled_delta_image_minus_without": {"delta": -0.0056, "ci95_paired_bootstrap": [-0.0088, -0.0023]},
+ "spearman_score_vs_cancer_type_nonresponder_rate": {"image_only": 0.758, "without_smiles": 0.779},
+ "within_cancer_auroc": {"TCGA-BLCA": [0.573, 0.589], "TCGA-BRCA": [0.562, 0.552], "TCGA-CESC": [0.584, 0.585], "TCGA-COAD": [0.593, 0.629], "TCGA-LGG": [0.759, 0.775], "TCGA-LUAD": [0.740, 0.726], "TCGA-PAAD": [0.633, 0.633], "TCGA-SKCM": [0.827, 0.840], "TCGA-STAD": [0.679, 0.684], "TCGA-TGCT": [0.530, 0.541]},
+ "within_cancer_auroc_columns": ["image_only", "without_smiles (image + context)"],
+ "note": "Computed in the cloud container from preds_5bf172a0aa7b.json with 15_ helpers (seed-ensembled scores, paired stratified bootstrap 2000, seed 0). Cancer-type NR rate is the in-sample per-project non-responder rate (descriptive only)."}
